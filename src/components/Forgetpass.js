@@ -31,6 +31,9 @@ const Forgetpass = () => {
                         </Stack>
                         {/* <p>Link to reset password<br/> sent to email</p> */}
                     </div>
+                    {/* <div class="forgetpass_arrow_right">
+                    <Link to='/login' ><i className="fa-solid fa-arrow-left fa-fade"></i></Link>
+                    </div> */}
                     <div className="forgetPass__rightHead">
                         <h1>Forget Password ?</h1>
                     </div>
