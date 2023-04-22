@@ -12,7 +12,6 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { Link } from 'react-router-dom';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -34,7 +33,7 @@ function TabPanel(props) {
     );
 }
 
-const Profile = (props) => {
+const UserProfile = (props) => {
     TabPanel.propTypes = {
         children: PropTypes.node,
         index: PropTypes.number.isRequired,
@@ -54,29 +53,22 @@ const Profile = (props) => {
 
     useEffect(() => {
         setLoading(true)
-        fetch('/posts/user', {
+        fetch('/user/?id=6433d3bb3bfce802cdc44e4c', {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         })
             .then(response => response.json())
-            .then(data => {
-                setPosts(data);
-                setLoading(false);
-            })
+            .then(data => {setPosts(data);
+            setLoading(false);
+        })
             .catch(error => console.error(error));
 
     }, []);
 
     const [value, setValue] = React.useState(0);
-    
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
-    }
-    
-    const [pic, setPic] = useState("./images/profile_logo.png");
-    const postDetails = (pics) =>{
-        setPic(pics)
-        console.log(pic)
     }
     return (
         <div className='profile__container' >
@@ -97,33 +89,20 @@ const Profile = (props) => {
                     <div className="profile__Left">
                         <div className="profile__User">
                             <div className="profile__UserInfo">
-                                <Avatar src={pic} />
-                                {/* <Avatar src="./images/profile_logo.png" /> */}
-
-                                <div className="editor__image-container">
-                                    <h3>Basic Information</h3>
-
-                                    <input type="file" name="image" accept="image/" onChange={(e) => postDetails(e.target.files[0])} />
-                                </div>
-
-
+                                <Avatar src="./images/profile_logo.png" />
                                 <h2>Akshay Kumar</h2>
                                 <div className="profile__userLocation">
                                     <i className="fa-solid fa-location-dot" />
                                     <p>Location</p>
                                 </div>
-                                <Link to="/editor" >
-                                    <div className="profile__editInfo">
-                                        {/* <EditIcon /> */}
-                                        <p>Edit Your Profile</p>
-                                    </div>
-                                </Link>
-                                <Link to="/upload" >
-                                    <div className="profile__createPost">
-                                        {/* <EditIcon /> */}
-                                        <p>Create New Post</p>
-                                    </div>
-                                </Link>
+                                <div className="profile__editInfo">
+                                    {/* <EditIcon /> */}
+                                    <p>Edit Your Profile</p>
+                                </div>
+                                <div className="profile__createPost">
+                                    {/* <EditIcon /> */}
+                                    <p>Create New Post</p>
+                                </div>
                                 <div className="profile_statsMain">
                                     <ul>
                                         <li><p>Project Views</p><span>8745</span></li>
@@ -133,10 +112,10 @@ const Profile = (props) => {
                                     </ul>
                                 </div>
                                 <div className="profile_social">
-                                    <a href="#" target="_blank"><i className="fa-brands fa-facebook" style={{ 'color': "blue" }} ></i></a>
-                                    <a href="#" target="_blank"> <i className="fa-brands fa-linkedin" style={{ 'color': "#0077B5" }}></i></a>
-                                    <a href="#" target="_blank"><i className="fa-brands fa-youtube" style={{ 'color': "red" }}></i></a>
-                                    <a href="#" target="_blank"> <i className="fa-brands fa-twitter" style={{ 'color': `#1DA1F2` }}></i></a>
+                                    <a href="https://www.youtube.com/@minimoonff" target="_blank"><i className="fa-brands fa-facebook" style={{ 'color': "blue" }} ></i></a>
+                                    <a href="https://www.youtube.com/@minimoonff" target="_blank"> <i className="fa-brands fa-linkedin" style={{ 'color': "#0077B5" }}></i></a>
+                                    <a href="https://www.youtube.com/@minimoonff" target="_blank"><i className="fa-brands fa-youtube" style={{ 'color': "red" }}></i></a>
+                                    <a href="https://www.youtube.com/@minimoonff" target="_blank"> <i className="fa-brands fa-twitter" style={{ 'color': `#1DA1F2` }}></i></a>
 
                                 </div>
                             </div>
@@ -185,5 +164,5 @@ const Profile = (props) => {
     )
 }
 
-export default Profile
+export default UserProfile
 
