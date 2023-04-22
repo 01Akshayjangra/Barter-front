@@ -173,9 +173,10 @@
         padding: 10px 50px;
         position: relative;
         min-width: 30vw;
+        font-size:8px;
     }
     .login__formContainer > input {
-        width: 16vw;
+        width: 50vw;
         border-bottom: 2px solid black;
         border: none;
         background: transparent;

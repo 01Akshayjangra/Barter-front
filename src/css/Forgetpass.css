@@ -1,3 +1,4 @@
+@media (min-width:490px){
 .main-forgetPass{
     display: grid;
     place-content: center;
@@ -27,11 +28,13 @@
     box-shadow: -1px 0px 30px -1px black;
 }
 .forgetPass__left>h1{
-    margin-top: 50px;
+    margin-top: 0px;
+    font-size:30px;
 }
 .forgetPass__leftContent{
     display: flex;
     align-items: center;
+    padding-bottom:100px
 }
 .forgetPass__leftContent > a{
     font-size: 16px;
@@ -76,6 +79,7 @@
     padding: 10px 50px;
 
 }
+
 .forgetPass__formContainer > input {
     width: 16vw;
     border-bottom: 2px solid black;
@@ -87,6 +91,9 @@
     margin: 12px 0px;
 }
 
+.forgetPass__formContainer ::placeholder{
+    color: rgba(219, 219, 219, 0.523);
+}
 /* Button  */
 
 .forgetPass__formContainer > button{
@@ -113,4 +120,130 @@
 }
 .MuiAlert-message{
     font-size: 15px;
-}
+}}
+
+@media (max-width:767px){
+    .main-forgetPass{
+        display: grid;
+        place-content: center;
+        height: 89.3vh;
+        background-color: #0f0c27;
+    }
+    .forgetPass{
+        display: flex;
+        height: 60vh;
+        width: 60vw;
+        box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
+    }
+    
+    .forgetPass__left{
+        flex: 50%;
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 50px 60px;
+    
+        font-size: 20px;
+        background: linear-gradient(147deg, rgba(253, 29, 29, 1) 0%, rgba(131, 58, 180, 1) 46%, rgba(47, 135, 177, 1) 81%);
+        color: white;
+        border-bottom-left-radius: 20px;
+        border-top-left-radius: 20px;
+        box-shadow: -1px 0px 30px -1px black;
+    }
+    .forgetPass__left>h1{
+        margin-top: 50px;
+        
+    }
+    .forgetPass__leftContent{
+        display: flex;
+        align-items: center;
+    }
+    .forgetPass__leftContent > a{
+        font-size: 16px;
+        cursor: pointer;
+        color: white;
+        margin-right: 12px;
+    }
+    .forgetPass__left > img{
+        margin-top: 30px;
+        position: relative;
+        border-radius: 15px;
+        height: 260px;
+        width: 260px;
+    }
+    .forgetPass-right{
+        flex: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        color: white;
+        background: linear-gradient(-147deg, rgba(253, 29, 29, 1) 0%, rgba(131, 58, 180, 1) 46%, rgba(47, 135, 177, 1) 81%);
+        border-bottom-right-radius: 20px;
+        border-top-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+        border-top-left-radius: 20px;
+        
+        box-shadow: -1px 0 0 -1px black;
+        margin-left: 10px;
+    }
+    .forgetPass__rightHead{
+        padding: 10px 50px;
+    }
+    .forgetPass__rightHead > h1{
+        font-size: 30px;
+    }
+    .forgetPass__rightHead > p{
+        font-size: 15px;
+    }
+    .forgetPass__rightHead > p > a{
+        color: red;
+        font-weight: 700;
+    }
+    /* .forgetpass_arrow_right{
+        
+    } */
+    .forgetPass__formContainer{
+        padding: 10px 50px;
+        font-size:8px;
+    
+    }
+    .forgetPass__formContainer > input {
+        width: 40vw;
+        border-bottom: 2px solid black;
+        border: none;
+        background: transparent;
+        border-bottom: 1px solid gray;
+        outline-width: 0;
+        color: white;
+        margin: 12px 0px;
+    }
+    
+    /* Button  */
+    
+    .forgetPass__formContainer > button{
+        border: none;
+        width: 150px;
+        background-color: white;
+        padding: 4px 8px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 500;
+        margin: 12px 0px;
+    }
+    
+    
+    .forgetPass__Alert_hide{
+        display: none;
+    }
+    .forgetPass__Alert{
+        display: flex;
+        position: relative;
+        top: -8px;
+        left: 49px;
+        font-size: 20px;
+    }
+    .MuiAlert-message{
+        font-size: 15px;
+    }}
