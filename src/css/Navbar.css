@@ -1,3 +1,6 @@
+ @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+@media (min-width:490px){
 * {
   margin: 0;
   padding: 0;
@@ -44,11 +47,16 @@ li {
   margin-right: 50px;
 }
 .nav-logo-img{
-  height: 30px;
+  margin-top:23px;
+  height: 20px;
+  
+
 }
 
 .menu-link {
   grid-column: 3/4;
+  justify-content: space-between;
+  margin-left:30px;
 }
 
 .menu-link ul {
@@ -94,6 +102,7 @@ li {
   text-transform: capitalize;
   transition: 0.5s;
   margin-right: 10px;
+
 }
 
 .nav-btn-login:hover{
@@ -113,22 +122,20 @@ li {
   background-color: green;
   color: white;
   padding: 10px 15px;
-  border-radius: 40px;
-  font-size: 1.8rem;
+  border-radius: 5px;
+  font-size: 1.4rem;
   font-weight: 500;
   text-transform: capitalize;
   transition: 0.5s;
-  margin-left: 0px;
-  width: 130px;
+  margin-right: 10px;
 }
 
 .nav-btn-signup:hover{
   background-color: green;
   color: white;
   padding: 10px 15px;
-  text-decoration: underline;
-  border-radius: 40px;
-  font-size: 1.8rem;
+  border-radius: 5px;
+  font-size: 1.4rem;
   font-weight: 500;
   text-transform: capitalize;
   transition: 0.5s;
@@ -152,7 +159,9 @@ li {
 }
 
 .menu-link ul li {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
+  font-family: 'Roboto', sans-serif;;
+  
 }
 
 .menu-link ul li a {
@@ -207,156 +216,85 @@ li {
   text-transform: uppercase;
   text-align: center;
 }
-
-/* responsive css style  */
-@media (max-width: 1080px) {
-  .main-nav {
-    height: 8rem;
-    grid-template-columns: 2rem 0fr 3fr 1fr 2rem;
-  }
-
-  .logo,
-  .menu-link ul,
-  .social-media ul {
-    height: 8rem;
-  }
 }
 
-/* responsive css style  */
-@media (max-width: 998px) {
-  .main-nav {
-    height: 7rem;
-    grid-template-columns: 2rem 2fr 3fr 2rem 2rem;
-  }
 
-  .menu-link {
-    display: none;
-  }
 
-  .logo,
-  .social-media ul {
-    height: 7rem;
-  }
+@media (max-width:767px){
+  
+  
+  
 
-  .mobile-menu-link {
-    grid-column: 2/4;
-    position: relative;
-    z-index: 99;
-  }
-
-  .mobile-menu-link {
-    background-color: white;
-    height: 15rem;
-    display: grid;
-    grid-column: 2/5;
-    align-items: center;
-    padding-left: 3rem;
-    transition: all 2s linear;
-    transform-origin: top;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-    }
-
-  .mobile-menu-link ul {
-    height: 15rem;
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-    /* align-items: startl; */
-  }
-  .mobile-menu-link ul li{
-    border-bottom: 1px solid gray;
-  } 
-
-  .mobile-menu-link ul li:first-child {
-    transition-delay: 0.2s;
-  }
-}
-
-@media (max-width: 798px) {
+   
+  /* navbar style start  */
+  
   .main-nav {
     height: 6rem;
     grid-template-columns: 1rem 2fr 1fr 1fr 1rem;
   }
 
-  .logo,
-  .social-media ul {
-    height: 6rem;
-  }
+ 
+  .nav-logo-img{
+    margin-top:0px;
+    height: 20px;
+    
+    }
 
-  .social-media {
-    height: 6rem;
-    display: flex;
-    justify-self: end;
-    align-items: center;
-  }
+    .nav-btn-login{
+      background-color: #3b5998;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 1.4rem;
+      font-weight: 500;
+      text-transform: capitalize;
+      transition: 0.5s;
+      margin-right: 10px;
+      height:40px;
+      width:100%;
+    
+    }
+    
+    .nav-btn-login:hover{
+      background-color: #3b5998;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 1.4rem;
+      font-weight: 500;
+      text-transform: capitalize;
+      transition: 0.5s;
+      transform: scale(1.1);
+      border: 1px solid white;
+    }
+    
+    .nav-btn-signup{
+      background-color: green;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 1.4rem;
+      font-weight: 500;
+      text-transform: capitalize;
+      transition: 0.5s;
+      margin-right: 10px;
+      height:45px;
+      width:100%;
+    }
+    
+    .nav-btn-signup:hover{
+      background-color: green;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 1.4rem;
+      font-weight: 500;
+      text-transform: capitalize;
+      transition: 0.5s;
+      transform: scale(1.1);
+      border: 1px solid white;
+    
 
-  .social-media .hamburger-menu {
-    display: block;
-    font-size: 2.5rem;
-  }
-}
-
-@media (max-width: 520px) {
-  .main-nav {
-    height: 6rem;
-    grid-template-columns: 1rem 4fr 1fr 1fr 1rem;
-  }
-.nav-btn-signup{
-  margin-right:20px;
-  border-radius: 10px;
-  font-size:1.0rm;
-  height:60px;
-}
-.nav-btn-signup:hover{
-  margin-right:20px;
-  border-radius: 10px;
-  font-size:0.5rm;
-  height:60px;
-  margin-bottom:20px;
-
-}
-  .logo,
-  .social-media ul {
-    height: 6rem;
-  }
-
-  .logo h2 {
-    font-size: 2rem;
-  }
-
-  .social-media {
-    height: 6rem;
-    display: flex;
-    justify-self: end;
-    align-items: center;
-  }
-
-  .social-media .hamburger-menu {
-    display: block;
-    font-size: 2.5rem;
-  }
-
-  /* hero section  */
-
-  .hero-section h1 {
-    font-size: 3.8rem;
-  }
-}
-
-
-/* Notification button */
-.notify_btn{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.div_notify_hide{
-  display: none;
-  z-index: 100;
-}
-.div_notify{
-  display: flex;
-  position: absolute;
-  top: 43px;
+    }
+  
 }
