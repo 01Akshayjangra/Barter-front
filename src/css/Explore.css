@@ -1,0 +1,26 @@
+/* explore__container */
+.explore__container{
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+/* explore__carousel */
+.explore__carousel{
+    padding: 30px;
+    /* border: 2px solid green; */
+    /* background-color: palegoldenrod; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Main - post - Container */
+.explore__postsContainer{
+    padding: 0 60px;
+    display: grid;
+    grid-gap: 36px;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    list-style: none;
+    margin-top: 30px;
+  }

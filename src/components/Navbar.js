@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-
+import swal from 'sweetalert';
 import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 
 import { useState, useEffect } from "react";
@@ -20,10 +20,11 @@ import { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import Notification from './Notification';
 import AccountMenu from "./AccountMenu";
-import Profile from "./Profile";
 import "../css/Navbar.css"
+import ChatIcon from '@mui/icons-material/Chat';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
-const pages = ['<Profile/> ', 'Pricing', 'Blog'];
+const pages = ['Profile', 'Pricing', 'Blog'];
 
 
 
@@ -48,13 +49,13 @@ const AfterLogin = () => {
 
                 <li className="nav-right-li">
                     <Link className="nav-link" to="/message">
-                        <i className="fa-solid fa-message" />
+                        <i class="fa-solid fa-message"></i>
                     </Link>
                 </li>
 
                 <li className="nav-right-li notify_li">
                     <Link className="nav-link notify_btn" to="#" onClick={() => setShowNotification(!showNotification)}>
-                        <i className="fa-solid fa-bell" />
+                            <NotificationsIcon fontSize="large"/>
 
                         <div
                             className={showNotification ? "div_notify_hide" : "div_notify"}>
@@ -88,19 +89,7 @@ function Navbar() {
     const [showMediaIcons, setShowMediaIcons] = useState(false);
     const [isLogged, setIsLogged] = useState(false);
 
-    const logout = async () => {
-        try {
-            localStorage.removeItem("user");
-            setIsLogged(false);
-            const response = await fetch('/logout', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-            })
-            window.location.reload();
-        } catch (err) {
-            console.error(err);
-        }
-    };
+ 
 
     useEffect(() => {
         checkStorage();
@@ -146,9 +135,7 @@ function Navbar() {
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
+                            fontWeight: 400, 
                             color: 'black',
                             textDecoration: 'none',
                         }}

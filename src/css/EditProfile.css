@@ -1,0 +1,197 @@
+.editor__main {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+
+/*------ Editor head----------*/
+.editor__head {
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.editor__head>a {
+    border-radius: 20px;
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    width: fit-content;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* --------Main body ------ */
+.editor__mainBody {
+    background-color: #f9f9f9;
+    color: #191919;
+    font-family: "acumin-pro","Acumin Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 12px;
+    line-height: 1.3;
+    padding-top: 45px;
+}
+.editor__body {
+    margin: auto;
+    padding: 0 20px;
+    max-width: 1137px;
+}
+
+.editor__body>ul {
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    float: left;
+    font-size: 15px;
+    line-height: 15px;
+    overflow: hidden;
+    width: 326px;
+    margin-right: 18px;
+}
+
+.editor__body>ul::selection {
+    background: #0057ff;
+    color: #fff;
+}
+
+.editor__body>ul>li {
+    border-top: 1px solid #ededed;
+}
+.editor__activeKey{
+    border-left: 2px solid #0057ff;
+    font-weight: 500;
+}
+
+.editor__body>ul>li>a {
+    border-left: 2px solid transparent;
+    display: block;
+    height: 45px;
+    line-height: 45px;
+    overflow: hidden;
+    padding: 0 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.editor__body>ul>li>a:hover{
+    background-color: #edf3ff;
+}
+.editor__activeLink{
+    border-left: 2px solid #0057ff;
+    color: #0057ff;
+    font-weight: bold;
+}
+
+
+/* RIght side form--------------------- */
+.editor__forContent{
+    overflow: hidden;
+}
+.editor__form-block{
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    font-size: 13px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    padding: 28px 10% 28px 30px;
+    position: relative;
+}
+.editor__image-container{
+    position: absolute !important;
+    z-index: 1;
+    padding-right: 15px;
+}
+.editor__image-container > h3{
+    text-align: center;
+    font-weight: bold;
+    color: rgb(46, 46, 46);
+}
+.editor__image-container > a{
+    margin: 0 30px 7px 0;
+    min-height: 102px;
+    min-width: 102px;
+    width: 102px;
+}
+.editor__image-container > a > img{
+    border-radius: 50%;
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+.editor__profile-upload{
+    text-align: center;
+    margin-top: -10p;
+    color: #0057ff;
+}
+.editor__profile-upload > span{
+    font-family: "BeIcons";
+    font-size: 22px;
+    position: relative;
+    text-decoration: none;
+    top: 4px;
+}
+.editor__image-container > input{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    font-family: Arial;
+    font-size: 118px;
+    margin: 0px;
+    padding: 0px;
+    cursor: pointer;
+    opacity: 0;
+    height: 100%;
+}
+
+
+/* ---------editor__basicInfo-------------- */
+.editor__basicInfo{
+    float: left;
+    /* padding-left: 170px; */
+    position: relative;
+    width: 100%;
+    /* border-left: 1px solid rgb(0, 0, 0, 0.1); */
+}
+.editor__form-item{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+.editor__form-item > div{
+    width: 50%;
+}
+.editor__label{
+    display: block;
+    font-weight: bold;
+    color: rgb(88, 88, 88);
+}
+
+.editor__input{
+    height: 35px;
+    border: 1px solid rgb(200, 200, 200);
+    width: 100%;
+    padding: 0px 5px;
+    margin-top: 3px;
+    margin-bottom: 12px;
+    transition: 0.2s;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 600;
+}
+.editor__input:hover{
+    border: 1px solid rgb(63, 63, 63);
+}
+.editor___form-textarea{
+    appearance: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: #191919;
+    font-family: inherit;
+    font-weight: 600;
+    min-height: 100px;
+    width: 100%;
+}
