@@ -32,8 +32,8 @@ export default function AccountMenu() {
   };
 
   const logout = async () => {
-    setLoadingOpen(true);
     try {
+      setLoadingOpen(true);
       localStorage.removeItem("user");
       const response = await fetch('/logout', {
         method: 'POST',

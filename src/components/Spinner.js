@@ -5,9 +5,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 const Spinner = () => {
     return (
-        <div className="text-center">
-            {/* <img className="my-3" src={loading} alt="loading" /> */}
-            
+        <div className="text-center">            
             <CircularProgress />
         </div>
     )

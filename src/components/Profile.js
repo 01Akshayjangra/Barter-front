@@ -54,7 +54,7 @@ const Profile = (props) => {
 
     useEffect(() => {
         setLoading(true)
-        fetch('/posts/user', {
+        fetch('/api/posts/user', {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         })

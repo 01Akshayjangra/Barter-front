@@ -1,11 +1,7 @@
 import React from 'react'
 import "../css/Messages.css"
-// import DonutLargeIcon from '@mui/icons-material/DonutLarge';
-// import DonutLargeIcon from '@mui/icons-material/DonutLarge';
-// import ChatIcon from '@mui/icons-material/Chat';
-// import MoreVertIcon from '@mui/icons-material/MoreVert';
-// import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-
+import DonutLargeIcon from '@mui/icons-material/DonutLarge';
+import ChatIcon from '@mui/icons-material/Chat';
 import { Avatar, IconButton} from '@mui/material';
 import SidebarChat from './SidebarChat';
 import Chat from './Chat';
@@ -18,12 +14,12 @@ const Messages = () => {
 					<div className="message-sidebar__header">
 						<Avatar src="../images/barter.jpeg"/>
 						<div className="message-sidebar__headerRight">
-							{/* <IconButton>
+							<IconButton>
 								<DonutLargeIcon/>
 							</IconButton>
 							<IconButton>
 								<ChatIcon/>
-							</IconButton> */}
+							</IconButton>
 							<IconButton>
 								<i className="fa-solid fa-ellipsis-vertical"></i>
 							</IconButton>			

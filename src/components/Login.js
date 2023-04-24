@@ -18,7 +18,7 @@ const Login = () => {
     e.preventDefault();
     setOpen(true);
     try {
-      const response = await fetch('/login', {
+      const response = await fetch('/api/user/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -35,7 +35,7 @@ const Login = () => {
         window.location.reload();
       } else {
         setError("Invalid Credential");
-        navigate('/login');
+        navigate('/');
       }
     } catch (err) {
       console.error(err);

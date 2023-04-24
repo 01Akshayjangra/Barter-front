@@ -16,7 +16,7 @@ const Explore = () => {
   useEffect(() => {
     setLoading(true); // set loading to true before the fetch request is initiated
 
-    fetch('/post', {
+    fetch('/api/post', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     })
