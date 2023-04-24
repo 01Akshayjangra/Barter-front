@@ -27,7 +27,7 @@ const Signup = () => {
       setOpen(true);
 
       try {
-        const response = await fetch('https://barter-backend.onrender.com/register', {
+        const response = await fetch('/api/user/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)

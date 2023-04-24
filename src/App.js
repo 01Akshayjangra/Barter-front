@@ -10,14 +10,14 @@ import Messages from './components/Messages';
 import Forgetpass from './components/Forgetpass';
 import UploadSettings from './components/UploadSettings';
 import Upload from './components/Upload';
-import {initialState, reducer } from '../src/context/UseReducer'
-import React, { useReducer } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { createContext } from "react";
 import Profile from './components/Profile';
 import UserProfile from './components/UserProfle';
 import EditProfile from './components/EditProfile';
 
+import {initialState, reducer } from '../src/context/UseReducer';
+import React, { useReducer } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { createContext } from "react";
 
 export const UserContext = createContext();
 
@@ -38,9 +38,7 @@ const Routing = () => {
       <Route exact path="/uploadsettings" element={<UploadSettings />} />
       <Route exact path="/user-profile" element={<UserProfile/>} />
       <Route exact path="/editor" element={<EditProfile/>} />
-      <Route exact path="/modal" element={<Modal />} />
-
-      
+      <Route exact path="/modal" element={<Modal />} /> 
     </Routes>
   )
 }
