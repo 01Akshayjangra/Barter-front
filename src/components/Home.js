@@ -11,7 +11,7 @@ const Home = () => {
 	const [posts, setPosts] = useState([]);
 
 	useEffect(() => {
-		setLoading(true); // set loading to true before the fetch request is initiated
+		setLoading(true); //  set loading to true before the fetch request is initiated
 	  
 		fetch('/api/post', {
 		  method: 'GET',

@@ -43,14 +43,8 @@ li {
 }
 
 .nav-logo-img{
-<<<<<<< HEAD
   margin-top:23px;
   height: 20px;
-  
-
-=======
-  height: 25px;
->>>>>>> 6f997b319af592ef71509bd5fdef06fc454ee3c9
 }
 
 .menu-link {
@@ -180,40 +174,6 @@ li {
   display: none;
 }
 
-<<<<<<< HEAD
-.facebook {
-  color: #3b5998;
-}
-
-.instagram {
-  color: #c32aa3;
-}
-
-.youtube {
-  color: #ff0000;
-}
-
-/* hero section   */
-
-.hero-section {
-  height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.hero-section p {
-  font-size: 3rem;
-  text-transform: capitalize;
-}
-
-.hero-section h1 {
-  font-size: 5rem;
-  text-transform: uppercase;
-  text-align: center;
-}
-=======
 
 /* responsive css style  */
 @media (max-width: 1080px) {
@@ -227,7 +187,6 @@ li {
   .social-media ul {
     height: 8rem;
   }
->>>>>>> 6f997b319af592ef71509bd5fdef06fc454ee3c9
 }
 
 
@@ -308,5 +267,5 @@ li {
     
 
     }
-  
+  }
 }
