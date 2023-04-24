@@ -161,7 +161,10 @@
             border-bottom-left-radius: 20px;
             border-top-left-radius: 20px;
             box-shadow: -1px 0 0 -1px black;
-            
+            height:100vw;
+            width:100vw;
+            margin-top:50px;
+           
         }
         .signin__rightHead{
             padding: 10px 50px;

@@ -84,11 +84,6 @@ const AfterLogin = () => {
 
 
 
-
-
-
-
-
 function Navbar() {
 
     const [showMediaIcons, setShowMediaIcons] = useState(false);
@@ -148,7 +143,7 @@ function Navbar() {
                     >
                         <nav className="main-nav">
                             {/* 1st logo part  */}
-                            <div className="logo">
+                            {/* <div className="logo"> */}
                                 <div className="nav-logo" title="Barter Home">
                                     <NavLink to="/">
                                         <img
@@ -158,7 +153,7 @@ function Navbar() {
                                         />
                                     </NavLink>
                                 </div>
-                            </div>
+                            {/* </div> */}
 
                             {/* 2st Pages part  */}
                             <div className="menu-link">

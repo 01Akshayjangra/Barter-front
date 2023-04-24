@@ -16,8 +16,8 @@ const Filters = () => {
     return (
         <div className='filter'>
             <div className="filter__left">
-                <FormControl sx={{ m: 1, minWidth: 150, color: 'black', fontSize: 43 }}>
-                    <Select
+                {/* <FormControl sx={{ m: 1, minWidth: 150, color: 'black', fontSize: 43 }}> */}
+                    {/* <Select
                         value={age}
                         onChange={handleChange}
                         displayEmpty
@@ -27,7 +27,7 @@ const Filters = () => {
                         <MenuItem className='filter__menu' value={10}>Popular</MenuItem>
                         <MenuItem className='filter__menu' value={20}>Trending</MenuItem>
                     </Select>
-                </FormControl>
+                </FormControl> */}
             </div>
             <div className="filter__right">
             <FormControl sx={{ m: 1, minWidth: 150, color: 'black', fontSize: 43 }}>
@@ -37,10 +37,11 @@ const Filters = () => {
                         displayEmpty
                         inputProps={{ 'aria-label': 'Without label' }}
                     >
-                        <MenuItem className='filter__menu' value="">Sort</MenuItem>
-                        <MenuItem className='filter__menu' value={10}>By Date</MenuItem>
-                        <MenuItem className='filter__menu' value={20}>Old First</MenuItem>
-                        <MenuItem className='filter__menu' value={20}>New First</MenuItem>
+                        <MenuItem className='filter__menu' value="">Sort </MenuItem>
+                        <MenuItem className='filter__menu' value={10}>Most Liked</MenuItem>
+                        <MenuItem className='filter__menu' value={20}>Most Viewed</MenuItem>
+                        <MenuItem className='filter__menu' value={30}>Trending</MenuItem>
+                        <MenuItem className='filter__menu' value={40}>Latest Posts</MenuItem>
                     </Select>
                 </FormControl>
 
