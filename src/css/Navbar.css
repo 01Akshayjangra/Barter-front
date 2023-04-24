@@ -24,7 +24,7 @@ li {
 
 .main-nav {
   width: 100%;
-  height: 64px;
+  /* height: 64px; */
   display: grid;
   justify-content: flex-start;
   align-items: center;
@@ -43,15 +43,8 @@ li {
   margin-right: 50px;
 }
 
-.nav-logo-img{
-<<<<<<< HEAD
-  margin-top:23px;
-  height: 20px;
-  
-
-=======
+ .nav-logo-img{
   height: 25px;
->>>>>>> 6f997b319af592ef71509bd5fdef06fc454ee3c9
 }
 
 .menu-link {
@@ -100,6 +93,9 @@ li {
   text-transform: capitalize;
   transition: 0.5s;
   margin-right: 10px;
+  height:40px;
+  border: transparent;
+
 
 }
 
@@ -123,9 +119,12 @@ li {
   border-radius: 5px;
   font-size: 1.4rem;
   font-weight: 500;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
   transition: 0.5s;
   margin-right: 10px;
+  width:120px;
+  height:40px;
+  border: transparent;
 }
 
 .nav-btn-signup:hover{
@@ -135,7 +134,7 @@ li {
   border-radius: 5px;
   font-size: 1.4rem;
   font-weight: 500;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
   transition: 0.5s;
   transform: scale(1.1);
   border: 1px solid white;
@@ -181,45 +180,11 @@ li {
   display: none;
 }
 
-<<<<<<< HEAD
-.facebook {
-  color: #3b5998;
-}
-
-.instagram {
-  color: #c32aa3;
-}
-
-.youtube {
-  color: #ff0000;
-}
-
-/* hero section   */
-
-.hero-section {
-  height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.hero-section p {
-  font-size: 3rem;
-  text-transform: capitalize;
-}
-
-.hero-section h1 {
-  font-size: 5rem;
-  text-transform: uppercase;
-  text-align: center;
-}
-=======
 
 /* responsive css style  */
 @media (max-width: 1080px) {
   .main-nav {
-    height: 8rem;
+    /* height: 8rem; */
     grid-template-columns: 2rem 0fr 3fr 1fr 2rem;
   }
 
@@ -228,7 +193,6 @@ li {
   .social-media ul {
     height: 8rem;
   }
->>>>>>> 6f997b319af592ef71509bd5fdef06fc454ee3c9
 }
 
 
@@ -242,7 +206,7 @@ li {
   /* navbar style start  */
   
   .main-nav {
-    height: 6rem;
+    /* height: 6rem; */
     grid-template-columns: 1rem 2fr 1fr 1fr 1rem;
   }
 
@@ -310,4 +274,4 @@ li {
 
     }
   
-}
+}}
