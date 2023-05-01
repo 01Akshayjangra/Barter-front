@@ -1,0 +1,211 @@
+* {
+    padding: 0px;
+    margin: 0px
+}
+
+
+/* main - upload div  */
+.upload__mainBox {
+    display: flex;
+    flex-flow: row wrap;
+    background-color: white;
+    height: 90vh;
+    padding: 30px 45px;
+}
+
+
+/* left side upload page  */
+
+.upload__left {
+    flex: 25;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    height: 100%;
+}
+
+/* 1 - content upload icons  */
+.upload__leftContent {
+    display: flex;
+    flex-flow: column wrap;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    width: fit-content;
+    height: fit-content;
+    width: 160px;
+}
+
+
+.upload__leftHead {
+    text-align: center;
+    padding: 8px;
+    width: 100%;
+    color: rgb(83, 83, 83);
+    border-bottom: 1px solid #eee;
+    font-size: 18px;
+}
+
+.upload__leftContent ul {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.upload__leftIcons {
+    position: relative;
+    border-bottom: 1px solid #eee;
+    height: 163px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    color: rgb(99, 99, 99);
+    cursor: pointer;
+}
+
+.upload__leftIcons>input {
+    position: absolute;
+    opacity: 0;
+    top: 0px;
+    right: 0px;
+    height: 100px;
+    width: 100%;
+    cursor: pointer;
+    background-color: white;
+}
+
+.upload__leftIcons .MuiSvgIcon-root {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.upload__leftIcons>p {
+    font-size: 12px;
+}
+
+/* 3 - left bottom box for upload  */
+.upload__leftAttach_end {
+    position: relative;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    height: fit-content;
+    max-width: 390px;
+    margin-top: 20px;
+    padding: 16px;
+    background-color: white;
+}
+
+.upload__leftAttach_end>a {
+    position: relative;
+    width: 100%;
+}
+
+.upload__leftAttach_end>a>button {
+    width: 100%;
+    padding: 4px 5px;
+    border-radius: 20px;
+    margin-top: 8px;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.upload__leftAttach_end>a>button:hover {
+    background-color: black;
+    color: white;
+}
+
+
+/* Right side of upload page */
+.upload__right {
+    flex: 85;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    color: rgb(99, 99, 99);
+    height: 100%;
+    overflow: hidden;
+    font-size: 17px;
+}
+
+.upload__right>img {
+    height: 90%;
+}
+
+.upload__rightContent {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload__rightIcons {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    margin: 40px;
+}
+
+.upload__rightIcons>h1 {
+    font-size: 13px;
+    margin-top: 20px;
+    align-self: center;
+}
+
+.upload__rightInner {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    border: none;
+    background-color: aliceblue;
+    height: 80px;
+    width: 80px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.upload__rightInner>input {
+    position: absolute;
+    opacity: 0;
+    top: 0px;
+    right: 0px;
+    height: 100%;
+    width: 100%;
+    border-radius: 50px;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid;
+}
+.upload__rightInner > button{
+    position: absolute;
+    left: 0;
+    top: 0;
+
+}
+
+.upload__rightInner:hover {
+    background-color: rgb(216, 229, 236);
+    transition: 175ms;
+}
+
+.upload__rightInner>.MuiSvgIcon-root {
+    font-size: 25px;
+    color: rgb(0, 223, 223);
+}
+
+/* ======== Modal ========  */
+.upload__modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    outline: none;
+}

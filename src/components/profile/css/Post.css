@@ -1,0 +1,86 @@
+/* .main-post{
+   display: block;
+   flex-flow: row wrap;
+   height: 300px;
+   width: 300px;
+} */
+
+.post-imgContainer {
+    position: relative;
+    height: fit-content;
+    padding-bottom: 75%;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.post-imgContainer > img {
+    position: absolute;
+    height: 100%;
+    
+    width: 100%;
+    object-fit: cover;
+    cursor: crosshair;
+}
+
+/* COntent of post  */
+.post-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+    /* border: 1px solid rebeccapurple; */
+}
+
+/*------------------post-image---------- */
+.post-userInfo>a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.post-userInfo>a .MuiAvatar-root {
+    font-size: 3px;
+    height: 32px;
+    width: 32px;
+    /* border: 1px solid rgb(255, 0, 0); */
+}
+
+.post-userInfo>a>span {
+    font-size: 14px;
+    font-weight: 700;
+    margin-left: 10px;
+}
+
+/*------------------post-statistics---------- */
+.post-statistics {
+    display: flex;
+    align-items: center;
+    margin-right: 4px;
+    padding: 5px;
+    font-size: 12px;
+}
+
+.post-statsIcons {
+    display: flex;
+    align-items: center;
+}
+
+.post-statsIcons>.hello>.MuiSvgIcon-root {
+    font-size: 15px;
+}
+
+.stat-icons {
+    font-size: 15px;
+}
+
+.stat-icons:hover {
+    color: rgb(247, 50, 76);
+}
+
+.post-profile-img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+
