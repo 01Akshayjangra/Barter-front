@@ -1,22 +1,30 @@
-import Home from './components/Home';
-import Explore from './components/Explore';
-import Blog from './components/Blog';
-import Learn from './components/Learn';
-import Login from './components/Login';
-import Modal from './components/Modal';
-import Signup from './components/Signup';
-import Navbar from './components/Navbar';
-import Messages from './components/Messages';
-import Forgetpass from './components/Forgetpass';
-import UploadSettings from './components/UploadSettings';
-import Upload from './components/Upload';
-import {initialState, reducer } from '../src/context/UseReducer'
+//Authentications
+import Login from './components/authentication/Login';
+import Signup from './components/authentication/Signup';
+import Forgetpass from './components/authentication/Forgetpass';
+
+//Main Pages
+import Navbar from './components/pages/Navbar';
+import Home from './components/pages/Home';
+import Explore from './components/pages/Explore';
+import Blog from './components/pages/Blog';
+import Learn from './components/pages/Learn';
+
+//Messages
+import Messages from './components/chat/Messages';
+import Chatpage from './components/chat/ChatPage';
+
+//User-Profile
+import Modal from './components/profile/Modal';
+import Upload from './components/profile/Upload';
+import Profile from './components/profile/Profile';
+import UserProfile from './components/profile/UserProfle';
+import EditProfile from './components/profile/EditProfile';
+
+import {initialState, reducer } from '../src/context/UseReducer';
 import React, { useReducer } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createContext } from "react";
-import Profile from './components/Profile';
-import UserProfile from './components/UserProfle';
-import EditProfile from './components/EditProfile';
 
 
 export const UserContext = createContext();
@@ -32,15 +40,13 @@ const Routing = () => {
       <Route exact path="/learn" element={<Learn />} />
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/signup" element={<Signup />} />
+      {/* <Route exact path="/message" element={<Chatpage/> } /> */}
       <Route exact path="/message" element={<Messages />} />
       <Route exact path="/forgetpassword" element={<Forgetpass />} />
       <Route exact path="/upload" element={<Upload />} />
-      <Route exact path="/uploadsettings" element={<UploadSettings />} />
       <Route exact path="/user-profile" element={<UserProfile/>} />
       <Route exact path="/editor" element={<EditProfile/>} />
-      <Route exact path="/modal" element={<Modal />} />
-
-      
+      <Route exact path="/modal" element={<Modal />} /> 
     </Routes>
   )
 }
@@ -50,15 +56,12 @@ function App() {
 
   return (
     <>
-      <UserContext.Provider value={{ state, dispatch }}>
-
         <Router>
 
           <Navbar/>
           <Routing />
 
         </Router>
-      </UserContext.Provider>
     </>
   )
 }
