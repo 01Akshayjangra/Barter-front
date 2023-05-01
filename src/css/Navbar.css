@@ -44,14 +44,11 @@ li {
 }
 
 .nav-logo-img{
-<<<<<<< HEAD
   margin-top:23px;
   height: 20px;
   
 
-=======
   height: 25px;
->>>>>>> 6f997b319af592ef71509bd5fdef06fc454ee3c9
 }
 
 .menu-link {
@@ -181,7 +178,6 @@ li {
   display: none;
 }
 
-<<<<<<< HEAD
 .facebook {
   color: #3b5998;
 }
@@ -214,7 +210,6 @@ li {
   text-transform: uppercase;
   text-align: center;
 }
-=======
 
 /* responsive css style  */
 @media (max-width: 1080px) {
@@ -228,7 +223,6 @@ li {
   .social-media ul {
     height: 8rem;
   }
->>>>>>> 6f997b319af592ef71509bd5fdef06fc454ee3c9
 }
 
 
@@ -309,5 +303,5 @@ li {
     
 
     }
-  
+  }
 }
