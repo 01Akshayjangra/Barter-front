@@ -11,46 +11,37 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
     },
-  },
 };
 
-const tagNames = [
-    'design','illustration','ui','ux','branding', 'logo', 'typography', 'webdesign', 'graphicdesign', 'animation', 'productdesign', 'motiongraphics', 'digitalart', 'posterdesign', 'appdesign', 'photography', 'packagingdesign', 'artdirection', 'printdesign', 'sketching', 'graphicdesign', 'motiongraphics', 'videoproduction', 'creativecoding', 'interiordesign', 'fashiondesign', 'streetart', 'artgallery', 'artstudio', 'ConceptDevelopment', 'LogoDesign', 'VisualIdentity', 'FineArtPhotography', 'PortraitPhotography', 'Lettering', 'DigitalArt ', 'Sketchbook', 'DesignInspiration', 'BrandIdentity'
-];
 const toolNames = [
     'Adobe Photoshop', 'Adobe Illustrator', 'Adobe InDesign', 'Adobe Premiere Pro', 'Adobe After Effects', 'CorelDRAW', 'Blender', 'Procreate', 'Canva', 'Figma', 'Sketch'
 ];
 
-function getTagStyles(tagName, tags, theme) {
-  return {
-    fontWeight:
-      tags.indexOf(tagName) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
 function getToolStyles(toolName, tools, theme) {
-  return {
-    fontWeight:
-    tools.indexOf(toolName) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
+    return {
+        fontWeight:
+            tools.indexOf(toolName) === -1
+                ? theme.typography.fontWeightRegular
+                : theme.typography.fontWeightMedium,
+    };
 }
 
 const UploadSettings = (props) => {
     const { refImg, srcImg, result, setImage, uploader } = props;
     const { user } = ChatState();
-
+    const [open, setOpen] = React.useState(false);
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [tags, setTags] = React.useState([]);
@@ -73,15 +64,17 @@ const UploadSettings = (props) => {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
+        setOpen(true);
         const data = {
             title: title,
             description: description,
             image: formData.image,
-            tags: tags,
-            tools: tools, 
+            tags: tags.split(',').map((tag) => tag.trim()),
+            tools: tools,
             category: category
         };
         if (!title || !description || !formData.image || !tags || !tools || !category) {
+            setOpen(false);
             alert("fill all fields")
             return;
         }
@@ -98,24 +91,17 @@ const UploadSettings = (props) => {
                 data,
                 config
             );
+            setOpen(false);
             alert('Post successful')
             return response.data;
         } catch (error) {
+            setOpen(false);
             alert("error occured")
         }
     };
 
     const theme = useTheme();
-   
-    const handleTagsChange = (event) => {
-        const {
-            target: { value },
-        } = event;
-        setTags(
-            // On autofill we get a stringified value.
-            typeof value === 'string' ? value.split(',') : value,
-        );
-    };
+
     const handleToolsChange = (event) => {
         const {
             target: { value },
@@ -129,6 +115,7 @@ const UploadSettings = (props) => {
     return (
         <>
             {/* <div className="settings_outer_div"> */}
+           
             <div className="setting_body">
 
                 <div className="setting_mainBody">
@@ -179,28 +166,14 @@ const UploadSettings = (props) => {
 
                         <div className="settings_rightInput">
                             <p className="">Project Tags <span>(up to 10)</span></p>
-                             <FormControl>
-                                <InputLabel id="demo-multiple-name-label">Tags</InputLabel>
-                                <Select
-                                    labelId="demo-multiple-name-label"
-                                    id="demo-multiple-name"
-                                    multiple
-                                    value={tags}
-                                    onChange={handleTagsChange}
-                                    input={<OutlinedInput label="Name" />}
-                                    MenuProps={MenuProps}
-                                >
-                                    {tagNames.map((tagName) => (
-                                        <MenuItem
-                                            key={tagName}
-                                            value={tagName}
-                                            style={getTagStyles(tagName, tags, theme)}
-                                        >
-                                            {tagName}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
+                            <TextField
+                                id="outlined-controlled"
+                                placeholder="Enter Tags for your project"
+                                value={tags}
+                                onChange={(e) => setTags(e.target.value)}
+
+                            />
+
                         </div>
                         <div className="settings_rightInput">
                             <p className="">Tools Used</p>
@@ -326,6 +299,24 @@ const UploadSettings = (props) => {
                                         />
                                         <p>Typography</p>
                                     </div>
+                                    <div>
+                                        <input
+                                            type="checkbox"
+                                            value={"Illustration"}
+                                            onChange={handleCheckboxChange}
+                                        />
+                                        <p>Illustration</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <input
+                                            type="checkbox"
+                                            value={"Mobile"}
+                                            onChange={handleCheckboxChange}
+                                        />
+                                        <p>Mobile</p>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -341,6 +332,13 @@ const UploadSettings = (props) => {
                 </div>
             </div>
             {/* </div> */}
+             <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={open}
+                onClick={handleFormSubmit}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </>
     )
 }
