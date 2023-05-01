@@ -50,43 +50,10 @@ const Profile = (props) => {
     const [loggedUser, setLoggedUser] = useState();
     const [loading, setLoading] = useState(true)
     const [posts, setPosts] = useState([]);
-    
-    const {user} = ChatState();
 
-    const fetchPosts = async () => {
-        // console.log(user._id);
-        try {
-          const config = {
-            headers: {
-              Authorization: `Bearer ${user.token}`,
-            },
-          };
-    
-          const { data } = await axios.get("/api/posts/user", config);
-          setPosts(data);
-        } catch (error) {
-         alert("error occured")
-        }
-      };
-    
-
-    useEffect(() => {
-        setLoading(true)
-        setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
-        fetchPosts()
-        setLoading(false)
-        
-    }, []);
-
-    const [value, setValue] = React.useState(0);
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    }
-
+    const { user } = ChatState();
     const [image, setImage] = React.useState("");
     const imageRef = React.useRef("null");
-
     function useDisplayImage() {
         const [result, setResult] = React.useState("./images/profile_logo.png");
         console.log(result.path)
@@ -106,6 +73,68 @@ const Profile = (props) => {
     }
 
     const { result, uploader } = useDisplayImage();
+    console.log(result)
+    const fetchPosts = async () => {
+        // console.log(user._id);
+        try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            };
+
+            const { data } = await axios.get("/api/posts/user", config);
+            setPosts(data);
+        } catch (error) {
+            alert("error occured")
+        }
+    };
+
+    // const [pic, setPic] = useState();
+
+    const handleProfilePic = async (e) => {
+        e.preventDefault()
+        const data = {
+            pic: result,
+        };
+        if (!result) {
+            alert('select image first')
+            return;
+        }
+        // console.log(pic);
+        try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            };
+            const { data } = await axios.put(
+                "/api/user/",
+                data,
+                config
+            );
+            alert('Profile picture changed successful')
+        } catch (error) {
+            alert("error occured")
+        }
+    };
+
+
+    useEffect(() => {
+        setLoading(true)
+        setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
+        fetchPosts()
+        setLoading(false)
+
+    }, []);
+
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    }
+
+
 
     return (
         <div className='profile__container' >
@@ -121,16 +150,16 @@ const Profile = (props) => {
                         <p>Optimal dimensions 3200 x 410px</p>
                     </div>
                 </div>
-                
+
             </div>
             <div className="profile__mainContent">
                 <div className="profile__content">
                     <div className="profile__Left">
                         <div className="profile__User">
                             <div className="profile__UserInfo">
-                                
+
                                 {result && <Avatar ref={imageRef} src={result} alt="" />}
-                            
+
                                 <div className="editor__imageContainer">
                                     <h3>Basic Information</h3>
 
@@ -138,6 +167,7 @@ const Profile = (props) => {
                                         setImage(e.target.files[0]);
                                         uploader(e);
                                     }} />
+                                    <button onClick={handleProfilePic} >Send</button>
                                 </div>
 
 

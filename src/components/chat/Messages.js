@@ -146,12 +146,14 @@ const Messages = () => {
 									onClick={() => setSelectedChat(chat)}
 									key={chat._id}
 								>
+									<Avatar src={chat.users[0].pic} />
 									<div className="sidebarChat__info">
 										<h2>
 											{!chat.isGroupChat
 												? getSender(loggedUser, chat.users)
 												: chat.chatName}
 										</h2>
+										<p>last message</p>
 									</div>
 								</div>
 							))

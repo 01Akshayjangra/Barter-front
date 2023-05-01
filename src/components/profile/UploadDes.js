@@ -23,21 +23,10 @@ const MenuProps = {
   },
 };
 
-const tagNames = [
-    'design','illustration','ui','ux','branding', 'logo', 'typography', 'webdesign', 'graphicdesign', 'animation', 'productdesign', 'motiongraphics', 'digitalart', 'posterdesign', 'appdesign', 'photography', 'packagingdesign', 'artdirection', 'printdesign', 'sketching', 'graphicdesign', 'motiongraphics', 'videoproduction', 'creativecoding', 'interiordesign', 'fashiondesign', 'streetart', 'artgallery', 'artstudio', 'ConceptDevelopment', 'LogoDesign', 'VisualIdentity', 'FineArtPhotography', 'PortraitPhotography', 'Lettering', 'DigitalArt ', 'Sketchbook', 'DesignInspiration', 'BrandIdentity'
-];
 const toolNames = [
     'Adobe Photoshop', 'Adobe Illustrator', 'Adobe InDesign', 'Adobe Premiere Pro', 'Adobe After Effects', 'CorelDRAW', 'Blender', 'Procreate', 'Canva', 'Figma', 'Sketch'
 ];
 
-function getTagStyles(tagName, tags, theme) {
-  return {
-    fontWeight:
-      tags.indexOf(tagName) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
 function getToolStyles(toolName, tools, theme) {
   return {
     fontWeight:
@@ -59,7 +48,7 @@ const UploadSettings = (props) => {
     const [formData, setFormData] = useState({
         image: srcImg,
     });
-
+  
     const handleCheckboxChange = (e) => {
         const itemId = e.target.value;
         if (e.target.checked) {
@@ -73,11 +62,12 @@ const UploadSettings = (props) => {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
+        
         const data = {
             title: title,
             description: description,
             image: formData.image,
-            tags: tags,
+            tags: tags.split(',').map((tag) => tag.trim()),
             tools: tools, 
             category: category
         };
@@ -107,15 +97,6 @@ const UploadSettings = (props) => {
 
     const theme = useTheme();
    
-    const handleTagsChange = (event) => {
-        const {
-            target: { value },
-        } = event;
-        setTags(
-            // On autofill we get a stringified value.
-            typeof value === 'string' ? value.split(',') : value,
-        );
-    };
     const handleToolsChange = (event) => {
         const {
             target: { value },
@@ -179,28 +160,14 @@ const UploadSettings = (props) => {
 
                         <div className="settings_rightInput">
                             <p className="">Project Tags <span>(up to 10)</span></p>
-                             <FormControl>
-                                <InputLabel id="demo-multiple-name-label">Tags</InputLabel>
-                                <Select
-                                    labelId="demo-multiple-name-label"
-                                    id="demo-multiple-name"
-                                    multiple
-                                    value={tags}
-                                    onChange={handleTagsChange}
-                                    input={<OutlinedInput label="Name" />}
-                                    MenuProps={MenuProps}
-                                >
-                                    {tagNames.map((tagName) => (
-                                        <MenuItem
-                                            key={tagName}
-                                            value={tagName}
-                                            style={getTagStyles(tagName, tags, theme)}
-                                        >
-                                            {tagName}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
+                            <TextField
+                                id="outlined-controlled"
+                                placeholder="Enter Tags for your project"
+                                value={tags} 
+                                onChange={(e) => setTags(e.target.value)}
+                                
+                            />                  
+                        
                         </div>
                         <div className="settings_rightInput">
                             <p className="">Tools Used</p>
@@ -325,6 +292,24 @@ const UploadSettings = (props) => {
                                             onChange={handleCheckboxChange}
                                         />
                                         <p>Typography</p>
+                                    </div>
+                                    <div>
+                                        <input
+                                            type="checkbox"
+                                            value={"Illustration"}
+                                            onChange={handleCheckboxChange}
+                                        />
+                                        <p>Illustration</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <input
+                                            type="checkbox"
+                                            value={"Mobile"}
+                                            onChange={handleCheckboxChange}
+                                        />
+                                        <p>Mobile</p>
                                     </div>
                                 </li>
                             </ul>
