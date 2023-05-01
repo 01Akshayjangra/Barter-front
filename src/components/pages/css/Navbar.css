@@ -42,15 +42,7 @@ li {
   margin-right: 50px;
 }
 
-<<<<<<< HEAD:src/css/Navbar.css
-.nav-logo-img{
-  margin-top:23px;
-  height: 20px;
-  
-
-=======
  .nav-logo-img{
->>>>>>> 07b219637eac1b3052015005f83abee5fa0e8728:src/components/pages/css/Navbar.css
   height: 25px;
 }
 
@@ -187,41 +179,6 @@ li {
   display: none;
 }
 
-<<<<<<< HEAD:src/css/Navbar.css
-.facebook {
-  color: #3b5998;
-}
-
-.instagram {
-  color: #c32aa3;
-}
-
-.youtube {
-  color: #ff0000;
-}
-
-/* hero section   */
-
-.hero-section {
-  height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.hero-section p {
-  font-size: 3rem;
-  text-transform: capitalize;
-}
-
-.hero-section h1 {
-  font-size: 5rem;
-  text-transform: uppercase;
-  text-align: center;
-}
-=======
->>>>>>> 07b219637eac1b3052015005f83abee5fa0e8728:src/components/pages/css/Navbar.css
 
 /* responsive css style  */
 @media (max-width: 1080px) {
@@ -316,10 +273,5 @@ li {
     
 
     }
-<<<<<<< HEAD:src/css/Navbar.css
-  }
-}
-=======
   
 }}
->>>>>>> 07b219637eac1b3052015005f83abee5fa0e8728:src/components/pages/css/Navbar.css

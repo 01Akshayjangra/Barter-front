@@ -11,16 +11,18 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
     },
-  },
 };
 
 const toolNames = [
@@ -28,18 +30,18 @@ const toolNames = [
 ];
 
 function getToolStyles(toolName, tools, theme) {
-  return {
-    fontWeight:
-    tools.indexOf(toolName) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
+    return {
+        fontWeight:
+            tools.indexOf(toolName) === -1
+                ? theme.typography.fontWeightRegular
+                : theme.typography.fontWeightMedium,
+    };
 }
 
 const UploadSettings = (props) => {
     const { refImg, srcImg, result, setImage, uploader } = props;
     const { user } = ChatState();
-
+    const [open, setOpen] = React.useState(false);
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [tags, setTags] = React.useState([]);
@@ -48,7 +50,7 @@ const UploadSettings = (props) => {
     const [formData, setFormData] = useState({
         image: srcImg,
     });
-  
+
     const handleCheckboxChange = (e) => {
         const itemId = e.target.value;
         if (e.target.checked) {
@@ -62,16 +64,17 @@ const UploadSettings = (props) => {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
-        
+        setOpen(true);
         const data = {
             title: title,
             description: description,
             image: formData.image,
             tags: tags.split(',').map((tag) => tag.trim()),
-            tools: tools, 
+            tools: tools,
             category: category
         };
         if (!title || !description || !formData.image || !tags || !tools || !category) {
+            setOpen(false);
             alert("fill all fields")
             return;
         }
@@ -88,15 +91,17 @@ const UploadSettings = (props) => {
                 data,
                 config
             );
+            setOpen(false);
             alert('Post successful')
             return response.data;
         } catch (error) {
+            setOpen(false);
             alert("error occured")
         }
     };
 
     const theme = useTheme();
-   
+
     const handleToolsChange = (event) => {
         const {
             target: { value },
@@ -110,6 +115,7 @@ const UploadSettings = (props) => {
     return (
         <>
             {/* <div className="settings_outer_div"> */}
+           
             <div className="setting_body">
 
                 <div className="setting_mainBody">
@@ -163,11 +169,11 @@ const UploadSettings = (props) => {
                             <TextField
                                 id="outlined-controlled"
                                 placeholder="Enter Tags for your project"
-                                value={tags} 
+                                value={tags}
                                 onChange={(e) => setTags(e.target.value)}
-                                
-                            />                  
-                        
+
+                            />
+
                         </div>
                         <div className="settings_rightInput">
                             <p className="">Tools Used</p>
@@ -326,6 +332,13 @@ const UploadSettings = (props) => {
                 </div>
             </div>
             {/* </div> */}
+             <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={open}
+                onClick={handleFormSubmit}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </>
     )
 }
