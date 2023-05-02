@@ -1,4 +1,4 @@
- @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 @media (min-width:490px){
 * {
@@ -268,8 +268,7 @@ li {
       transition: 0.5s;
       transform: scale(1.1);
       border: 1px solid white;
-    
 
     }
-  
-}}
+  } 
+}
