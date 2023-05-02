@@ -1,0 +1,182 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+.popup__wrapper {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    z-index: 20;
+}
+
+.popup__container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: fit-content; 
+     width: fit-content;
+    background-color: 8px solid red;
+    display: flex;
+    justify-content: center;
+    z-index: 21;
+}
+
+.modal__Main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: transparent;
+    display: flex;
+    flex-flow: column nowrap;
+    overflow-y: scroll;
+    align-items: center;
+    width: 80vw;
+    height: 120vh;
+}
+
+/* modal header   */
+.modal__header {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    height: 60px;
+    width: 100%;
+    padding: 6px;
+    background-color: rgb(28, 28, 28);
+}
+
+.modal__header > a >.MuiAvatar-root {
+    height: 40px;
+    width: 40px;
+}
+
+.modal__headerInfo {
+    display: flex;
+    flex-flow: column nowrap;
+    margin-left: 12px;
+    color: white;
+}
+
+.modal__headerInfo > h1{
+    font-size: 20px;
+    font-weight: 500;
+}
+.modal__headerInfo > a > p{
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+}
+
+/* modal body  */
+.modal__body {
+    position: relative;
+    background-color: white;
+    display: flex;
+    flex-flow: column nowrap;
+    /* overflow-y: scroll; */
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: min-content;
+}
+.modal__bodyImg{
+    background-color: pink;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    display: grid;
+    grid-template-columns: (repeat(1));
+}
+.modal__bodyImg > img{
+    height: fit-content;
+    width: fit-content;
+    /* margin: 12px; */
+}
+
+
+/* Right items  */
+.modal__rightContent{
+    position: fixed;
+    top: 18%;
+    right: 26px;
+    background-color: transparent;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 450px;
+    max-width: 93px;
+    margin-right: 2.5%;
+    z-index: 22;
+}
+.modal__rightContent > i{
+    position: fixed;
+    right: 29px;
+    top: 10px;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+}
+.modal__item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+.modal__item > span{
+    font-size: 12px;
+}
+.modal__itemIcon > i{
+    font-size: 18px;
+    /* border: 1px solid red; */
+    background-color: white;
+    color: black;
+    padding: 11px;
+    border-radius: 50px;
+}
+
+/* width */
+.ModalScrollbar::-webkit-scrollbar {
+	width: 7px;
+    position: absolute;
+    right: -50px;
+}
+
+/* Track */
+.ModalScrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+/* Handle */
+.ModalScrollbar::-webkit-scrollbar-thumb {
+	background: #888;
+}
+
+/* Handle on hover */
+.ModalScrollbar::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+
+
+/* post information   */
+.modal__info{
+    height: 800px;
+    width: 100%;
+    background-color: pink;
+}
+.modal__recommendations{
+    height: 800px;
+    width: 100%;
+    background-color: rgb(207, 255, 192);
+}
