@@ -259,7 +259,7 @@ li {
     }
     
     .nav-btn-signup:hover{
-      background-color: green;
+      background-color:green;
       color: white;
       padding: 10px 15px;
       border-radius: 5px;
@@ -274,3 +274,5 @@ li {
     }
   
 }}
+
+

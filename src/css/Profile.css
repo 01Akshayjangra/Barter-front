@@ -1,3 +1,4 @@
+@media (min-width:490px){
 .profile__banner{
     max-height: auto;
     width: 100vw;
@@ -198,4 +199,211 @@
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
     list-style: none;
     margin-top: 30px;
-}
+}}
+
+@media (max-width:767px){
+    .profile__banner{
+        max-height: auto;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #4b4b4b;
+        position: sticky;
+        cursor: pointer;
+        z-index: -1;
+    }
+    
+    .profile__dropIcon{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 40vh;
+        width: 20vw;
+        color: white;
+    }
+    .profile__dropIcon > svg{
+        height: 4.5rem;
+        filter: invert(90%);
+        margin-bottom: 10px;
+        margin-top: 60px;
+    }
+    .profile__dropIcon > p{
+        font-size: 1.6rem;
+        color: #eeeeee;
+    }
+    
+    /* Main-Profile container */
+    
+    .profile__mainContent{
+        padding: 0 55px;
+    
+    }
+    .profile__content{
+        max-height: 100vh;
+        max-width: 100vw;
+        /* border: 1px solid red; */
+        display: flex;
+        flex-direction: column;
+    }
+    .profile__Left{
+        height: 74.9vh;
+        flex: 26;
+        /* border: 0.5px solid black; */
+        position: relative;
+        left: 0;
+        bottom: 95px;
+        right: 0;
+        z-index: 10;
+        background-color: transparent;
+        border-radius: 5px;
+        /* box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px; */
+    }
+    
+    /* User info */
+    .profile__User{
+        padding: 20px;
+    }
+    .profile__UserInfo{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    .profile__UserInfo >.MuiAvatar-root{
+        height: 150px;
+        width: 150px;
+        border: 5px solid white;
+        margin-top: 20px;
+    }
+    .profile__UserInfo > h2{
+        font-size: 22px;
+        margin-top: 33px;
+    }
+    
+    /* User loation   */
+    .profile__userLocation{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border: none;
+        margin: 12px 0px;
+        color: #4b4b4b;
+    }
+    .profile__userLocation > p{
+        margin-left: 10px;
+        font-size: 1.3rem;
+    }
+    
+    /* Edit info button   */
+    .profile__editInfo{
+        /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
+        background-color: #0057ff;
+        color: white;
+        border-radius: 20px;
+        width: 100%;
+        align-items: initial;
+        flex: auto;
+        font-weight: bold;
+        min-height: 38px;
+        padding: 10px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .profile__editInfo > p{
+        margin-left: 10px;
+        font-size: 1.3rem;
+    }
+    /* Create Post button   */
+    .profile__createPost{
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        border-radius: 20px;
+        width: 250px;
+        align-items: initial;
+        flex: auto;
+        font-weight: bold;
+        min-height: 38px;
+        padding: 10px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 12px;
+    }
+    .profile__createPost > p{
+        margin-left: 10px;
+        font-size: 1.3rem;
+    }
+     
+    /* User Statistics   */
+    .profile_statsMain{
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        border-radius: 5px;
+        width: 250px;
+        min-height: 87px;
+        font-weight: 500;
+        padding: 3px 5px;
+        margin-top: 12px;
+        color: rgba(0, 0, 0, 0.7);
+    }
+    .profile_statsMain > ul li{
+        display: flex;
+        flex-direction: row;
+        align-items: left;
+        justify-content: space-between; 
+        font-size: 14px;
+    
+    }
+    
+    /* User Social */
+    .profile_social{
+        width: 250px;
+        min-height: 20px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        padding: 15px 25px;
+    }
+    .profile_social > a > i{
+        cursor: pointer;
+        font-size: 26px;
+    }
+    
+    
+    
+    /* Profile right */
+    .profile__Right{
+        height: 50vh;
+        flex: 74;
+        /* border-left: 1px solid pink; */
+    }
+    .profile__mainUser{
+        padding: 40px;
+    }
+    /* profile category */
+    .profile__catogory ul{
+        display: flex;
+        justify-content: left;
+        align-items: center;
+    }
+    .profile__catogory ul li{
+        padding: 7px 12px;
+        border: 1px solid black;
+        border-radius: 20px;
+        margin-right: 8px;
+        font-size: 12px;
+    
+    }
+    /* ----------------Posts------------------- */
+    .profile__Post{
+        /* padding: 0 60px; */
+        display: grid;
+        grid-gap: 36px;
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+        list-style: none;
+        margin-top: 30px;
+    }}
+    

@@ -66,7 +66,7 @@ const AfterLogin = () => {
 
                 <li className="nav-right-li">
                     <Link className="nav-link nav-upload" to="/upload">
-                        Upload
+                         Upload 
                     </Link>
                 </li>
 
