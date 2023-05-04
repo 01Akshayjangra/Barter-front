@@ -493,7 +493,36 @@ const MyModal = (props) => {
             "__v": 0
         }
     ]);
+    const followUser = async (userId, token) => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
 
+        try {
+            const res = await axios.post(`/api/users/follow/${userId}`, config);
+            return res.data;
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    // Unfollow a user
+    const unfollowUser = async (userId, token) => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+
+        try {
+            const res = await axios.post(`/api/users/unfollow/${userId}`, config);
+            return res.data;
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     useEffect(() => {
         document.body.style.overflowY = "hidden";
@@ -560,10 +589,12 @@ const MyModal = (props) => {
                                 <p>{post.description}</p>
                             </div>
                         </div>
+                        {/* {post.tags} */}
+                        {post.tools}
                         <div className="modal__body">
                             <div className='modal__bodyPostMain'>
 
-                                    <h1>More Like This ...</h1>
+                                <h1>More Like This ...</h1>
                                 <div className='modal__bodyPosts'>
 
                                     {posts.map(post => (
