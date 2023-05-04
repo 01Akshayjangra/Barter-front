@@ -503,7 +503,7 @@ const MyModal = (props) => {
         };
 
         try {
-            const res = await axios.post(`/api/users/follow/${userId}`, config);
+            const res = await axios.post(`https://barter-backend.onrender.com/api/users/follow/${userId}`, config);
             return res.data;
         } catch (err) {
             console.log(err);
@@ -519,7 +519,7 @@ const MyModal = (props) => {
         };
 
         try {
-            const res = await axios.post(`/api/users/unfollow/${userId}`, config);
+            const res = await axios.post(`https://barter-backend.onrender.com/api/users/unfollow/${userId}`, config);
             return res.data;
         } catch (err) {
             console.log(err);

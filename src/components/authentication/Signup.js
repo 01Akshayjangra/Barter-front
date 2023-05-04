@@ -39,7 +39,7 @@ const Signup = () => {
       };
 
       const { data } = await axios.post(
-        "/api/user/",
+        "https://barter-backend.onrender.com/api/user/",
         {
           name,
           email,
