@@ -17,10 +17,12 @@ import ChatIcon from '@mui/icons-material/Chat';
 import swal from 'sweetalert';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useEffect, useState } from 'react';
 import axios from "axios";
-
+import { ChatState } from '../../context/ChatProvider';
 
 export default function AccountMenu() {
+  const { user } = ChatState();
   const [loadingOpen, setLoadingOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -33,11 +35,30 @@ export default function AccountMenu() {
   };
 
   const navigate = useNavigate();
-  
+
   const logout = async () => {
     localStorage.removeItem('userInfo');
     window.location.href = '/login';
   };
+  const [userInfo, setUserInfo] = useState([]);
+  const handleUserInfo = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+
+      const { data } = await axios.get("/api/user/info", config);
+      setUserInfo(data);
+    } catch (error) {
+      alert('failed to load user info')
+    }
+  }
+
+  useEffect(() => {
+    handleUserInfo()
+  }, []);
 
   return (
     <React.Fragment>
@@ -52,7 +73,7 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar src="../images/akshay.enc" sx={{ width: 45, height: 45 }}/>
+            <Avatar src={userInfo.pic} sx={{ width: 45, height: 45 }} />
           </IconButton>
         </Tooltip>
       </Box>
@@ -92,7 +113,7 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClose} style={{ fontSize: '17px', fontWeight: '400' }}>
-          <Avatar src="../images/akshay.enc" />  <Link to="/profile" >My Profile</Link>
+          <Avatar src={userInfo.pic} />  <Link to="/profile" >My Profile</Link>
         </MenuItem>
 
         <Divider />

@@ -14,7 +14,7 @@ const Search = () => {
                 </div>
 
                 <div className="hero-media" id="hero-media">
-                    <video data-src-lg="https://cdn.dribbble.com/uploads/39534/original/32eb117875f793069fb53fa6a67aa5dc.mp4?1657913912" data-src-sm="https://cdn.dribbble.com/uploads/39535/original/009d9a82575ae2dd099987bd72f5b093.mp4?1657913923" src="https://cdn.dribbble.com/uploads/39534/original/32eb117875f793069fb53fa6a67aa5dc.mp4?1657913912" class="back-video hero-media-asset is-hidden is-visible" autoplay="" loop="infinite" playsinline="playsinline" webkit-playsinline="webkit-playsinline"></video>
+                    <video data-src-lg="https://cdn.dribbble.com/uploads/39534/original/32eb117875f793069fb53fa6a67aa5dc.mp4?1657913912" data-src-sm="https://cdn.dribbble.com/uploads/39535/original/009d9a82575ae2dd099987bd72f5b093.mp4?1657913923" src="https://cdn.dribbble.com/uploads/39534/original/32eb117875f793069fb53fa6a67aa5dc.mp4?1657913912" className="back-video hero-media-asset is-hidden is-visible" autoPlay muted loop></video>
                 </div>
 
                 <div className="text-content hero-text-content">

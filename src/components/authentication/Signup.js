@@ -10,9 +10,6 @@ const Signup = () => {
   const [open, setOpen] = React.useState(false);
   const [userRes, setUserRes] = useState("");
   const [pic, setPic] = useState();
-
-
-
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [phone, setPhone] = useState();

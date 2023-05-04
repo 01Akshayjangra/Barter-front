@@ -6,44 +6,50 @@ import Spinner from '../miscelleneous/Spinner';
 import Filters from '../miscelleneous/Filters';
 import { useEffect, useState } from 'react';
 import { ChatState } from '../../context/ChatProvider';
+import axios from "axios";
+import ChatLoading from '../chat/ChatLoading';
 
 const Home = () => {
 	const [loading, setLoading] = useState();
 	const [posts, setPosts] = useState([]);
 
-	const {user} = ChatState();
+	const { user, selectedCategory } = ChatState();
+	const [userInfo, setUserInfo] = useState([]);
+
+	const fetchPosts = async () => {
+		const res = await axios.get(`/api/posts?category=${selectedCategory}`);
+		setPosts(res.data);
+	}
+
+
 	useEffect(() => {
-		
-		setLoading(true); //  set loading to true before the fetch request is initiated
-	  
-		fetch('/api/post', {
-		  method: 'GET',
-		  headers: { 'Content-Type': 'application/json' }
-		})
-		  .then(response => response.json())
-		  .then(data => {
-			setPosts(data);
-			// console.log(data);
-			setLoading(false); // set loading to false after the data is fetched
-		  })
-		  .catch(error => console.error(error));
-	  }, []);
+		setLoading(true);
+		fetchPosts()
+		setLoading(false);
+	}, [fetchPosts]);
 
 	return (
 		<>
 			<Search />
-			<Filters/>
-			
-			<div style ={{textAlign: 'center', marginTop: '10px'}} >
+			<Filters />
+
+			<div style={{ textAlign: 'center', marginTop: '10px' }} >
 				{loading && <Spinner />}
 			</div>
-			<div className="home-posts-container">
+			{posts ?(
+				<div className="home-posts-container">
 
-				{posts.map(post => (
-					<Post postImage={post.image.url} postName={post.title} hearts={post.hearts} views={post.views} shares={post.shares} />
+					{posts.map(post => (
+						<Post
+							key={post._id}
+							post={post} />
 					))}
 
-			</div>
+				</div>
+				):(
+					<ChatLoading />
+				)
+			}
 		</>
 	);
 };

@@ -11,7 +11,7 @@ const MyModal = (props) => {
             document.body.style.overflowY = "scroll";
         };
     }, []);
-    const { closeModal, postImage, postName, views, hearts, shares } = props;
+    const { post, closeModal } = props;
 
     return (
         <>
@@ -22,36 +22,31 @@ const MyModal = (props) => {
 
                 <div className="modal__item">
                     <IconButton className='modal__itemIcon'>
-                        <Link to='/explore'><Avatar src="./images/profile_logo.png" /></Link>
+                        <Link to='/explore'><Avatar src={post.userId.pic} /></Link>
                     </IconButton>
                 </div>
                 <div className="modal__item">
                     <IconButton className="modal__itemIcon">
                         <i className="stat-icons fa-regular fa-heart" />
                     </IconButton>
-                    <span>{"24"}</span>
-                </div>
-                <div className="modal__item">
-                    <IconButton className="modal__itemIcon">
-                        <i className="fa-sharp fa-regular fa-folder-open" />
-                    </IconButton>
-                    <span>{"24"}</span>
+                    <span>{post.hearts}</span>
                 </div>
                 <div className="modal__item">
                     <IconButton className="modal__itemIcon">
                         <i className="stat-icons fa-sharp fa-solid fa-eye" />
                     </IconButton>
-                    <span>{'32423'}</span>
+                    <span>{post.views}</span>
                 </div>
                 <div className="modal__item">
                     <IconButton className="modal__itemIcon">
                         <i className="stat-icons fa-solid fa-share" />
                     </IconButton>
-                    <span>{'234'}</span>
+                    <span>{post.shares}</span>
                 </div>
             </div>
             <div className='popup__container'>
 
+<<<<<<< HEAD
                 <div className='modal__Main ModalScrollbar'>
                     <div className="modal__header">
                         <Link to='/explore'><Avatar src="./images/profile_logo.png" /></Link>
@@ -71,6 +66,22 @@ const MyModal = (props) => {
                         </div>
                     </div>
                 </div>
+=======
+            <div className='modal__Main ModalScrollbar'>
+                <div className="modal__header">
+                    <Link to='/explore'><Avatar src={post.userId.pic} /></Link>
+                    <div className='modal__headerInfo'>
+                        <h1>{post.userId.name}</h1>
+                        <Link><p>{"Follow"}</p></Link>
+                    </div>
+                </div>
+                <div className="modal__body">
+                    <div className="modal__bodyImg">
+                        <img src={post.image.url} alt="" />
+                    </div>
+                </div>/
+            </div>
+>>>>>>> 834888563f795134033b7fbb22893c25ca2a7ecd
 
             </div>
 

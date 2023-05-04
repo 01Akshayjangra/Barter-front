@@ -12,7 +12,6 @@ import Learn from './components/pages/Learn';
 
 //Messages
 import Messages from './components/chat/Messages';
-import Chatpage from './components/chat/ChatPage';
 
 //User-Profile
 import Modal from './components/profile/Modal';
@@ -41,7 +40,6 @@ const Routing = () => {
       <Route exact path="/learn" element={<Learn />} />
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/signup" element={<Signup />} />
-      {/* <Route exact path="/message" element={<Chatpage/> } /> */}
       <Route exact path="/message" element={<Messages />} />
       <Route exact path="/forgetpassword" element={<Forgetpass />} />
       <Route exact path="/upload" element={<Upload />} />
@@ -53,7 +51,6 @@ const Routing = () => {
 }
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
     <>

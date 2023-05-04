@@ -1,4 +1,6 @@
 import * as React from 'react';
+
+// Material component imported
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,16 +11,12 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 
-import { useState, useEffect } from "react";
-
-import { NavLink, Link } from "react-router-dom";
-
+import AfterLogin from './AfterLogin';
 import "./css/Navbar.css"
 
+import { useState, useEffect } from "react";
+import { NavLink, Link } from "react-router-dom";
 import { ChatState } from '../../context/ChatProvider';
-import AfterLogin from './AfterLogin';
-
-const pages = ['Profile', 'Pricing', 'Blog'];
 
 function Navbar() {
     const { user } = ChatState();
@@ -61,7 +59,6 @@ function Navbar() {
                     >
                         <nav className="main-nav">
                             {/* 1st logo part  */}
-                            {/* <div className="logo"> */}
                             <div className="nav-logo" title="Barter Home">
                                 <NavLink to="/">
                                     <img
@@ -71,7 +68,6 @@ function Navbar() {
                                     />
                                 </NavLink>
                             </div>
-                            {/* </div> */}
 
                             {/* 2st Pages part  */}
                             <div className="menu-link">
@@ -91,11 +87,7 @@ function Navbar() {
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-
                         <DensityMediumIcon onClick={handleOpenNavMenu} style={{ color: 'black' }} />
-
-
-
                         <Menu
                             id="menu-appbar"
                             anchorEl={anchorElNav}
@@ -114,12 +106,14 @@ function Navbar() {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
+                            <MenuItem onClick={handleCloseNavMenu}>
 
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))}
+                                <NavLink to="/explore">Explore</NavLink>
+                                <NavLink to="/blog">Blog</NavLink>
+                                <NavLink to="/learn">Learn</NavLink>
+
+                            </MenuItem>
+
                         </Menu>
                     </Box>
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -153,11 +147,9 @@ function Navbar() {
                                 </div>
                             </div>
                         </nav>
-
                     </Typography>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                    </Box>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}></Box>
 
                     {user && <nav className="main-nav">
                         <div className="social-media">
