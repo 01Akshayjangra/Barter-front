@@ -1,5 +1,4 @@
 import React from 'react'
-// import loading from './loading.gif'
 import CircularProgress from '@mui/material/CircularProgress';
 
 

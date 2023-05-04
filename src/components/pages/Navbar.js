@@ -18,11 +18,6 @@ import { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { ChatState } from '../../context/ChatProvider';
 
-const pages = [
-    <NavLink to="/explore">Explore</NavLink>,
-    <NavLink to="/blog">Blog</NavLink>,
-    <NavLink to="/learn">Learn</NavLink>];
-
 function Navbar() {
     const { user } = ChatState();
 
@@ -111,11 +106,14 @@ function Navbar() {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))}
+                            <MenuItem onClick={handleCloseNavMenu}>
+
+                                <NavLink to="/explore">Explore</NavLink>
+                                <NavLink to="/blog">Blog</NavLink>
+                                <NavLink to="/learn">Learn</NavLink>
+
+                            </MenuItem>
+
                         </Menu>
                     </Box>
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />

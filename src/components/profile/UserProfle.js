@@ -1,14 +1,23 @@
 import * as React from 'react';
 import { Avatar } from '@mui/material'
 import './css/Profile.css'
-import Post from './Post'
 import { useEffect, useState } from 'react';
 import Spinner from '../miscelleneous/Spinner';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
+import EditIcon from '@mui/icons-material/Edit';
+import UploadIcon from '@mui/icons-material/Upload';
 import Box from '@mui/material/Box';
+import { Link } from 'react-router-dom';
+import Post from './Post';
+import axios from "axios";
+import { ChatState } from '../../context/ChatProvider';
+
+//modal
+import Modal from '@mui/material/Modal';
+import EditAvatar from './EditAvatar';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -30,7 +39,7 @@ function TabPanel(props) {
     );
 }
 
-const UserProfile = (props) => {
+const Profile = (props) => {
     TabPanel.propTypes = {
         children: PropTypes.node,
         index: PropTypes.number.isRequired,
@@ -44,21 +53,48 @@ const UserProfile = (props) => {
         };
     }
 
-
+    const [loggedUser, setLoggedUser] = useState();
     const [loading, setLoading] = useState(true)
     const [posts, setPosts] = useState([]);
+    const { user } = ChatState();
+
+    const fetchPosts = async () => {
+        // console.log(user._id);
+        try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            };
+
+            const { data } = await axios.get("/api/posts/user", config);
+            setPosts(data);
+        } catch (error) {
+            alert("error occured while fetching posts")
+        }
+    };
+    const [userInfo, setUserInfo] = useState([]);
+    const handleUserInfo = async () => {
+        try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            };
+
+            const { data } = await axios.get("/api/user/info", config);
+            setUserInfo(data);
+        } catch (error) {
+            alert('failed to load user info')
+        }
+    }
 
     useEffect(() => {
         setLoading(true)
-        fetch('/user/?id=6433d3bb3bfce802cdc44e4c', {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
-        })
-            .then(response => response.json())
-            .then(data => {setPosts(data);
-            setLoading(false);
-        })
-            .catch(error => console.error(error));
+        setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
+        fetchPosts()
+        handleUserInfo()
+        setLoading(false)
 
     }, []);
 
@@ -67,18 +103,16 @@ const UserProfile = (props) => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     }
+    //Avatar upload modal
+    const [openEditAvatar, setOpenEditAvatar] = React.useState(false);
+    const handleOpeEditAvatar = () => setOpenEditAvatar(true);
+    const handleCloseEditAvatar = () => setOpenEditAvatar(false);
+
     return (
         <div className='profile__container' >
-
-
             <div className="profile__banner">
                 <div className="profile__bannerUpload">
-                    <div className="profile__dropIcon">
-                        <svg
-                            svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42.672 42.672" className="ProfileBanner-dropIcon-jnp"><path d="M31.654,10.075C19.884,10.075,10,19.322,10,31.092A21.9,21.9,0,0,0,31.654,52.747c11.77,0,21.017-9.884,21.017-21.654A20.807,20.807,0,0,0,31.654,10.075Zm10.19,24.2L31.654,43.83c-.156.156.22.637,0,.637s-.481-.481-.637-.637l-10.19-9.553c-.24-.239-.132-.325,0-.637s.3-.643.637-.637h6.369V18.992c0-.458.816-.637,1.274-.637h4.458c.458,0,1.274.179,1.274.637V33h6.369c.333,0,.512.328.637.637S42.081,34.041,41.845,34.277Z" transform="translate(-10 -10.075)"></path></svg>
-                        <p>Add a Banner Image</p>
-                        <p>Optimal dimensions 3200 x 410px</p>
-                    </div>
+                    <img src="./images/banner.jpg" alt="banner" />
                 </div>
             </div>
             <div className="profile__mainContent">
@@ -86,38 +120,58 @@ const UserProfile = (props) => {
                     <div className="profile__Left">
                         <div className="profile__User">
                             <div className="profile__UserInfo">
-                                <Avatar src="./images/profile_logo.png" />
-                                <h2>Akshay Kumar</h2>
+                                <Avatar src={userInfo.pic} onClick={handleOpeEditAvatar}/>
+                                {/* <div className="profile__editIcon" >
+                                    <i class="fa-sharp fa-solid fa-pen"></i>
+                                </div> */}
+                                <div className='profile__editIconAvatar'>
+                                    <Modal
+                                        open={openEditAvatar}
+                                        onClose={handleCloseEditAvatar}
+                                        aria-labelledby="modal-modal-title"
+                                        aria-describedby="modal-modal-description"
+                                    >
+                                        <EditAvatar />
+                                    </Modal>
+                                </div>
+
+                                <h2>{"username"}</h2>
+                                <h3>{'user email'}</h3>
                                 <div className="profile__userLocation">
                                     <i className="fa-solid fa-location-dot" />
                                     <p>Location</p>
                                 </div>
-                                <div className="profile__editInfo">
-                                    {/* <EditIcon /> */}
-                                    <p>Edit Your Profile</p>
-                                </div>
-                                <div className="profile__createPost">
-                                    {/* <EditIcon /> */}
-                                    <p>Create New Post</p>
-                                </div>
+                                <Link to="/editor" >
+                                    <div className="profile__editInfo">
+                                        {/* <EditIcon /> */}
+                                        <p>+ Follow</p>
+                                    </div>
+                                </Link>
+                                <Link to="/upload" >
+                                    <div className="profile__createPost">
+                                        {/* <EditIcon /> */}
+                                        <p>Message</p>
+                                    </div>
+                                </Link>
                                 <div className="profile_statsMain">
                                     <ul>
-                                        <li><p>Project Views</p><span>8745</span></li>
-                                        <li><p>Likes</p><span>2369</span></li>
-                                        <li><p>Followers</p><span>560</span></li>
-                                        <li><p>Following</p><span>94</span></li>
+                                        <li><p>Project Views</p><span>3</span></li>
+                                        <li><p>Likes</p><span>6</span></li>
+                                        <li><p>Followers</p><span>5</span></li>
+                                        <li><p>Following</p><span>13</span></li>
                                     </ul>
                                 </div>
                                 <div className="profile_social">
-                                    <a href="https://www.youtube.com/@minimoonff" target="_blank"><i className="fa-brands fa-facebook" style={{ 'color': "blue" }} ></i></a>
-                                    <a href="https://www.youtube.com/@minimoonff" target="_blank"> <i className="fa-brands fa-linkedin" style={{ 'color': "#0077B5" }}></i></a>
-                                    <a href="https://www.youtube.com/@minimoonff" target="_blank"><i className="fa-brands fa-youtube" style={{ 'color': "red" }}></i></a>
-                                    <a href="https://www.youtube.com/@minimoonff" target="_blank"> <i className="fa-brands fa-twitter" style={{ 'color': `#1DA1F2` }}></i></a>
+                                    <a target="_blank"><i className="fa-brands fa-facebook" style={{ 'color': "blue" }} ></i></a>
+                                    <a target="_blank"> <i className="fa-brands fa-linkedin" style={{ 'color': "#0077B5" }}></i></a>
+                                    <a target="_blank"><i className="fa-brands fa-youtube" style={{ 'color': "red" }}></i></a>
+                                    <a target="_blank"> <i className="fa-brands fa-twitter" style={{ 'color': `#1DA1F2` }}></i></a>
 
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div className="profile__Right">
                         <div className="profile__mainUser">
                             <div className="profile__catogory">
@@ -125,7 +179,7 @@ const UserProfile = (props) => {
                                 <Box sx={{ width: '100%' }}>
                                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                                         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                                            <Tab label="My posts" {...a11yProps(0)} />
+                                            <Tab label="User posts" {...a11yProps(0)} />
                                             <Tab label="About" {...a11yProps(1)} />
 
                                         </Tabs>
@@ -139,19 +193,21 @@ const UserProfile = (props) => {
 
 
                                             {posts.map(post => (
-                                                <Post postImage={post.image} postName={post.title} hearts={post.hearts} views={post.views} shares={post.shares} />
+                                                <Post post={post} postImage={post.image.url} postName={post.title} hearts={post.hearts} views={post.views} shares={post.shares} />
                                             ))}
+
 
                                         </div>
                                     </TabPanel>
                                     <TabPanel value={value} index={1}>
-                                        About section
+                                        About Section coming sunday
                                     </TabPanel>
 
                                 </Box>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -160,5 +216,5 @@ const UserProfile = (props) => {
     )
 }
 
-export default UserProfile
+export default Profile
 

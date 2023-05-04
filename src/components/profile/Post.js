@@ -20,7 +20,7 @@ const AvatarHover = (props) => {
 }
 
 const Post = (props) => {
-    const { postImage, postName, views, hearts, shares } = props;
+    const {post, postAvatar, postImage, postName, views, hearts, shares } = props;
 
     const [showModal, setShowModal] = useState(false);
     const closeModal = () => setShowModal(false);
@@ -28,21 +28,21 @@ const Post = (props) => {
     return (
         <div className="main-post">
             <div className="post-imgContainer" onClick={() => setShowModal(true)}>
-                <img className='post-main-img' src={postImage} alt="" />
+                <img className='post-main-img' src={post.image.url} alt="" />
             </div>
 
             {/* modal  */}
             {/* {showModal && <PostDrawer/> } */}
-            {showModal && <MyModal closeModal={closeModal} postImage={postImage} postName={postName} hearts={hearts} views={views} shares={shares} />}
+            {showModal && <MyModal post={post} closeModal={closeModal} />}
 
             <div className="post-content">
 
                 <div className="post-userInfo">
                     <a href="/myprofile">
                         <Tooltip title={<AvatarHover/>} arrow>
-                            <Avatar />
+                            <Avatar src={post.userId.pic} />
                         </Tooltip>
-                        <span>{postName}</span>
+                        <span>{post.userId.name}</span>
                     </a>
                 </div>
 
@@ -51,19 +51,19 @@ const Post = (props) => {
                         <IconButton className="hello">
                             <i className="stat-icons fa-regular fa-heart" />
                         </IconButton>
-                        <span>{hearts}</span>
+                        <span>{post.hearts}</span>
                     </div>
                     <div className="post-statsIcons post-viewStats">
                         <IconButton>
                             <i className="stat-icons fa-sharp fa-solid fa-eye" />
                         </IconButton>
-                        <span>{views}</span>
+                        <span>{post.views}</span>
                     </div>
                     <div className="post-statsIcons post-shareStats">
                         <IconButton>
                             <i className="stat-icons fa-solid fa-share" />
                         </IconButton>
-                        <span>{shares}</span>
+                        <span>{post.shares}</span>
                     </div>
                 </div>
             </div>

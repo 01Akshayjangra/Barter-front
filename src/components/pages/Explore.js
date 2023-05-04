@@ -5,36 +5,47 @@ import Spinner from '../miscelleneous/Spinner';
 import Filters from '../miscelleneous/Filters';
 import { useEffect, useState } from 'react';
 import HeroCarousel from './HeroCarousel';
-
-
+import axios from "axios";
+import { ChatState } from '../../context/ChatProvider';
 
 const Explore = () => {
 
   const [loading, setLoading] = useState();
   const [posts, setPosts] = useState([]);
+  const { selectedCategory } = ChatState();
+  // useEffect(() => {
+  //   setLoading(true); // set loading to true before the fetch request is initiated
+
+  //   fetch('/api/post', {
+  //     method: 'GET',
+  //     headers: { 'Content-Type': 'application/json' }
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       setPosts(data);
+  //       setLoading(false); // set loading to false after the data is fetched
+  //     })
+  //     .catch(error => console.error(error));
+  // }, []);
+
+
+  const fetchPosts = async () => {
+    const res = await axios.get(`/api/posts?category=${selectedCategory}`);
+    setPosts(res.data);
+  }
 
   useEffect(() => {
-    setLoading(true); // set loading to true before the fetch request is initiated
-
-    fetch('/api/post', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then(response => response.json())
-      .then(data => {
-        setPosts(data);
-        setLoading(false); // set loading to false after the data is fetched
-      })
-      .catch(error => console.error(error));
-  }, []);
-
+    setLoading(true);
+    fetchPosts()
+    setLoading(false);
+  }, [fetchPosts]);
 
   return (
     <>
       <div className="explore__container">
 
         <div className="explore__carousel">
-          <HeroCarousel/>
+          <HeroCarousel />
         </div>
 
         <Filters />
@@ -45,7 +56,7 @@ const Explore = () => {
 
         <div className="explore__postsContainer">
           {posts.map(post => (
-            <Post postImage={post.image.url} postName={post.title} hearts={post.hearts} views={post.views} shares={post.shares} />
+            <Post post={post} />
           ))}
         </div>
       </div>

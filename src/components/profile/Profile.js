@@ -7,11 +7,17 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
+import EditIcon from '@mui/icons-material/Edit';
+import UploadIcon from '@mui/icons-material/Upload';
 import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom';
 import Post from './Post';
 import axios from "axios";
 import { ChatState } from '../../context/ChatProvider';
+
+//modal
+import Modal from '@mui/material/Modal';
+import EditAvatar from './EditAvatar';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -50,30 +56,8 @@ const Profile = (props) => {
     const [loggedUser, setLoggedUser] = useState();
     const [loading, setLoading] = useState(true)
     const [posts, setPosts] = useState([]);
-
     const { user } = ChatState();
-    const [image, setImage] = React.useState("");
-    const imageRef = React.useRef("null");
-    function useDisplayImage() {
-        const [result, setResult] = React.useState("./images/profile_logo.png");
-        console.log(result.path)
 
-        function uploader(e) {
-            const imageFile = e.target.files[0];
-
-            const reader = new FileReader();
-            reader.addEventListener("load", (e) => {
-                setResult(e.target.result);
-            });
-
-            reader.readAsDataURL(imageFile);
-        }
-
-        return { result, uploader };
-    }
-
-    const { result, uploader } = useDisplayImage();
-    console.log(result)
     const fetchPosts = async () => {
         // console.log(user._id);
         try {
@@ -86,44 +70,30 @@ const Profile = (props) => {
             const { data } = await axios.get("/api/posts/user", config);
             setPosts(data);
         } catch (error) {
-            alert("error occured")
+            alert("error occured while fetching posts")
         }
     };
-
-    // const [pic, setPic] = useState();
-
-    const handleProfilePic = async (e) => {
-        e.preventDefault()
-        const data = {
-            pic: result,
-        };
-        if (!result) {
-            alert('select image first')
-            return;
-        }
-        // console.log(pic);
+    const [userInfo, setUserInfo] = useState([]);
+    const handleUserInfo = async () => {
         try {
             const config = {
                 headers: {
                     Authorization: `Bearer ${user.token}`,
                 },
             };
-            const { data } = await axios.put(
-                "/api/user/",
-                data,
-                config
-            );
-            alert('Profile picture changed successful')
-        } catch (error) {
-            alert("error occured")
-        }
-    };
 
+            const { data } = await axios.get("/api/user/info", config);
+            setUserInfo(data);
+        } catch (error) {
+            alert('failed to load user info')
+        }
+    }
 
     useEffect(() => {
         setLoading(true)
         setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
         fetchPosts()
+        handleUserInfo()
         setLoading(false)
 
     }, []);
@@ -133,45 +103,46 @@ const Profile = (props) => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     }
-
-
+    //Avatar upload modal
+    const [openEditAvatar, setOpenEditAvatar] = React.useState(false);
+    const handleOpeEditAvatar = () => setOpenEditAvatar(true);
+    const handleCloseEditAvatar = () => setOpenEditAvatar(false);
 
     return (
         <div className='profile__container' >
-
-
             <div className="profile__banner">
                 <div className="profile__bannerUpload">
-                    <div className="profile__dropIcon">
-                        <svg
-                            svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42.672 42.672" className="ProfileBanner-dropIcon-jnp"><path d="M31.654,10.075C19.884,10.075,10,19.322,10,31.092A21.9,2
-                            1.9,0,0,0,31.654,52.747c11.77,0,21.017-9.884,21.017-21.654A20.807,20.807,0,0,0,31.654,10.075Zm10.19,24.2L31.654,43.83c-.156.156.22.637,0,.637s-.481-.481-.637-.637l-10.19-9.553c-.24-.239-.132-.325,0-.637s.3-.643.637-.637h6.369V18.992c0-.458.816-.637,1.274-.637h4.458c.458,0,1.274.179,1.274.637V33h6.369c.333,0,.512.328.637.637S42.081,34.041,41.845,34.277Z" transform="translate(-10 -10.075)"></path></svg>
-                        <p>Add a Banner Image</p>
+                    <img src="./images/banner.jpg" alt="banner" />
+                    {/* <div className="profile__dropIcon">
+                        <div>
+                            <UploadIcon style={{ fontSize: '30px' }} />
+                        </div>
                         <p>Optimal dimensions 3200 x 410px</p>
-                    </div>
+                    </div> */}
                 </div>
-
             </div>
             <div className="profile__mainContent">
                 <div className="profile__content">
                     <div className="profile__Left">
                         <div className="profile__User">
                             <div className="profile__UserInfo">
-
-                                {result && <Avatar ref={imageRef} src={result} alt="" />}
-
-                                <div className="editor__imageContainer">
-                                    <h3>Basic Information</h3>
-
-                                    <input type="file" name="image" onChange={(e) => {
-                                        setImage(e.target.files[0]);
-                                        uploader(e);
-                                    }} />
-                                    <button onClick={handleProfilePic} >Send</button>
+                                <Avatar src={userInfo.pic} onClick={handleOpeEditAvatar}/>
+                                {/* <div className="profile__editIcon" >
+                                    <i class="fa-sharp fa-solid fa-pen"></i>
+                                </div> */}
+                                <div className='profile__editIconAvatar'>
+                                    <Modal
+                                        open={openEditAvatar}
+                                        onClose={handleCloseEditAvatar}
+                                        aria-labelledby="modal-modal-title"
+                                        aria-describedby="modal-modal-description"
+                                    >
+                                        <EditAvatar />
+                                    </Modal>
                                 </div>
 
-
-                                <h2>Akshay Kumar</h2>
+                                <h2>{userInfo.name}</h2>
+                                <h3>{userInfo.email}</h3>
                                 <div className="profile__userLocation">
                                     <i className="fa-solid fa-location-dot" />
                                     <p>Location</p>
@@ -197,15 +168,16 @@ const Profile = (props) => {
                                     </ul>
                                 </div>
                                 <div className="profile_social">
-                                    <a href="#" target="_blank"><i className="fa-brands fa-facebook" style={{ 'color': "blue" }} ></i></a>
-                                    <a href="#" target="_blank"> <i className="fa-brands fa-linkedin" style={{ 'color': "#0077B5" }}></i></a>
-                                    <a href="#" target="_blank"><i className="fa-brands fa-youtube" style={{ 'color': "red" }}></i></a>
-                                    <a href="#" target="_blank"> <i className="fa-brands fa-twitter" style={{ 'color': `#1DA1F2` }}></i></a>
+                                    <a target="_blank"><i className="fa-brands fa-facebook" style={{ 'color': "blue" }} ></i></a>
+                                    <a target="_blank"> <i className="fa-brands fa-linkedin" style={{ 'color': "#0077B5" }}></i></a>
+                                    <a target="_blank"><i className="fa-brands fa-youtube" style={{ 'color': "red" }}></i></a>
+                                    <a target="_blank"> <i className="fa-brands fa-twitter" style={{ 'color': `#1DA1F2` }}></i></a>
 
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div className="profile__Right">
                         <div className="profile__mainUser">
                             <div className="profile__catogory">
@@ -227,7 +199,7 @@ const Profile = (props) => {
 
 
                                             {posts.map(post => (
-                                                <Post postImage={post.image.url} postName={post.title} hearts={post.hearts} views={post.views} shares={post.shares} />
+                                                <Post post={post} postImage={post.image.url} postName={post.title} hearts={post.hearts} views={post.views} shares={post.shares} />
                                             ))}
 
 
@@ -241,6 +213,7 @@ const Profile = (props) => {
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
 
