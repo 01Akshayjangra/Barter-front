@@ -52,6 +52,7 @@
     width: 100%;
     padding: 6px;
     background-color: rgb(28, 28, 28);
+    border: 1px solid pink;
 }
 
 .modal__header > a >.MuiAvatar-root {
@@ -77,18 +78,18 @@
 }
 
 /* modal body  */
-.modal__body {
+.modal__bodyMain {
     position: relative;
     background-color: white;
     display: flex;
     flex-flow: column nowrap;
-    /* overflow-y: scroll; */
     align-items: center;
     justify-content: center;
     width: 100%;
     height: max-content;
+    border: 3px solid greenyellow;
 }
-.modal__bodyImg{
+.modal__body{
     position: relative;
     background-color: white;
     width: 80%;
@@ -96,20 +97,34 @@
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
+    padding: 20px;
+    border: 1px solid rgb(6, 9, 6);
 }
-.modal__bodyImg > div{
-    height: fit-content;
-    width: fit-content;
-    border: 1px solid;
+.modal__body > img{
     border-radius: 10px;
-}
-.modal__bodyImg > div > img{
-    border-radius: 10px;
+    height: 95%;
+    width: 95%;
+    border: 1px solid red;
 }
 .modal__bodyDes{
-    height: 500px;
+    /* height: 500px; */
     width: 100%;
     background-color: white;
+}
+.modal__bodyPostMain{
+   height: 100%;
+   width: 100%;
+}
+.modal__bodyPosts{
+    border: 1px solid purple;
+    padding: 0 60px;
+    display: grid;
+    grid-gap: 36px;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    list-style: none;
+    margin-top: 30px;
+    border: 1px solid green;
+    width: 100%;
 }
 
 /* Right items  */
@@ -172,18 +187,4 @@
 /* Handle on hover */
 .ModalScrollbar::-webkit-scrollbar-thumb:hover {
 	background: #555;
-}
-
-
-
-/* post information   */
-.modal__info{
-    height: 800px;
-    width: 100%;
-    background-color: pink;
-}
-.modal__recommendations{
-    height: 800px;
-    width: 100%;
-    background-color: rgb(207, 255, 192);
 }

@@ -5,8 +5,8 @@
     display:grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
-    margin-top: 0px;
-    border:2px solid ;
+    margin-top: 100px;
+    /* border:2px solid ; */
 }
 .Footer_content1{
     padding:20px;

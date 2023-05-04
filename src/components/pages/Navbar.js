@@ -109,9 +109,12 @@ function Navbar() {
                             <MenuItem onClick={handleCloseNavMenu}>
 
                                 <NavLink to="/explore">Explore</NavLink>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseNavMenu}>
                                 <NavLink to="/blog">Blog</NavLink>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseNavMenu}>
                                 <NavLink to="/learn">Learn</NavLink>
-
                             </MenuItem>
 
                         </Menu>
