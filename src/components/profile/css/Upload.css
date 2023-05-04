@@ -1,3 +1,4 @@
+@media (min-width:490px){
 * {
     padding: 0px;
     margin: 0px
@@ -208,4 +209,82 @@
     left: 50%;
     transform: translate(-50%, -50%);
     outline: none;
+}}
+
+@media (max-width:767px){
+
+
+/* main - upload div  */
+.upload__mainBox {
+    display: flex;
+    flex-flow: column;
+    background-color: white;
+    height: 90vh;
+    padding: 30px 45px;
+}
+
+
+/* left side upload page  */
+
+.upload__left {
+    
+    width: 100%;
+}
+
+/* 1 - content upload icons  */
+.upload__leftContent {
+
+    width: 100%;
+    margin-bottom: 25px;
+    
+
+}
+
+
+.upload__leftHead {
+    text-align: center;
+    padding: 8px;
+    width: 100%;
+    color: rgb(83, 83, 83);
+    border-bottom: 1px solid #eee;
+    font-size: 18px;
+}
+
+.upload__leftContent ul {
+    display: flex;
+    flex-flow: row nowrap;
+    width: fit-content;
+}
+
+
+.upload__leftIcons {
+    position: relative;
+    border-right: 1px solid #eee;
+    width: 130px;
+    height: 150px;
+  
+
+}
+
+.upload__leftIcons>input {
+    position: absolute;
+    opacity: 0;
+    top: 0px;
+    right: 0px;
+    height: 100px;
+    width: 100%;
+    cursor: pointer;
+    background-color: white;
+}
+
+.upload__leftIcons .MuiSvgIcon-root {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+
+
+.upload__leftIcons>p {
+    font-size: 12px;
+}
 }

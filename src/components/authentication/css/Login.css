@@ -78,10 +78,12 @@
         display: flex;
         justify-content: space-between;
         width: 196px;
+    
     }
     .login__checkboxContent > a {
         color: white;
         cursor: pointer;
+        margin-left:120px;
     } 
     
     /* Button  */

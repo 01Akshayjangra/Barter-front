@@ -21,6 +21,11 @@ import UserProfile from './components/profile/UserProfle';
 import EditProfile from './components/profile/EditProfile';
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { createContext } from "react";
+import { Footer } from './components/pages/Footer';
+
+
+export const UserContext = createContext();
 
 
 const Routing = () => {
@@ -51,6 +56,7 @@ function App() {
 
           <Navbar/>
           <Routing />
+          <Footer/>
 
         </Router>
     </>

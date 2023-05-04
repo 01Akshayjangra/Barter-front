@@ -40,7 +40,7 @@
     overflow-y: scroll;
     align-items: center;
     width: 80vw;
-    height: 120vh;
+    height: 100%;
 }
 
 /* modal header   */
@@ -86,24 +86,31 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: min-content;
+    height: max-content;
 }
 .modal__bodyImg{
-    background-color: pink;
-    width: fit-content;
-    height: fit-content;
+    position: relative;
+    background-color: white;
+    width: 80%;
+    height: 100%;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    display: grid;
-    grid-template-columns: (repeat(1));
 }
-.modal__bodyImg > img{
+.modal__bodyImg > div{
     height: fit-content;
     width: fit-content;
-    /* margin: 12px; */
+    border: 1px solid;
+    border-radius: 10px;
 }
-
+.modal__bodyImg > div > img{
+    border-radius: 10px;
+}
+.modal__bodyDes{
+    height: 500px;
+    width: 100%;
+    background-color: white;
+}
 
 /* Right items  */
 .modal__rightContent{
