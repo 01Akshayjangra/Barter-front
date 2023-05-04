@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar, IconButton } from '@mui/material';
 import Post from '../profile/Post'
+import axios from 'axios';
+
 
 const MyModal = (props) => {
     const [posts, setPosts] = useState([
