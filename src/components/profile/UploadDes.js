@@ -98,7 +98,7 @@ const UploadSettings = (props) => {
             alert("error occured")
         }
     };
-
+ 
     const theme = useTheme();
 
     const handleToolsChange = (event) => {
