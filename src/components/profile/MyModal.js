@@ -46,27 +46,6 @@ const MyModal = (props) => {
             </div>
             <div className='popup__container'>
 
-<<<<<<< HEAD
-                <div className='modal__Main ModalScrollbar'>
-                    <div className="modal__header">
-                        <Link to='/explore'><Avatar src="./images/profile_logo.png" /></Link>
-                        <div className='modal__headerInfo'>
-                            <h1>{"Akshay Jangra"}</h1>
-                            <Link><p>{"Follow"}</p></Link>
-                        </div>
-                    </div>
-                    <div className="modal__body">
-                        <div className="modal__bodyImg">
-                            <div>
-                                <img src={postImage} alt="" />
-                            </div>
-                        </div>
-                        <div className="modal__bodyDes">
-                            <h1>hello</h1>
-                        </div>
-                    </div>
-                </div>
-=======
             <div className='modal__Main ModalScrollbar'>
                 <div className="modal__header">
                     <Link to='/explore'><Avatar src={post.userId.pic} /></Link>
@@ -81,7 +60,6 @@ const MyModal = (props) => {
                     </div>
                 </div>/
             </div>
->>>>>>> 834888563f795134033b7fbb22893c25ca2a7ecd
 
             </div>
 

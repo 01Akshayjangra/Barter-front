@@ -31,7 +31,6 @@
     background-color: white;
     position: sticky;
     z-index: 8;
-<<<<<<< HEAD
 }
 
 .logo {
@@ -180,14 +179,12 @@
   display: none;
 }
 
-
+}
 /* responsive css style  */
 @media (max-width: 1080px) {
   .main-nav {
     /* height: 8rem; */
     grid-template-columns: 2rem 0fr 3fr 1fr 2rem;
-=======
->>>>>>> 834888563f795134033b7fbb22893c25ca2a7ecd
   }
 
   .logo {
