@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import "./css/UploadDes.css"
 import { Link } from 'react-router-dom'
 import axios from "axios";
-import { ChatState } from '../../context/ChatProvider';
-
+import { ChatState } from '../context/ChatProvider';
 import { useTheme } from '@mui/material/styles';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -268,10 +267,10 @@ const UploadSettings = (props) => {
                                     <div>
                                         <input
                                             type="checkbox"
-                                            value={"Animation"}
+                                            value={"Mobile"}
                                             onChange={handleCheckboxChange}
                                         />
-                                        <p>Animation</p>
+                                        <p>Mobile</p>
                                     </div>
                                     <div>
                                         <input
@@ -306,16 +305,6 @@ const UploadSettings = (props) => {
                                             onChange={handleCheckboxChange}
                                         />
                                         <p>Illustration</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>
-                                        <input
-                                            type="checkbox"
-                                            value={"Mobile"}
-                                            onChange={handleCheckboxChange}
-                                        />
-                                        <p>Mobile</p>
                                     </div>
                                 </li>
                             </ul>

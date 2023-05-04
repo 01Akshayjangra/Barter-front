@@ -19,7 +19,7 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import { ChatState } from '../../context/ChatProvider';
+import { ChatState } from '../context/ChatProvider';
 
 export default function AccountMenu() {
   const { user } = ChatState();

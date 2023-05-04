@@ -6,8 +6,7 @@ import Filters from '../miscelleneous/Filters';
 import { useEffect, useState } from 'react';
 import HeroCarousel from './HeroCarousel';
 import axios from "axios";
-import { ChatState } from '../../context/ChatProvider';
-
+import { ChatState } from '../context/ChatProvider';
 const Explore = () => {
 
   const [loading, setLoading] = useState();

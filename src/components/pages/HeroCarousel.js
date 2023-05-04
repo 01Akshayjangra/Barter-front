@@ -2,7 +2,7 @@ import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { ChatState } from '../../context/ChatProvider';
+import { ChatState } from '../context/ChatProvider';
 import CircularProgress from '@mui/material/CircularProgress';
 
 export default function HeroCarousel() {
@@ -25,7 +25,6 @@ export default function HeroCarousel() {
                 aria-label="scrollable auto tabs example"
             > 
                 <Tab label="All" value="" />
-                <Tab label="Animation" value="Animation"/>
                 <Tab label="Branding" value="Branding"/>
                 <Tab label="Fashion Design" value="Fashion Design"/>
                 <Tab label="Graphic Design" value="Graphic Design"/>

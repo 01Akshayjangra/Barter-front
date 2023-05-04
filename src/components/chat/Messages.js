@@ -6,7 +6,7 @@ import { Avatar, IconButton } from '@mui/material';
 import SidebarChat from './SidebarChat';
 import Chat from './Chat';
 import axios from "axios";
-import { ChatState } from '../../context/ChatProvider';
+import { ChatState } from '../context/ChatProvider';
 import ChatLoading from "./ChatLoading";
 import Spinner from '../miscelleneous/Spinner';
 import MyChats from './MyChats';

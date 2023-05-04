@@ -5,7 +5,7 @@ import Search from './Search';
 import Spinner from '../miscelleneous/Spinner';
 import Filters from '../miscelleneous/Filters';
 import { useEffect, useState } from 'react';
-import { ChatState } from '../../context/ChatProvider';
+import { ChatState } from '../context/ChatProvider';
 import axios from "axios";
 import ChatLoading from '../chat/ChatLoading';
 

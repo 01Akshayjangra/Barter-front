@@ -20,13 +20,7 @@ import Profile from './components/profile/Profile';
 import UserProfile from './components/profile/UserProfle';
 import EditProfile from './components/profile/EditProfile';
 
-import {initialState, reducer } from '../src/context/UseReducer';
-import React, { useReducer } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { createContext } from "react";
-
-
-export const UserContext = createContext();
 
 
 const Routing = () => {

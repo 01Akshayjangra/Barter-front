@@ -13,7 +13,7 @@ import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom';
 import Post from './Post';
 import axios from "axios";
-import { ChatState } from '../../context/ChatProvider';
+import { ChatState } from '../context/ChatProvider';
 
 //modal
 import Modal from '@mui/material/Modal';

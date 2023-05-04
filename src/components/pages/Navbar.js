@@ -16,7 +16,7 @@ import "./css/Navbar.css"
 
 import { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
-import { ChatState } from '../../context/ChatProvider';
+import { ChatState } from '../context/ChatProvider';
 
 function Navbar() {
     const { user } = ChatState();
