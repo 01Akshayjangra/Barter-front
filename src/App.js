@@ -25,6 +25,7 @@ import {initialState, reducer } from '../src/context/UseReducer';
 import React, { useReducer } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createContext } from "react";
+import { Footer } from './components/pages/Footer';
 
 
 export const UserContext = createContext();
@@ -60,6 +61,7 @@ function App() {
 
           <Navbar/>
           <Routing />
+          <Footer/>
 
         </Router>
     </>

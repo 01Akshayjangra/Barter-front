@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+@media (min-width:490px){
+.Footer_main_box{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 0px;
+    border:2px solid ;
+}
+.Footer_content1{
+    padding:20px;
+}
+
+.Footer_content1 > h6{
+
+    font-size:20px;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom:10px;
+
+}
+.Footer_content1 > p{
+    font-size:10px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.Footer_content2{
+    padding:20px;
+}
+
+.Footer_content3{
+    padding:20px;
+}
+
+.login__formContainer > input {
+        width: 16vw;
+        border-bottom: 2px solid black;
+        border: none;
+        background: transparent;
+}
+
+.Footer_content4{
+    padding:20px;
+    
+}
+
+.Footer_content4 > div{
+    
+    font-size:20px;
+    margin-right: 10px;
+    
+}
+
+.Footer_last_content{
+    background-color: cyan;
+}
+
+
+.login__formContainer> button:hover{
+    color: black;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: transparent;
+    transition: 0.2s;
+}
+
+.login__formContainer ::placeholder{
+    color: rgba(219, 219, 219, 0.523);
+}
+}
+
+@media (max-width:767px){
+
+    .Footer_main_box{
+        display:grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+        margin-top: 0px;
+        border:2px solid ;
+    }
+    
+}

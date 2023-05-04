@@ -52,22 +52,28 @@ const MyModal = (props) => {
             </div>
             <div className='popup__container'>
 
-            <div className='modal__Main ModalScrollbar'>
-                <div className="modal__header">
-                    <Link to='/explore'><Avatar src="./images/profile_logo.png" /></Link>
-                    <div className='modal__headerInfo'>
-                        <h1>{"Akshay Jangra"}</h1>
-                        <Link><p>{"Follow"}</p></Link>
+                <div className='modal__Main ModalScrollbar'>
+                    <div className="modal__header">
+                        <Link to='/explore'><Avatar src="./images/profile_logo.png" /></Link>
+                        <div className='modal__headerInfo'>
+                            <h1>{"Akshay Jangra"}</h1>
+                            <Link><p>{"Follow"}</p></Link>
+                        </div>
+                    </div>
+                    <div className="modal__body">
+                        <div className="modal__bodyImg">
+                            <div>
+                                <img src={postImage} alt="" />
+                            </div>
+                        </div>
+                        <div className="modal__bodyDes">
+                            <h1>hello</h1>
+                        </div>
                     </div>
                 </div>
-                <div className="modal__body">
-                    <div className="modal__bodyImg">
-                        <img src={postImage} alt="" />
-                    </div>
-                </div>/
-            </div>
 
             </div>
+
         </>
     )
 }
