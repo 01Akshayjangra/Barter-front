@@ -67,7 +67,7 @@ const Profile = (props) => {
                 },
             };
 
-            const { data } = await axios.get("https://barter-backend.onrender.com/api/posts/user", config);
+            const { data } = await axios.get("/api/posts/user", config);
             setPosts(data);
         } catch (error) {
             alert("error occured while fetching posts")
@@ -82,7 +82,7 @@ const Profile = (props) => {
                 },
             };
 
-            const { data } = await axios.get("https://barter-backend.onrender.com/api/user/info", config);
+            const { data } = await axios.get("/api/user/info", config);
             setUserInfo(data);
         } catch (error) {
             alert('failed to load user info')

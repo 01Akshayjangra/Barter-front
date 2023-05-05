@@ -2,7 +2,7 @@
   "name": "barter",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://barter-backend.onrender.com",
+  "proxy": "http://127.0.0.1:5000",
   "dependencies": {
     "@chakra-ui/icons": "^2.0.19",
     "@chakra-ui/react": "^2.6.0",

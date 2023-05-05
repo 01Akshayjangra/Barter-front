@@ -13,20 +13,19 @@ const EditProfile = () => {
 
 
                 <div className="editor__body">
-                    <ul>
-                        <li className='editor__activeKey' ><Link className='editor__activeLink' >Basic Information</Link></li>
-                        <li><Link>On The Web</Link></li>
-                        <li><Link>About</Link></li>
-                        <li><Link>Work Experience</Link></li>
-                        <li><Link>+ Add a custom section </Link></li>
+                    <ul id="basicInfo" onClick="#basicInfo">
+                        <li className='editor__activeKey' >
+                            <Link to="#basicInfo">Basic Information</Link></li>
+                        <li><Link to="#about">About</Link></li>
+                        {/* <li onClick="customSection"><Link to="#customSection">+ Add a custom section </Link></li> */}
 
                     </ul>
                     <div className="editor__forContent">
 
                         <div class="editor__form-block">
 
-                            <div className='editor__basicInfo'>
-                                <div className='editor__form-item'>
+                            <div className='editor__basicInfo' id="basicInfo">
+                                <div className='editor__form-item' >
                                     <div >
                                         <label className="editor__label" for="first_name">First Name</label>
                                         <input className="editor__input " name="first_name" type="text" value="" data-validate="required, Generic" />
@@ -62,7 +61,7 @@ const EditProfile = () => {
                             </div>
                         </div>
 
-                        <div class="editor__form-block">
+                        <div class="editor__form-block" id="about">
                             <span style={{top: '-164px', paddingTop: '164px'}}></span>
                             <h3 style={{marginBottom: "12px"}} class="form-block-title">About</h3>
 
@@ -77,6 +76,21 @@ const EditProfile = () => {
                                 </div>
                             </div>
                         </div>
+                        {/* <div class="editor__form-block" id="customSection">
+                            <span style={{top: '-164px', paddingTop: '164px'}}></span>
+                            <h3 style={{marginBottom: "12px"}} class="form-block-title">Custom Section</h3>
+
+                            <div class="js-custom-section soc-custom-section">
+                                <div class="">
+                                    <label className="editor__label" for="sections-title-0"> Title</label>
+                                    <input className="editor__input "  name="sections-title-0" type="text" value="" maxlength="40" data-validate="optional,Generic"/>
+                                </div>
+                                <div >
+                                    <label className="editor__label" for="sections-body-0">Description</label>
+                                    <textarea class="editor___form-textarea" id="sections-body-0" name="sections-body-0" data-validate="optional,Generic"></textarea>
+                                </div>
+                            </div>
+                        </div> */}
                     </div>
 
                 </div>

@@ -5,9 +5,13 @@ import { Link } from 'react-router-dom';
 import { Avatar, IconButton } from '@mui/material';
 import Post from '../profile/Post'
 import axios from 'axios';
+import { ChatState } from '../context/ChatProvider';
 
 
 const MyModal = (props) => {
+    const { post, closeModal } = props;
+    const { user } = ChatState();
+
     const [posts, setPosts] = useState([
         {
             "image": {
@@ -495,15 +499,16 @@ const MyModal = (props) => {
             "__v": 0
         }
     ]);
+    console.log(post.userId._id)
     const followUser = async (userId, token) => {
         const config = {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${user.token}`
             }
         };
 
         try {
-            const res = await axios.post(`https://barter-backend.onrender.com/api/users/follow/${userId}`, config);
+            const res = await axios.post(`/api/user/follow`, post.userId._id, config);
             return res.data;
         } catch (err) {
             console.log(err);
@@ -514,12 +519,12 @@ const MyModal = (props) => {
     const unfollowUser = async (userId, token) => {
         const config = {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${user.token}`
             }
         };
 
         try {
-            const res = await axios.post(`https://barter-backend.onrender.com/api/users/unfollow/${userId}`, config);
+            const res = await axios.post(`/api/user/unfollow/${post.userId._id}`, config);
             return res.data;
         } catch (err) {
             console.log(err);
@@ -532,7 +537,6 @@ const MyModal = (props) => {
             document.body.style.overflowY = "scroll";
         };
     }, []);
-    const { post, closeModal } = props;
 
     return (
         <>
@@ -572,7 +576,8 @@ const MyModal = (props) => {
                         <Link to='/explore'><Avatar src={post.userId.pic} /></Link>
                         <div className='modal__headerInfo'>
                             <h1>{post.userId.name}</h1>
-                            <Link><p>{"Follow"}</p></Link>
+                            <p onClick={followUser}>Follow</p>
+                            <p onClick={unfollowUser} >unFollow</p>
                         </div>
                     </div>
                     <div className="modal__bodyMain">
