@@ -86,7 +86,7 @@ const UploadSettings = (props) => {
             };
 
             const response = await axios.post(
-                "/api/post",
+                "https://barter-backend.onrender.com/api/post",
                 data,
                 config
             );
@@ -98,7 +98,7 @@ const UploadSettings = (props) => {
             alert("error occured")
         }
     };
-
+ 
     const theme = useTheme();
 
     const handleToolsChange = (event) => {

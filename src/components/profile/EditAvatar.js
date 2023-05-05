@@ -45,7 +45,7 @@ const EditAvatar = () => {
                 },
             };
             const { data } = await axios.put(
-                "/api/user/",
+                "https://barter-backend.onrender.com/api/user/",
                 data,
                 config
             );

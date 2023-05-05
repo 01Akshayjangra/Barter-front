@@ -1,0 +1,269 @@
+[33mcommit 865e250d26c1f934bf98c30771931e5b506efa7b[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Thu May 4 21:35:22 2023 +0530
+
+    added render url
+
+[33mcommit b47cb2f6e95de112ba17f80306db8dc5f5dd589b[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Thu May 4 21:10:34 2023 +0530
+
+    ..
+
+[33mcommit 3238dc322e69987c0617ec2c3d353a0f2c06a487[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Thu May 4 20:19:09 2023 +0530
+
+    modal
+
+[33mcommit de58180baa0ba2516c05fc6a3ef00e480f41af0d[m
+Author: suryaprakash0506 <sprakashshukla03@gmail.com>
+Date:   Thu May 4 19:52:49 2023 +0530
+
+    follow unfollow
+
+[33mcommit 0c19190c08e11d68847235def481ecaa82be2bd7[m
+Author: suryaprakash0506 <sprakashshukla03@gmail.com>
+Date:   Thu May 4 15:42:47 2023 +0530
+
+    post pop up work
+
+[33mcommit 2dca1748d7528ecd98f6eb061b91495248ba556e[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Thu May 4 12:15:59 2023 +0530
+
+    BB
+
+[33mcommit 0e7747c5c2582b1ad7d18081784e38134b32e271[m
+Merge: 69f1a04 6c33e19
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Thu May 4 12:15:31 2023 +0530
+
+    Merge branch 'main' of https://github.com/01Akshayjangra/Barter-front
+
+[33mcommit 69f1a0495266af55edadf8427c8852c7aa38b190[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Thu May 4 12:10:12 2023 +0530
+
+    Remove Errors
+
+[33mcommit 6c33e194e4d7971a50e2927f85fe1088d3e75d4c[m
+Merge: dc4a565 8348885
+Author: suryaprakash0506 <sprakashshukla03@gmail.com>
+Date:   Thu May 4 11:51:24 2023 +0530
+
+    Merge branch '
+
+[33mcommit dc4a565a31cda677d7471be21567d36211b321bd[m
+Author: suryaprakash0506 <sprakashshukla03@gmail.com>
+Date:   Thu May 4 11:50:44 2023 +0530
+
+    changes
+
+[33mcommit 834888563f795134033b7fbb22893c25ca2a7ecd[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Thu May 4 11:44:42 2023 +0530
+
+    fileter added
+
+[33mcommit 76f0c076ab3741bff7218618ac281bd9ff24da78[m
+Merge: 5c17b2d 9f1753f
+Author: suryaprakash0506 <sprakashshukla03@gmail.com>
+Date:   Tue May 2 21:16:59 2023 +0530
+
+    Merge
+
+[33mcommit 4075e0d8f41472121fc8156f6dde1545bc230f51[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Tue May 2 13:03:58 2023 +0530
+
+    nav
+
+[33mcommit 5c17b2d4612e43e858651b35f3f0af1c464f03ca[m
+Author: suryaprakash0506 <sprakashshukla03@gmail.com>
+Date:   Tue May 2 12:55:08 2023 +0530
+
+    changes
+
+[33mcommit 9f1753f44ed4c3d4617fcb9f4f1371cb0ccac359[m
+Merge: 29f8482 a6ee1f0
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Tue May 2 12:06:45 2023 +0530
+
+    Merge branch 'main' of https://github.com/01Akshayjangra/Barter-front
+
+[33mcommit 29f848220aa90619ee026183e85ad65373f36fa7[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Tue May 2 12:06:31 2023 +0530
+
+    .
+
+[33mcommit a6ee1f03da98b524842934290ef6cfcedd08714f[m
+Author: Kushal rana <kushalrana448@gmail.com>
+Date:   Mon May 1 21:53:17 2023 +0530
+
+    navbar
+
+[33mcommit 0f49bf3e930b89306798e263606e1ecb69aa7f99[m
+Merge: 576134a 0d23b93
+Author: Kushal rana <kushalrana448@gmail.com>
+Date:   Mon May 1 21:51:17 2023 +0530
+
+    navbar
+
+[33mcommit 576134ab7257719aa291ebbc2473f5a577c2b1f3[m
+Author: Kushal rana <kushalrana448@gmail.com>
+Date:   Mon May 1 21:50:09 2023 +0530
+
+    navbar
+
+[33mcommit 0d23b9399ccfc30a49555ecb14a09cd6c3981ae8[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Mon May 1 21:42:07 2023 +0530
+
+    loading while upload
+
+[33mcommit e80848819979854cc1a2046b0e98a7e0b234e941[m
+Merge: a4f6f89 08f5cf2
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Mon May 1 21:17:41 2023 +0530
+
+    Merge branch 'main' of https://github.com/01Akshayjangra/Barter-front
+
+[33mcommit a4f6f8956886665aa8b2e79c9fe9be877df3f248[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Mon May 1 21:17:26 2023 +0530
+
+    tags split by comma
+
+[33mcommit 08f5cf2ecd689ff6f6fb5070d3056452f002595f[m
+Merge: 3ac78bb 07b2196
+Author: Kushal rana <kushalrana448@gmail.com>
+Date:   Mon May 1 15:56:35 2023 +0530
+
+    main
+
+[33mcommit 3ac78bbb033f4ad0fd94a871509e1b0ec98576e9[m
+Author: Kushal rana <kushalrana448@gmail.com>
+Date:   Mon May 1 15:54:10 2023 +0530
+
+    change
+
+[33mcommit 07b219637eac1b3052015005f83abee5fa0e8728[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Mon May 1 15:47:00 2023 +0530
+
+    Document format, upload
+
+[33mcommit 1ef0188237e6a26d540b6d5a626201197cc0603a[m
+Merge: 11fc875 6987aac
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Mon Apr 24 15:52:31 2023 +0530
+
+    Merge branch 'main' of https://github.com/01Akshayjangra/Barter-front
+
+[33mcommit 11fc875e49c0070ef1c147fe3dc0df65317834d3[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Mon Apr 24 15:51:04 2023 +0530
+
+    ........
+
+[33mcommit 6987aac63d079ddd58d5b7847341c218ed9926e2[m
+Merge: 0cec585 783073b
+Author: suryaprakash0506 <sprakashshukla03@gmail.com>
+Date:   Mon Apr 24 15:47:25 2023 +0530
+
+    Merge branch 'main' of https://github.com/01Akshayjangra/Barter-front
+
+[33mcommit 0cec585c95b15afbcf9c3868d8af0c40509c62b5[m
+Author: suryaprakash0506 <sprakashshukla03@gmail.com>
+Date:   Mon Apr 24 15:45:04 2023 +0530
+
+    ..
+
+[33mcommit 783073b2773519925c031505d148f5f8928b0649[m
+Merge: 7bfe1cb 77609ec
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Mon Apr 24 14:20:53 2023 +0530
+
+    Merge branch 'main' of https://github.com/01Akshayjangra/Barter-front
+
+[33mcommit 7bfe1cb878f43898aa1a55a67db837c5f53c41b5[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Mon Apr 24 14:19:51 2023 +0530
+
+    :-)
+
+[33mcommit 77609ec62b496713a3842baece9f41484ba6f4a1[m
+Merge: e672ab8 6f997b3
+Author: suryaprakash0506 <sprakashshukla03@gmail.com>
+Date:   Sun Apr 23 10:17:31 2023 +0530
+
+    Merge branch 'main'
+
+[33mcommit e672ab8be21bc34d2eaa278b0fee6497e79729e8[m
+Author: suryaprakash0506 <sprakashshukla03@gmail.com>
+Date:   Sun Apr 23 10:16:27 2023 +0530
+
+    changes made
+
+[33mcommit 6f997b319af592ef71509bd5fdef06fc454ee3c9[m
+Merge: fa6fe60 d6fe53a
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Sat Apr 22 15:31:46 2023 +0530
+
+    Merge branch 'main' of https://github.com/01Akshayjangra/Barter-front
+
+[33mcommit fa6fe6034c2e25090e100973de3d9377f27db9a9[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Sat Apr 22 15:31:33 2023 +0530
+
+    about section work and loading added
+
+[33mcommit d6fe53a5a44788ee49c0128798c721f91d42fa8c[m
+Author: suryaprakash0506 <sprakashshukla03@gmail.com>
+Date:   Sat Apr 22 10:22:07 2023 +0530
+
+    Change_to_login_signup
+
+[33mcommit c46f1bdfd8ad11bc9552f855f66d55cb6b1aab50[m
+Author: suryaprakash0506 <sprakashshukla03@gmail.com>
+Date:   Thu Apr 20 15:46:31 2023 +0530
+
+    check
+
+[33mcommit 02b4695a8214c0b12ef60eab6c8209bf1116b50e[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Thu Apr 20 15:29:01 2023 +0530
+
+    Navbar Change
+
+[33mcommit c648922593f015c7f504c1314cdd4fb09ae6455d[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Tue Apr 18 19:33:35 2023 +0530
+
+    Logo Changes
+
+[33mcommit 5e91cfad463a605365620794fbd802b4bd34e31c[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Fri Apr 14 12:36:09 2023 +0530
+
+    ll
+
+[33mcommit 80c48eec8b887f61b7896bdad95486486e0bb80e[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Fri Apr 14 12:05:03 2023 +0530
+
+    up
+
+[33mcommit 9e4f87e62e70593796c817f350108b8dce75aefa[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Tue Apr 11 22:46:46 2023 +0530
+
+    update
+
+[33mcommit 201c1781d227b7bf7a75f6cd073017d1a2b29e21[m
+Author: Akshay kumar <akshayjangra225@gmail.com>
+Date:   Tue Apr 11 22:09:19 2023 +0530
+
+    first commit

@@ -49,7 +49,7 @@ export default function AccountMenu() {
         },
       };
 
-      const { data } = await axios.get("/api/user/info", config);
+      const { data } = await axios.get("https://barter-backend.onrender.com/api/user/info", config);
       setUserInfo(data);
     } catch (error) {
       alert('failed to load user info')
