@@ -100,6 +100,7 @@
     padding: 20px;
     /* border: 1px solid rgb(6, 9, 6); */
 }
+
 .modal__body > img{
     border-radius: 10px;
     height: 95%;
@@ -107,8 +108,9 @@
     /* border: 1px solid red; */
 }
 /* Title  */
-.modal__bodyTitle{
-
+.modal__bodyTitle > p{
+        
+        font-size:25px;
 }
 
 /* description  */
@@ -116,6 +118,16 @@
     /* height: 500px; */
     width: 100%;
     background-color: white;
+}
+.modal_tools{
+    margin-top: 10px;
+}
+.modal_tools > h4{
+    font-size:15px;
+
+}
+.modal__bodyDes> p{
+    font-size:20px;
 }
 .modal__bodyPostMain{
    height: 100%;
@@ -135,8 +147,8 @@
 
 /* Right items  */
 .modal__rightContent{
-    position: fixed;
-    top: 18%;
+    position:absolute;
+    top: 70%;
     right: 26px;
     background-color: transparent;
     display: flex;
@@ -194,3 +206,14 @@
 .ModalScrollbar::-webkit-scrollbar-thumb:hover {
 	background: #555;
 }
+
+
+@media (max-width:767px){
+
+    .modal_tools > h4{
+        margin-left: 10px;
+    
+    }
+
+}
+    

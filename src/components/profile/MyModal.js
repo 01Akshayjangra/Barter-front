@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar, IconButton } from '@mui/material';
 import Post from '../profile/Post'
-
+import axios from 'axios';
 const MyModal = (props) => {
     const [posts, setPosts] = useState([
         {
@@ -576,7 +576,7 @@ const MyModal = (props) => {
                     <div className="modal__bodyMain">
                         <div className="modal__body">
                             <div className='modal__bodyTitle'>
-                                <h1>Title</h1>
+                                {/* <h1>Title</h1> */}
                                 <p>{post.title}</p>
                             </div>
                         </div>
@@ -585,12 +585,29 @@ const MyModal = (props) => {
                         </div>
                         <div className="modal__body">
                             <div className='modal__bodyDes'>
-                                <h1>Description</h1>
+                                {/* <h1>Description</h1> */}
                                 <p>{post.description}</p>
                             </div>
                         </div>
+                        <div class="modal_tools"> <h4>Tools Used -  {post.tools}</h4>
+</div>
                         {/* {post.tags} */}
-                        {post.tools}
+                        
+                        <div className="modal__body">
+                            <div className='modal__bodyPostMain'>
+
+                                <h1>More by {post.userId}</h1>
+                                <button>View Profile</button>
+                                <div className='modal__bodyPosts'>
+
+                                    {posts.map(post => (
+                                        <Post
+                                            key={post._id}
+                                            post={post} />
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
                         <div className="modal__body">
                             <div className='modal__bodyPostMain'>
 
