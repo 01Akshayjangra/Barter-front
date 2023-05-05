@@ -50,7 +50,7 @@ const EditProfile = () => {
                                 </div>
                                 <div >
                                     <label className="editor__label" for="company">City</label>
-                                    <input style={{ width: '40%' }} className="editor__input " name="company" type="text" value="" maxlength="40" data-validate="optional,Generic" />
+                                     <input style={{ width: '40%' }} className="editor__input " name="company" type="text" value="" maxlength="40" data-validate="optional,Generic" />
                                 </div>
                                 <div>
                                     <div>
