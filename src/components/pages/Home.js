@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { ChatState } from '../context/ChatProvider';
 import axios from "axios";
 import ChatLoading from '../chat/ChatLoading';
-import URL from '../api/Api';
+import { Footer } from './Footer';
 
 const Home = () => {
 	const [loading, setLoading] = useState();
@@ -51,6 +51,7 @@ const Home = () => {
 					<ChatLoading />
 				)
 			}
+			<Footer/>
 		</>
 	);
 };

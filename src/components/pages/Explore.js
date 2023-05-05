@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import HeroCarousel from './HeroCarousel';
 import axios from "axios";
 import { ChatState } from '../context/ChatProvider';
+import { Footer } from './Footer';
 const Explore = () => {
 
   const [loading, setLoading] = useState();
@@ -59,7 +60,9 @@ const Explore = () => {
           ))}
         </div>
       </div>
+      <Footer/>
     </>
+
   )
 }
 

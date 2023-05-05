@@ -21,28 +21,20 @@ const AfterLogin = () => {
 
     return (
         <>
-            <ul className="social-media-desktop">
+            <ul className="afterLogin__ul">
 
-                <li className="nav-right-li">
-                    <Link className="nav-link" to="/message">
+                <li className="afterLogin__li  ">
+                    <Link to="/message">
                         <i className="fa-solid fa-message" />
                     </Link>
                 </li>
+                <li className="afterLogin__li">
+                    <div>
 
-                <li className="nav-right-li notify_li">
-                    <Link className="nav-link notify_btn" to="#" onClick={() => setShowNotification(!showNotification)}>
-                        <i className="fa-solid fa-bell" />
-                        {/* <div
-                            className={showNotification ? "div_notify_hide" : "div_notify"}>
-                            <Notification />
-                        </div> */}
-                    </Link>
-                </li>
-
-                <li className="nav-right-li">
-                    <Link className="nav-link nav-upload" to="/upload">
-                        Upload
-                    </Link>
+                        <Link to="/upload">
+                            Upload
+                        </Link>
+                    </div>
                 </li>
 
                 <AccountMenu />
@@ -53,3 +45,15 @@ const AfterLogin = () => {
 }
 
 export default AfterLogin
+
+{/* <ul className='afterLogin__ul'>
+
+<li className="nav-right-li">
+    <Link className="nav-link nav-upload" to="/upload">
+        Upload
+    </Link>
+</li>
+
+<AccountMenu />
+
+</ul> */}
