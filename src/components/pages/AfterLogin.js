@@ -23,7 +23,7 @@ const AfterLogin = () => {
         <>
             <ul className="afterLogin__ul">
 
-                <li className="afterLogin__li afterLogin__liHide ">
+                <li className="afterLogin__li  ">
                     <Link to="/message">
                         <i className="fa-solid fa-message" />
                     </Link>
