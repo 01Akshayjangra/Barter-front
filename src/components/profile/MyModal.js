@@ -597,9 +597,9 @@ const MyModal = (props) => {
                             </div>
                         </div>
                         <div class="modal_tools"> <h4>Tools Used -  {post.tools}</h4>
-</div>
+                        </div>
                         {/* {post.tags} */}
-                        
+
                         <div className="modal__body">
                             <div className='modal__bodyPostMain'>
 
@@ -629,7 +629,7 @@ const MyModal = (props) => {
                                 </div>
                             </div>
                         </div>
-                    </div>/
+                    </div>
                 </div>
 
             </div>

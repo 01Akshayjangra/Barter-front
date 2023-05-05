@@ -30,7 +30,7 @@ const Explore = () => {
 
 
   const fetchPosts = async () => {
-    const res = await axios.get(`https://barter-backend.onrender.com/api/posts?category=${selectedCategory}`);
+    const res = await axios.get(`/api/posts?category=${selectedCategory}`);
     setPosts(res.data);
   }
 

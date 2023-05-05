@@ -1,12 +1,13 @@
 import React from 'react'
-import "./css/Post.css"
+
 import { Avatar, IconButton } from '@mui/material';
 import { useState } from 'react';
-import MyModal from './MyModal';
+
+import "./css/Post.css"
 import "./css/Modal.css"
-import Button from '@mui/material/Button';
+
+import MyModal from './MyModal';
 import Tooltip from '@mui/material/Tooltip';
-import PostDrawer from './PostDrawer';
 
 const AvatarHover = (props) => {
     return(
@@ -20,7 +21,7 @@ const AvatarHover = (props) => {
 }
 
 const Post = (props) => {
-    const {post, postAvatar, postImage, postName, views, hearts, shares } = props;
+    const {post} = props;
 
     const [showModal, setShowModal] = useState(false);
     const closeModal = () => setShowModal(false);
