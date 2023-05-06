@@ -56,44 +56,56 @@ const Profile = (props) => {
     const [loggedUser, setLoggedUser] = useState();
     const [loading, setLoading] = useState(true)
     const [posts, setPosts] = useState([]);
+    const [userInfo, setUserInfo] = useState([]);
+
     const { user } = ChatState();
+    console.log(user)
 
     const fetchPosts = async () => {
         // console.log(user._id);
         try {
+            if(!user.token){
+                alert("token not found")
+                return;
+            }
             const config = {
                 headers: {
+                    'Content-Type': 'application/json',
                     Authorization: `Bearer ${user.token}`,
                 },
             };
 
-            const { data } = await axios.get("https://barter-backend.onrender.com/api/posts/user", config);
+            const { data } = await axios.get("/api/posts/user", config);
             setPosts(data);
         } catch (error) {
-            alert("error occured while fetching posts")
+            // alert("error occured while fetching posts")
         }
     };
-    const [userInfo, setUserInfo] = useState([]);
     const handleUserInfo = async () => {
         try {
+            if(!user.token){
+                alert("token not found")
+                return;
+            }
             const config = {
                 headers: {
+                    'Content-Type': 'application/json',
                     Authorization: `Bearer ${user.token}`,
                 },
             };
 
-            const { data } = await axios.get("https://barter-backend.onrender.com/api/user/info", config);
+            const { data } = await axios.get("/api/user/profile", config);
             setUserInfo(data);
         } catch (error) {
-            alert('failed to load user info')
+            // alert('failed to load user info')
         }
     }
 
     useEffect(() => {
         setLoading(true)
         setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
-        fetchPosts()
         handleUserInfo()
+        fetchPosts()
         setLoading(false)
 
     }, []);
@@ -113,12 +125,6 @@ const Profile = (props) => {
             <div className="profile__banner">
                 <div className="profile__bannerUpload">
                     <img src="./images/banner.jpg" alt="banner" />
-                    {/* <div className="profile__dropIcon">
-                        <div>
-                            <UploadIcon style={{ fontSize: '30px' }} />
-                        </div>
-                        <p>Optimal dimensions 3200 x 410px</p>
-                    </div> */}
                 </div>
             </div>
             <div className="profile__mainContent">
@@ -127,15 +133,10 @@ const Profile = (props) => {
                         <div className="profile__User">
                             <div className="profile__UserInfo">
                                 <Avatar src={userInfo.pic} onClick={handleOpeEditAvatar}/>
-                                {/* <div className="profile__editIcon" >
-                                    <i class="fa-sharp fa-solid fa-pen"></i>
-                                </div> */}
                                 <div className='profile__editIconAvatar'>
                                     <Modal
                                         open={openEditAvatar}
                                         onClose={handleCloseEditAvatar}
-                                        aria-labelledby="modal-modal-title"
-                                        aria-describedby="modal-modal-description"
                                     >
                                         <EditAvatar />
                                     </Modal>
@@ -149,13 +150,13 @@ const Profile = (props) => {
                                 </div>
                                 <Link to="/editor" >
                                     <div className="profile__editInfo">
-                                        {/* <EditIcon /> */}
+                                        <EditIcon />
                                         <p>Edit Your Profile</p>
                                     </div>
                                 </Link>
                                 <Link to="/upload" >
                                     <div className="profile__createPost">
-                                        {/* <EditIcon /> */}
+                                        <EditIcon />
                                         <p>Create New Post</p>
                                     </div>
                                 </Link>
@@ -172,7 +173,6 @@ const Profile = (props) => {
                                     <a target="_blank"> <i className="fa-brands fa-linkedin" style={{ 'color': "#0077B5" }}></i></a>
                                     <a target="_blank"><i className="fa-brands fa-youtube" style={{ 'color': "red" }}></i></a>
                                     <a target="_blank"> <i className="fa-brands fa-twitter" style={{ 'color': `#1DA1F2` }}></i></a>
-
                                 </div>
                             </div>
                         </div>
@@ -199,7 +199,7 @@ const Profile = (props) => {
 
 
                                             {posts.map(post => (
-                                                <Post post={post} postImage={post.image.url} postName={post.title} hearts={post.hearts} views={post.views} shares={post.shares} />
+                                                <Post key={post._useid} post={post} postImage={post.image.url} postName={post.title} hearts={post.hearts} views={post.views} shares={post.shares} />
                                             ))}
 
 

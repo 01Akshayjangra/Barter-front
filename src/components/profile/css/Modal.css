@@ -71,10 +71,11 @@
     font-size: 20px;
     font-weight: 500;
 }
-.modal__headerInfo > a > p{
+.modal__headerInfo > p{
     font-size: 12px;
     font-weight: 500;
     color: white;
+    cursor: pointer;
 }
 
 /* modal body  */

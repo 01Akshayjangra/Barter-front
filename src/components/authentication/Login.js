@@ -32,7 +32,7 @@ const Login = () => {
       };
 
       const { data } = await axios.post(
-        "https://barter-backend.onrender.com/api/user/login",
+        "/api/user/login",
         { email, password },
         config
       );
