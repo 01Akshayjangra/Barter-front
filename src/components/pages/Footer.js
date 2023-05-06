@@ -6,34 +6,18 @@ export const Footer = () => {
     return (
         <>
             <div className="Footer_main_box">
-
-
-<<<<<<< HEAD
-            <div class="Footer_content1">
-            <img
-                                            className="Footer_logo-img"
-                                            src="./images/barter.png"
-                                            alt=""
-                                            style={{ height: '30px' }}
-                                        />
-                <p>
-                Barter is a platform where creatives showcase their work and connect with clients worldwide. It aims to be the go-to destination for top-notch design and creativity while fostering collaboration and innovation among a global community of professionals.
-                </p>
-                
-                    <div class="Footer_content_icons">
-=======
-                <div className="Footer_content1">
-                    <h1>
-                        Barter
-                    </h1>
+                <div class="Footer_content1">
+                    <img
+                        className="Footer_logo-img"
+                        src="./images/barter.png"
+                        alt=""
+                        style={{ height: '30px' }}
+                    />
                     <p>
-                        Here you can use rows and columns to organize your footer
-                        content. Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit.
+                        Barter is a platform where creatives showcase their work and connect with clients worldwide. It aims to be the go-to destination for top-notch design and creativity while fostering collaboration and innovation among a global community of professionals.
                     </p>
 
-                    <div className="Footer_content_icons">
->>>>>>> 94aee12ca91f2d93641c3a0776a911ad20e9f886
+                    <div class="Footer_content_icons">
                         <a href="#" target="_blank"><i className="fa-brands fa-facebook" style={{ 'color': "blue" }} ></i></a>
                         <a href="#" target="_blank"> <i className="fa-brands fa-linkedin" style={{ 'color': "#0077B5" }}></i></a>
                         <a href="#" target="_blank"><i className="fa-brands fa-youtube" style={{ 'color': "red" }}></i></a>
@@ -50,8 +34,6 @@ export const Footer = () => {
                         <Link to="/learn">Learn</Link>
                     </div>
                 </div>
-
-
 
                 <div className="Footer_content3">
                     <h1>Contact Us</h1>
@@ -81,7 +63,8 @@ export const Footer = () => {
 
             <div className="Footer_last_content">
                 <h3> © 2023 Copyright:
-                    <a className="text-white" href="#">Barter</a></h3>
+                    <a className="text-white" href="#">Barter</a>
+                </h3>
             </div>
         </>
     )
