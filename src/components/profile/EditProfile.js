@@ -3,6 +3,9 @@ import "./css/EditProfile.css"
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { ChatState } from '../context/ChatProvider';
+import { useNavigate } from 'react-router-dom';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const EditProfile = () => {
     const [firstname, setFirstname] = useState('');
@@ -14,11 +17,14 @@ const EditProfile = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
 
+    const [open, setOpen] = React.useState(false);
     const { user } = ChatState();
 
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setOpen(true);
         const config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -37,13 +43,17 @@ const EditProfile = () => {
         };
         try {
             const res = await axios.post('/api/user/about', data, config);
-            console.log(res.data);
+            // console.log(res.data);
+            setOpen(false);
+            navigate('/profile')
         } catch (err) {
+            setOpen(false);
             console.error(err);
         }
     };
     return (
         <div>
+           
             <div className="editor__head">
                 <Link to="/profile">Back to Profile</Link>
                 <div onClick={handleSubmit} ><p>Save</p> <i className="fa-solid fa-arrow-up-from-bracket"></i></div>
@@ -104,9 +114,9 @@ const EditProfile = () => {
                                 <div >
                                     <label className="editor__label">Country</label>
                                     <input style={{ width: '40%' }} className="editor__input"
-                                    type="text"
-                                    value={country} 
-                                    onChange={(e) => setCountry(e.target.value)} />
+                                        type="text"
+                                        value={country}
+                                        onChange={(e) => setCountry(e.target.value)} />
                                 </div>
                                 <div >
                                     <label
@@ -129,7 +139,7 @@ const EditProfile = () => {
                                     <label className="editor__label">Section Title</label>
                                     <input className="editor__input "
                                         type="text"
-                                        value={title} 
+                                        value={title}
                                         onChange={(e) => setTitle(e.target.value)}
                                     />
                                 </div>
@@ -143,25 +153,17 @@ const EditProfile = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* <div className="editor__form-block" id="customSection">
-                            <span style={{top: '-164px', paddingTop: '164px'}}></span>
-                            <h3 style={{marginBottom: "12px"}} className="form-block-title">Custom Section</h3>
-
-                            <div className="js-custom-section soc-custom-section">
-                                <div className="">
-                                    <label className="editor__label" for="sections-title-0"> Title</label>
-                                    <input className="editor__input "  name="sections-title-0" type="text" value="" maxlength="40" data-validate="optional,Generic"/>
-                                </div>
-                                <div >
-                                    <label className="editor__label" for="sections-body-0">Description</label>
-                                    <textarea className="editor___form-textarea" id="sections-body-0" name="sections-body-0" data-validate="optional,Generic"></textarea>
-                                </div>
-                            </div>
-                        </div> */}
                     </div>
 
                 </div>
             </div>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={open}
+                onClick={handleSubmit}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </div>
     )
 }

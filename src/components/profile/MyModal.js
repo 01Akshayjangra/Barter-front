@@ -11,6 +11,7 @@ import { ChatState } from '../context/ChatProvider';
 const MyModal = (props) => {
     const { post, closeModal } = props;
     const { user } = ChatState();
+    const [follow, setFollow] = useState(false);
 
     const [posts, setPosts] = useState([
         {
@@ -509,6 +510,7 @@ const MyModal = (props) => {
 
         try {
             const res = await axios.post(`/api/user/follow`, post.userId._id, config);
+            setFollow(true);
             return res.data;
         } catch (err) {
             console.log(err);
@@ -525,6 +527,7 @@ const MyModal = (props) => {
 
         try {
             const res = await axios.post(`/api/user/unfollow/${post.userId._id}`, config);
+            setFollow(false);
             return res.data;
         } catch (err) {
             console.log(err);
@@ -576,8 +579,12 @@ const MyModal = (props) => {
                         <Link to='/explore'><Avatar src={post.userId.pic} /></Link>
                         <div className='modal__headerInfo'>
                             <h1>{post.userId.name}</h1>
-                            <p onClick={followUser}>Follow</p>
-                            <p onClick={unfollowUser} >unFollow</p>
+                            {follow ? (
+                                <p onClick={unfollowUser}>Unfollow</p>
+                            ) : (
+                                <p onClick={followUser}>Follow</p>
+                            )}
+
                         </div>
                     </div>
                     <div className="modal__bodyMain">
@@ -596,14 +603,14 @@ const MyModal = (props) => {
                                 <p>{post.description}</p>
                             </div>
                         </div>
-                        <div class="modal_tools"> <h4>Tools Used -  {post.tools}</h4>
+                        <div className="modal_tools"> <h4>Tools Used -  {post.tools}</h4>
                         </div>
                         {/* {post.tags} */}
 
-                        <div className="modal__body">
+                        {/* <div className="modal__body">
                             <div className='modal__bodyPostMain'>
 
-                                <h1>More by {post.userId}</h1>
+                                <h1>More by {post.userId.name}</h1>
                                 <button>View Profile</button>
                                 <div className='modal__bodyPosts'>
 
@@ -614,7 +621,7 @@ const MyModal = (props) => {
                                     ))}
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="modal__body">
                             <div className='modal__bodyPostMain'>
 
