@@ -62,7 +62,7 @@ const Explore = () => {
       </div>
       <Footer/>
     </>
-
+  
   )
 }
 
