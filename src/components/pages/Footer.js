@@ -8,7 +8,6 @@ export const Footer = () => {
             <div className="Footer_main_box">
 
 
-<<<<<<< HEAD
             <div class="Footer_content1">
             <img
                                             className="Footer_logo-img"
@@ -21,19 +20,6 @@ export const Footer = () => {
                 </p>
                 
                     <div class="Footer_content_icons">
-=======
-                <div className="Footer_content1">
-                    <h1>
-                        Barter
-                    </h1>
-                    <p>
-                        Here you can use rows and columns to organize your footer
-                        content. Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit.
-                    </p>
-
-                    <div className="Footer_content_icons">
->>>>>>> 94aee12ca91f2d93641c3a0776a911ad20e9f886
                         <a href="#" target="_blank"><i className="fa-brands fa-facebook" style={{ 'color': "blue" }} ></i></a>
                         <a href="#" target="_blank"> <i className="fa-brands fa-linkedin" style={{ 'color': "#0077B5" }}></i></a>
                         <a href="#" target="_blank"><i className="fa-brands fa-youtube" style={{ 'color': "red" }}></i></a>
