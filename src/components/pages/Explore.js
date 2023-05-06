@@ -13,42 +13,31 @@ const Explore = () => {
   const [loading, setLoading] = useState();
   const [posts, setPosts] = useState([]);
   const { selectedCategory } = ChatState();
-  // useEffect(() => {
-  //   setLoading(true); // set loading to true before the fetch request is initiated
-
-  //   fetch('/api/post', {
-  //     method: 'GET',
-  //     headers: { 'Content-Type': 'application/json' }
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       setPosts(data);
-  //       setLoading(false); // set loading to false after the data is fetched
-  //     })
-  //     .catch(error => console.error(error));
-  // }, []);
-
 
   const fetchPosts = async () => {
+    setLoading(true);
     const res = await axios.get(`/api/posts?category=${selectedCategory}`);
+    setLoading(false);
     setPosts(res.data);
   }
 
   useEffect(() => {
-    setLoading(true);
     fetchPosts()
-    setLoading(false);
-  }, [fetchPosts]);
+  }, []);
 
+  if (loading) {
+    return <Spinner />;
+  }
+  
   return (
     <>
       <div className="explore__container">
 
         <div className="explore__carousel">
           <HeroCarousel />
+          <Filters />
         </div>
 
-        <Filters />
 
         <div style={{ textAlign: 'center', marginTop: '10px' }} >
           {loading && <Spinner />}
@@ -60,7 +49,7 @@ const Explore = () => {
           ))}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
 
   )

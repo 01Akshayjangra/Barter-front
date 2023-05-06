@@ -550,7 +550,7 @@ const MyModal = (props) => {
 
                 <div className="modal__item">
                     <IconButton className='modal__itemIcon'>
-                        <Link to='/explore'><Avatar src={post.userId.pic} /></Link>
+                        <Link to='/explore'><Avatar src={post.userId.pic.url} /></Link>
                     </IconButton>
                 </div>
                 <div className="modal__item">
@@ -576,7 +576,7 @@ const MyModal = (props) => {
 
                 <div className='modal__Main ModalScrollbar'>
                     <div className="modal__header">
-                        <Link to='/explore'><Avatar src={post.userId.pic} /></Link>
+                        <Link to='/explore'><Avatar src={post.userId.pic.url} /></Link>
                         <div className='modal__headerInfo'>
                             <h1>{post.userId.name}</h1>
                             {follow ? (

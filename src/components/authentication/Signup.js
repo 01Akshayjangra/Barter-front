@@ -7,6 +7,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import axios from "axios";
 
 const Signup = () => {
+const navigate = useNavigate();
+
   const [open, setOpen] = React.useState(false);
   const [userRes, setUserRes] = useState("");
   const [pic, setPic] = useState();
@@ -39,7 +41,7 @@ const Signup = () => {
       };
 
       const { data } = await axios.post(
-        "/api/user/",
+        "/api/user",
         {
           name,
           email,
@@ -53,6 +55,7 @@ const Signup = () => {
       // console.log(data);
 
       alert('register successful')
+      navigate('/login')
       localStorage.setItem("userInfo", JSON.stringify(data));
       setOpen(false);
       // history.push("/chats");

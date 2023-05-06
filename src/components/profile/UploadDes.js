@@ -49,6 +49,7 @@ const UploadSettings = (props) => {
     const [formData, setFormData] = useState({
         image: srcImg,
     });
+    console.log(srcImg)
 
     const handleCheckboxChange = (e) => {
         const itemId = e.target.value;
@@ -86,7 +87,7 @@ const UploadSettings = (props) => {
             };
 
             const response = await axios.post(
-                "https://barter-backend.onrender.com/api/post",
+                "/api/post",
                 data,
                 config
             );

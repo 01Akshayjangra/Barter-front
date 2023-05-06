@@ -17,13 +17,14 @@ export default function HeroCarousel() {
     return (
         <>
         
-        <Box sx={{ maxWidth: { xs: 320, sm: 1000 }, bgcolor: 'background.paper' }}>
+        <Box sx={{ maxWidth: { xs: 250, sm: 1000 }, bgcolor: 'background.paper' }} style={{height: '50px', borderRadius: '20px'}}>
             <Tabs
                 value={selectedCategory}
                 onChange={handleChange}
                 variant="scrollable"
                 scrollButtons="auto"
                 aria-label="scrollable auto tabs example"
+                style={{height: '50px', display: 'flex', alignItems: 'center',fontSize: '20px' }}
             > 
                 <Tab label="All" value="" />
                 <Tab label="Branding" value="Branding"/>

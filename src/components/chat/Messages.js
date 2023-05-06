@@ -18,6 +18,8 @@ const Messages = () => {
 	const [searchResult, setSearchResult] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [loadingChat, setLoadingChat] = useState(false);
+	const [userInfo, setUserInfo] = useState([]);
+
 	const {
 		setSelectedChat,
 		user,
@@ -40,12 +42,12 @@ const Messages = () => {
 				},
 			};
 
-			const { data } = await axios.get(`https://barter-backend.onrender.com/api/user?search=${search}`, config);
+			const { data } = await axios.get(`/api/user?search=${search}`, config);
 
 			setLoading(false);
 			setSearchResult(data);
 		} catch (error) {
-			alert("Failed to load the search Results")
+			// alert("Failed to load the search Results")
 		}
 	}
 
@@ -58,13 +60,13 @@ const Messages = () => {
 					Authorization: `Bearer ${user.token}`,
 				},
 			};
-			const { data } = await axios.post(`https://barter-backend.onrender.com/api/chat`, { userId }, config);
+			const { data } = await axios.post(`/api/chat`, { userId }, config);
 
 			if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
 			setSelectedChat(data);
 			setLoadingChat(false);
 		} catch (error) {
-			alert(error)
+			// alert(error)
 		}
 	}
 	const [loggedUser, setLoggedUser] = useState();
@@ -74,6 +76,7 @@ const Messages = () => {
 	const fetchChats = async () => {
 		// console.log(user._id);
 		try {
+			setLoading(true)
 			const config = {
 				headers: {
 					Authorization: `Bearer ${user.token}`,
@@ -84,22 +87,52 @@ const Messages = () => {
 			console.log(data)
 			setChats(data);
 		} catch (error) {
-			alert('failed to load chats')
+			// alert('failed to load chats')
 		}
 	};
 
+	const handleUserInfo = async () => {
+        try {
+            if(!user.token){
+                alert("token not found")
+                return;
+            }
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            };
+
+            const { data } = await axios.get("/api/user/profile", config);
+			setLoading(false)
+            setUserInfo(data);
+        } catch (error) {
+            // alert('failed to load user info')
+        }
+    }
+
+
 	useEffect(() => {
+		
 		setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
 		fetchChats();
+		handleUserInfo()
+		
 		// eslint-disable-next-line
 	}, []);
+
+	if (loading) {
+        return <Spinner/> ;
+      }
+    
 	return (
 		<div className="message">
 			<div className="message-body">
 
 				<div className="message-sidebar">
 					<div className="message-sidebar__header">
-						<Avatar src="../images/barter.png" />
+						<Avatar src={userInfo.pic} />
 						<div className="message-sidebar__headerRight">
 							<IconButton>
 								<DonutLargeIcon />
@@ -137,15 +170,17 @@ const Messages = () => {
 									handleFunction={() => accessChat(user._id)}
 								/>))
 						)}
+						
 						{loadingChat && <Spinner />}
 						{console.log(chats)}
 						{chats ? (
 							chats.map((chat) => (
-
+								
 								<div className='sidebarChat'
-									onClick={() => setSelectedChat(chat)}
-									key={chat._id}
+								onClick={() => setSelectedChat(chat)}
+								key={chat._id}
 								>
+									{console.log(chat)}
 									<Avatar src={chat.users[0].pic} />
 									<div className="sidebarChat__info">
 										<h2>
@@ -158,9 +193,7 @@ const Messages = () => {
 								</div>
 							))
 						) : (
-
 							<ChatLoading />
-
 						)}
 					</div>
 				</div>

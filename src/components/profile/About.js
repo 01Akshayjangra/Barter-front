@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ChatState } from '../context/ChatProvider';
+import Spinner from '../miscelleneous/Spinner';
 
 const About = () => {
   const [loading, setLoading] = useState(true);
-  const {user, aboutData, setAboutData} = ChatState()
+  const { user, aboutData, setAboutData } = ChatState()
 
   useEffect(() => {
     const fetchAboutData = async () => {
@@ -31,7 +32,7 @@ const About = () => {
   }, []);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Spinner/> ;
   }
 
   return (
@@ -39,23 +40,33 @@ const About = () => {
       {aboutData ? (
         <div>
           <div>
-            <h1>Name</h1>
-          <p>{aboutData.firstname} {aboutData.lastname}</p>
+            <div>
+              <h1>Name</h1>
+              <p>{aboutData.firstname} {aboutData.lastname}</p>
+            </div>
+            <div>
+              <h1>Occupation</h1>
+              <p>{aboutData.occupation}</p>
+            </div>
 
-          <h1>Occupation</h1>
-          <p>{aboutData.occupation}</p>
+            <div>
+              <h1>Company</h1>
+              <p>{aboutData.company}</p>
+            </div>
 
-          <h1>Company</h1>
-          <p>{aboutData.company}</p>
+            <div>
+              <h1>Country</h1>
+              <p>{aboutData.country}</p>
+            </div>
+            <div>
+              <h1>City</h1>
+              <p>{aboutData.city}</p>
+            </div>
 
-          <h1>Country</h1>
-          <p>{aboutData.country}</p>
-
-          <h1>City</h1>
-          <p>{aboutData.city}</p>
-
-          <h1>{aboutData.title}</h1>
-          <p>{aboutData.description}</p>
+            <div>
+              <h1>{aboutData.title}</h1>
+              <p>{aboutData.description}</p>
+            </div>
           </div>
         </div>
       ) : (
