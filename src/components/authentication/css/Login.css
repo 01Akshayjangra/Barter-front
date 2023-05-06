@@ -178,6 +178,7 @@
         position: relative;
         min-width: 30vw;
         font-size:8px;
+       
     }
     .login__formContainer > input {
         width: 50vw;

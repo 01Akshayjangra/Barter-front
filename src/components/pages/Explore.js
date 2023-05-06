@@ -51,7 +51,7 @@ const Explore = () => {
       </div>
       <Footer />
     </>
-
+  
   )
 }
 

@@ -37,8 +37,6 @@ export const Footer = () => {
                     </div>
                 </div>
 
-
-
                 <div className="Footer_content3">
                     <h1>Contact Us</h1>
                     <form>
@@ -67,7 +65,8 @@ export const Footer = () => {
 
             <div className="Footer_last_content">
                 <h3> © 2023 Copyright:
-                    <a className="text-white" href="#">Barter</a></h3>
+                    <a className="text-white" href="#">Barter</a>
+                </h3>
             </div>
         </>
     )
