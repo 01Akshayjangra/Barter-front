@@ -73,13 +73,13 @@ function Navbar() {
                             <div className="menu-link">
                                 <ul>
                                     <li>
-                                        <NavLink to="/explore">Explore</NavLink>
+                                        <NavLink to="/explore"><b>Explore</b></NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to="/blog">Blog</NavLink>
+                                        <NavLink to="/blog"><b>Blog</b></NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to="/learn">Learn</NavLink>
+                                        <NavLink to="/learn"><b>Learn</b></NavLink>
                                     </li>
                                 </ul>
                             </div>

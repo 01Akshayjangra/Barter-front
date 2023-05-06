@@ -8,6 +8,20 @@ export const Footer = () => {
             <div className="Footer_main_box">
 
 
+<<<<<<< HEAD
+            <div class="Footer_content1">
+            <img
+                                            className="Footer_logo-img"
+                                            src="./images/barter.png"
+                                            alt=""
+                                            style={{ height: '30px' }}
+                                        />
+                <p>
+                Barter is a platform where creatives showcase their work and connect with clients worldwide. It aims to be the go-to destination for top-notch design and creativity while fostering collaboration and innovation among a global community of professionals.
+                </p>
+                
+                    <div class="Footer_content_icons">
+=======
                 <div className="Footer_content1">
                     <h1>
                         Barter
@@ -19,6 +33,7 @@ export const Footer = () => {
                     </p>
 
                     <div className="Footer_content_icons">
+>>>>>>> 94aee12ca91f2d93641c3a0776a911ad20e9f886
                         <a href="#" target="_blank"><i className="fa-brands fa-facebook" style={{ 'color': "blue" }} ></i></a>
                         <a href="#" target="_blank"> <i className="fa-brands fa-linkedin" style={{ 'color': "#0077B5" }}></i></a>
                         <a href="#" target="_blank"><i className="fa-brands fa-youtube" style={{ 'color': "red" }}></i></a>
