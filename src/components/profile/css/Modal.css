@@ -1,8 +1,9 @@
-*{
+* {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
 }
+
 .popup__wrapper {
     position: fixed;
     left: 0;
@@ -19,8 +20,8 @@
     position: fixed;
     left: 0;
     top: 0;
-    height: fit-content; 
-     width: fit-content;
+    height: fit-content;
+    width: fit-content;
     background-color: 8px solid red;
     display: flex;
     justify-content: center;
@@ -55,7 +56,7 @@
     /* border: 1px solid pink; */
 }
 
-.modal__header > a >.MuiAvatar-root {
+.modal__header>a>.MuiAvatar-root {
     height: 40px;
     width: 40px;
 }
@@ -67,15 +68,20 @@
     color: white;
 }
 
-.modal__headerInfo > h1{
+.modal__headerInfo>h1 {
     font-size: 20px;
     font-weight: 500;
 }
-.modal__headerInfo > p{
+
+.modal__headerInfo>p {
     font-size: 12px;
     font-weight: 500;
     color: white;
     cursor: pointer;
+}
+
+.modal__headerInfo>p:hover {
+    text-decoration: underline;
 }
 
 /* modal body  */
@@ -90,7 +96,8 @@
     height: max-content;
     /* border: 3px solid greenyellow; */
 }
-.modal__body{
+
+.modal__body {
     position: relative;
     background-color: white;
     width: 80%;
@@ -99,42 +106,47 @@
     flex-flow: column nowrap;
     align-items: center;
     padding: 20px;
-    /* border: 1px solid rgb(6, 9, 6); */
 }
 
-.modal__body > img{
+.modal__body>img {
     border-radius: 10px;
-    height: 95%;
-    width: 95%;
+    height: 105%;
+    width: 105%;
     /* border: 1px solid red; */
 }
+
 /* Title  */
-.modal__bodyTitle > p{
-        
-        font-size:25px;
+.modal__bodyTitle>p {
+
+    font-size: 25px;
 }
 
 /* description  */
-.modal__bodyDes{
+.modal__bodyDes {
     /* height: 500px; */
     width: 100%;
     background-color: white;
 }
-.modal_tools{
+
+.modal_tools {
     margin-top: 10px;
 }
-.modal_tools > h4{
-    font-size:15px;
+
+.modal_tools>h4 {
+    font-size: 15px;
 
 }
-.modal__bodyDes> p{
-    font-size:20px;
+
+.modal__bodyDes>p {
+    font-size: 20px;
 }
-.modal__bodyPostMain{
-   height: 100%;
-   width: 100%;
+
+.modal__bodyPostMain {
+    height: 100%;
+    width: 100%;
 }
-.modal__bodyPosts{
+
+.modal__bodyPosts {
     /* border: 1px solid purple; */
     padding: 0;
     display: grid;
@@ -147,9 +159,9 @@
 }
 
 /* Right items  */
-.modal__rightContent{
-    position:absolute;
-    top: 70%;
+.modal__rightContent {
+    position: fixed;
+    top: 18%;
     right: 26px;
     background-color: transparent;
     display: flex;
@@ -161,7 +173,8 @@
     margin-right: 2.5%;
     z-index: 22;
 }
-.modal__rightContent > i{
+
+.modal__rightContent>i {
     position: fixed;
     right: 29px;
     top: 10px;
@@ -169,16 +182,19 @@
     color: white;
     cursor: pointer;
 }
-.modal__item{
+
+.modal__item {
     display: flex;
     flex-direction: column;
     align-items: center;
     color: white;
 }
-.modal__item > span{
+
+.modal__item>span {
     font-size: 12px;
 }
-.modal__itemIcon > i{
+
+.modal__itemIcon>i {
     font-size: 18px;
     /* border: 1px solid red; */
     background-color: white;
@@ -189,7 +205,7 @@
 
 /* width */
 .ModalScrollbar::-webkit-scrollbar {
-	width: 7px;
+    width: 7px;
     position: absolute;
     right: -50px;
 }
@@ -198,23 +214,74 @@
 .ModalScrollbar::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
+
 /* Handle */
 .ModalScrollbar::-webkit-scrollbar-thumb {
-	background: #888;
+    background: #888;
 }
 
 /* Handle on hover */
 .ModalScrollbar::-webkit-scrollbar-thumb:hover {
-	background: #555;
+    background: #555;
 }
 
 
-@media (max-width:767px){
+@media (max-width:767px) {
 
-    .modal_tools > h4{
+    .modal_tools>h4 {
         margin-left: 10px;
+    }
+    .modal__Main {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin-right: auto;
+        margin-left: auto;
+        background-color: transparent;
+        display: flex;
+        flex-flow: column nowrap;
+        overflow-y: scroll;
+        align-items: center;
+        width: 100vw;
+    }
     
+
+    /* Right items  */
+    .modal__rightContent {
+        right: 26px;
+        margin-right: -20px;
+        z-index: 22;
     }
 
+    .modal__rightContent>i {
+        position: fixed;
+        right: 26px;
+        top: 65px;
+        font-size: 26px;
+        color: black;
+        cursor: pointer;
+    }
+
+    .modal__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: white;
+    }
+
+    .modal__item>span {
+        font-size: 12px;
+    }
+
+    .modal__itemIcon>i {
+        font-size: 18px;
+        /* border: 1px solid red; */
+        background-color: white;
+        color: black;
+        padding: 11px;
+        border-radius: 50px;
+    }
+
+
 }
-    

@@ -18,6 +18,7 @@ import { ChatState } from '../context/ChatProvider';
 //modal
 import Modal from '@mui/material/Modal';
 import EditAvatar from './EditAvatar';
+import About from './About';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -58,7 +59,8 @@ const Profile = (props) => {
     const [posts, setPosts] = useState([]);
     const [userInfo, setUserInfo] = useState([]);
 
-    const { user } = ChatState();
+    //Context
+    const {user, aboutData} = ChatState()
     console.log(user)
 
     const fetchPosts = async () => {
@@ -146,7 +148,7 @@ const Profile = (props) => {
                                 <h3>{userInfo.email}</h3>
                                 <div className="profile__userLocation">
                                     <i className="fa-solid fa-location-dot" />
-                                    <p>Location</p>
+                                    {/* <p>{aboutData.city}, {aboutData.country}</p> */}
                                 </div>
                                 <Link to="/editor" >
                                     <div className="profile__editInfo">
@@ -206,7 +208,7 @@ const Profile = (props) => {
                                         </div>
                                     </TabPanel>
                                     <TabPanel value={value} index={1}>
-                                        About Section coming sunday
+                                       <About/>
                                     </TabPanel>
 
                                 </Box>
