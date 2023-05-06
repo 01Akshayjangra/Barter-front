@@ -2,6 +2,7 @@ import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import "./css/HeroCarousel.css"
 import { ChatState } from '../context/ChatProvider';
 import CircularProgress from '@mui/material/CircularProgress';
 

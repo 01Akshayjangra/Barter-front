@@ -8,13 +8,14 @@ export const Footer = () => {
 
 
             <div class="Footer_content1">
-                <h1>
-                    Barter
-                </h1>
+            <img
+                                            className="Footer_logo-img"
+                                            src="./images/barter.png"
+                                            alt=""
+                                            style={{ height: '30px' }}
+                                        />
                 <p>
-                    Here you can use rows and columns to organize your footer
-                    content. Lorem ipsum dolor sit amet, consectetur adipisicing
-                    elit.
+                Barter is a platform where creatives showcase their work and connect with clients worldwide. It aims to be the go-to destination for top-notch design and creativity while fostering collaboration and innovation among a global community of professionals.
                 </p>
                 
                     <div class="Footer_content_icons">

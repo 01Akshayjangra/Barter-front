@@ -18,8 +18,8 @@ const Search = () => {
                 </div>
 
                 <div className="text-content hero-text-content">
-                    <h1 className="hero-text-content-h1">Explore the world’s leading<br /> design portfolios</h1>
-                    <h2 className="hero-text-content-h2 font-body margin-v-16">Millions of designers and agencies around the world showcase their portfolio work <br />on Barter - the home to the world’s best design and creative professionals.</h2>
+                    <h1 className="hero-text-content-h1">Discover the Best Design Portfolios<br/> from Around the World</h1>
+                    <h2 className="hero-text-content-h2 font-body margin-v-16">Discover Top-notch Design and Creativity from Leading Professionals Worldwide on <br/>Barter - the Premier Showcase for Design Portfolios and Agencies</h2>
                 </div>
 
                 <div className="search-component">

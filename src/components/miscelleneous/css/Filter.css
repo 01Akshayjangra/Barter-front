@@ -1,18 +1,12 @@
 .filter{
     display: flex;
     justify-content: space-between;
-    padding: 10px 50px;
+    padding: 10px 20px;
 }
-.filter__left .MuiSelect-select{
-  color: black;
-  font-size: 16px;
-  padding: 18px 12px 8px 12px;
-}
-.filter__head{
-  font-size: 20px;
-}
+
 .filter__menu{
-  color: black;
-  font-size: 16px;
+  /* color: black; */
+  font-size: 26px;
   padding: 18px 12px 8px 12px;
 }
+
