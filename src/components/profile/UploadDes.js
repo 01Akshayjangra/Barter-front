@@ -167,7 +167,7 @@ const UploadSettings = (props) => {
                             <p className="">Project Tags <span>(up to 10)</span></p>
                             <TextField
                                 id="outlined-controlled"
-                                placeholder="Enter Tags for your project"
+                                placeholder="Enter Tags for your project separated by commas"
                                 value={tags}
                                 onChange={(e) => setTags(e.target.value)}
 
