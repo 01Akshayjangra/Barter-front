@@ -509,7 +509,8 @@ const MyModal = (props) => {
         };
 
         try {
-            const res = await axios.post(`/api/user/follow`, post.userId._id, config);
+            const res = await axios.post("/api/user/follow", post.userId._id, config);
+
             setFollow(true);
             return res.data;
         } catch (err) {
@@ -526,14 +527,14 @@ const MyModal = (props) => {
         };
 
         try {
-            const res = await axios.post(`/api/user/unfollow/${post.userId._id}`, config);
+            const res = await axios.post("/api/user/unfollow",post.userId._id, config);
             setFollow(false);
             return res.data;
         } catch (err) {
             console.log(err);
         }
     };
-    
+
 
     useEffect(() => {
         document.body.style.overflowY = "hidden";

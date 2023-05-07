@@ -133,13 +133,13 @@ const Profile = (props) => {
                                 <h2>{userInfo.name}</h2>
                                 <h3>{userInfo.email}</h3>
 
-                                <Link to="/editor" >
+                                <Link to="#" >
                                     <div className="profile__editInfo">
                                         {/* <EditIcon /> */}
                                         <p>Follow</p>
                                     </div>
                                 </Link>
-                                <Link to="/upload" >
+                                <Link to="#" >
                                     <div className="profile__createPost">
                                         <EditIcon />
                                         <p>Message</p>
@@ -187,11 +187,10 @@ const Profile = (props) => {
                                                 <Post key={post._id} post={post} />
                                             ))}
 
-
                                         </div>
                                     </TabPanel>
                                     <TabPanel value={value} index={1}>
-                                        <About />
+                                        <About/>
                                     </TabPanel>
 
                                 </Box>

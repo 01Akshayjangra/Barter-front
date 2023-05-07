@@ -30,7 +30,7 @@ const Post = (props) => {
     const handleUserProfile = () => {
         setUserId(post.userId._id)
     }
-    const {profileImg} = post.userId.pic;
+    // const {profileImg} = post.userId.pic;
     return (
         <div className="main-post">
             <div className="post-imgContainer" onClick={() => setShowModal(true)}>
@@ -46,7 +46,7 @@ const Post = (props) => {
                 <div className="post-userInfo">
                     <a href="/learn">
                         <Tooltip title={<AvatarHover/>} arrow>
-                            <Avatar src="profileImg" onClick={handleUserProfile}/>
+                            <Avatar src={post.userId.pic} onClick={handleUserProfile}/>
                         </Tooltip>
                         <span>{post.userId.name}</span>
                     </a>
