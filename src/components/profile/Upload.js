@@ -88,7 +88,7 @@ const Upload = () => {
 									<ImageIcon />
 								</div>
 								<h1>Image</h1>
-								<h1>Post size must be less than 75kb </h1>
+								<h6>Post size must be less than 75kb </h6>
 							</div>
 						</div></>}
 				</div>

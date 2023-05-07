@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ChatState } from '../context/ChatProvider';
-<<<<<<< HEAD
-import "./css/About.css";
-import Spinner from '../miscelleneous/Spinner';
-=======
 import Spinner from '../miscelleneous/Spinner';
 import "./css/About.css"
->>>>>>> b1401bb38c6c7c11c44c22d05ca988e130e94188
 
 const About = () => {
   const [loading, setLoading] = useState(true);
@@ -46,7 +41,7 @@ const About = () => {
       {aboutData ? (
 
         <div class="about_section">
-          <div>
+          
             <div>
               <h1>Name</h1>
               <p>{aboutData.firstname} {aboutData.lastname}</p>
@@ -81,7 +76,7 @@ const About = () => {
               <p>{aboutData.description}</p>
             </div>
 
-          </div>
+          
           </div>
 
 
