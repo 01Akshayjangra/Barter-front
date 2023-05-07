@@ -59,41 +59,31 @@ const Profile = (props) => {
     const [loading, setLoading] = useState(false)
     const [posts, setPosts] = useState([]);
     const [userInfo, setUserInfo] = useState([]);
-
-    // const handleUserInfo = async () => {
-    //     try {
-    //         setLoading(true)
-    //         if (!user.token) {
-    //             alert("token not found")
-    //             return;
-    //         }
-    //         const config = {
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 // Authorization: `Bearer ${user.token}`,
-    //                 //Send user id here
-    //             },
-    //         };
-
-    //         const { data } = await axios.get("/api/user/profile", config);
-    //         setUserInfo(data);
-    //     } catch (error) {
-    //         // alert('failed to load user info')
-    //     }
-    // }
-
-    const fetchPosts = async (userId) => {
+console.log(posts)
+    const fetchPosts = async (Id) => {
+        var userId = Id;
+        console.log(userId);
         try {
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             };
-            const response = await axios.get('/api/posts/getSomeonesUserPosts', { userId }, config);
-            const posts = response.data;
-            console.log(posts);
-            setPosts(posts); // Process the posts data
-            // You can store the posts in state or perform any other operations here
+
+
+            fetch("/api/posts/getSomeonesUserPosts", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: userId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    setPosts(data);
+                })
+                .catch(error => console.error(error));
+
+
         } catch (error) {
             console.error(error.message);
             // Handle the error appropriately
@@ -101,11 +91,9 @@ const Profile = (props) => {
     };
 
     useEffect(() => {
-        // setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
-        // handleUserInfo()
         const userId = "64500197997161793724a8c6";
         fetchPosts(userId)
-    }, [2]);
+    }, []);
 
     const [value, setValue] = React.useState(0);
 
@@ -117,6 +105,8 @@ const Profile = (props) => {
         return <Spinner />;
     }
 
+    console.log("eske badd");
+    console.log(posts);
     return (
         <div className='profile__container' >
             <div className="profile__banner">
@@ -190,7 +180,7 @@ const Profile = (props) => {
                                         </div>
                                     </TabPanel>
                                     <TabPanel value={value} index={1}>
-                                        <About/>
+                                        <About />
                                     </TabPanel>
 
                                 </Box>
