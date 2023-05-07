@@ -32,6 +32,7 @@ const Home = () => {
 	if (loading) {
 		return <Spinner/> ;
 	  }
+	  
 	return (
 		<>
 			<Search />

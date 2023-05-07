@@ -167,10 +167,12 @@
            
         }
         .signin__rightHead{
-            padding: 10px 50px;
+            padding: 0px 40px;
+            /* padding-top:30px; */
         }
         .signin__rightHead > h1{
             font-size: 34px;
+            margin-top:20px;
         }
         .signin__rightHead > p{
             font-size: 15px;
@@ -183,7 +185,7 @@
         
         
         .signin__formContainer{
-            padding: 30px 50px;
+            padding: 25px 20px;
             font-size:8px;
         
         }
@@ -198,7 +200,7 @@
             border-bottom: 1px solid rgba(219, 219, 219, 0.523);
             outline-width: 0;
             color: white;
-            margin: 0px 0px 8px 0px;
+            margin: 0px 0px 0px 0px;
         }
         
         /* Button  */
