@@ -8,6 +8,7 @@ import "./css/Modal.css"
 
 import MyModal from './MyModal';
 import Tooltip from '@mui/material/Tooltip';
+import { ChatState } from '../context/ChatProvider';
 
 const AvatarHover = (props) => {
     return(
@@ -22,10 +23,14 @@ const AvatarHover = (props) => {
 
 const Post = (props) => {
     const {post} = props;
-
+    const {setUserId}= ChatState();
+    console.log("------------------",post.userId._id)
     const [showModal, setShowModal] = useState(false);
     const closeModal = () => setShowModal(false);
-
+    const handleUserProfile = () => {
+        setUserId(post.userId._id)
+    }
+    const {profileImg} = post.userId.pic;
     return (
         <div className="main-post">
             <div className="post-imgContainer" onClick={() => setShowModal(true)}>
@@ -39,9 +44,9 @@ const Post = (props) => {
             <div className="post-content">
 
                 <div className="post-userInfo">
-                    <a href="/myprofile">
+                    <a href="/learn">
                         <Tooltip title={<AvatarHover/>} arrow>
-                            <Avatar src={post.userId.pic} />
+                            <Avatar src="profileImg" onClick={handleUserProfile}/>
                         </Tooltip>
                         <span>{post.userId.name}</span>
                     </a>

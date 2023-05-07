@@ -10,6 +10,7 @@ const ChatProvider = ({ children }) => {
   const [chats, setChats] = useState();
   const [selectedCategory, setSelectedCategory] = useState('');
   const [aboutData, setAboutData] = useState(null);
+  const [userId, setUserId] = useState();
   // const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,7 +35,9 @@ const ChatProvider = ({ children }) => {
         selectedCategory, 
         setSelectedCategory,
         aboutData, 
-        setAboutData
+        setAboutData,
+        userId, 
+        setUserId
       }}
     >
       {children}

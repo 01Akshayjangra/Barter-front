@@ -62,7 +62,7 @@ const Profile = (props) => {
 
     //Context
     const { user, aboutData } = ChatState()
-    console.log(user)
+    console.log(userInfo)
 
     const handleUserInfo = async () => {
         try {
@@ -122,6 +122,7 @@ const Profile = (props) => {
     const [openEditAvatar, setOpenEditAvatar] = React.useState(false);
     const [openEditBanner, setOpenEditBanner] = React.useState(false);
 
+    // console.log(userInfo);
 
     if (loading) {
         return <Spinner />;

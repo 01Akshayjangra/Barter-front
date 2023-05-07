@@ -1,7 +1,23 @@
 import React from 'react'
 import "./css/Blog.css"
+import axios from 'axios';
 // import Navbar from './Navbar'
+
 const Blog = () => {
+
+const getRecommendations = async (postId) => {
+  try {
+    const response = await axios.post('https://barter-api.onrender.com/recommend', { postId });
+    const recommendations = response.data;
+    console.log("recommendations",recommendations);
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+const postId = '6455f7c678845af3f5053cb5';
+getRecommendations(postId);
+
   return (
     <>
         {/* <Navbar/> */}

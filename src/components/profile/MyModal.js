@@ -500,7 +500,7 @@ const MyModal = (props) => {
             "__v": 0
         }
     ]);
-    console.log(post.userId._id)
+    // console.log(post.userId._id)
     const followUser = async (userId, token) => {
         const config = {
             headers: {
@@ -533,6 +533,7 @@ const MyModal = (props) => {
             console.log(err);
         }
     };
+    
 
     useEffect(() => {
         document.body.style.overflowY = "hidden";
@@ -540,7 +541,7 @@ const MyModal = (props) => {
             document.body.style.overflowY = "scroll";
         };
     }, []);
-
+                //post._id
     return (
         <>
             <div className='popup__wrapper' onClick={closeModal}></div>
