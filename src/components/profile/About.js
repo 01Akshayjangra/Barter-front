@@ -38,11 +38,7 @@ const About = () => {
   }, []);
 
   if (loading) {
-<<<<<<< HEAD
-    return <Spinner/>;  
-=======
     return <Spinner />;
->>>>>>> b1401bb38c6c7c11c44c22d05ca988e130e94188
   }
 
   return (
@@ -84,10 +80,6 @@ const About = () => {
               <h1>{aboutData.title}</h1>
               <p>{aboutData.description}</p>
             </div>
-<<<<<<< HEAD
-          </div>
-=======
->>>>>>> b1401bb38c6c7c11c44c22d05ca988e130e94188
 
           </div>
           </div>
