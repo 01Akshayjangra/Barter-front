@@ -192,7 +192,7 @@
     }
     .login__formContainer > input {
         width:16vw;
-        border-bottom: 2px solid black;
+        /* border-bottom: 2px solid black; */
         border:2px solid green;
         background: transparent;
         border-bottom: 1px solid rgba(219, 219, 219, 0.523);
@@ -229,7 +229,7 @@
     
     /* Button  */
     
-    .login__formContainer > button {
+    .login__formContainer >  button {
         border: 1px solid white;
         width: 100px;
         background-color: white;
@@ -242,7 +242,7 @@
         
     }
     
-    .login__formContainer> button:hover{
+    .login__formContainer>form >  button:hover{
         color: white;
         border: 1px solid rgb(255, 255, 255);
         background-color: transparent;

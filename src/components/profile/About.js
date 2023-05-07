@@ -41,7 +41,7 @@ const About = () => {
       {aboutData ? (
 
         <div class="about_section">
-          <div>
+          
             <div>
               <h1>Name</h1>
               <p>{aboutData.firstname} {aboutData.lastname}</p>
@@ -76,7 +76,7 @@ const About = () => {
               <p>{aboutData.description}</p>
             </div>
 
-          </div>
+          
           </div>
 
 
