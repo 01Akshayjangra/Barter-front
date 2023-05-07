@@ -57,7 +57,7 @@ const Profile = (props) => {
 
     const [loggedUser, setLoggedUser] = useState();
     const [loading, setLoading] = useState(false)
-    const [posts, setPosts] = useState([]);
+    // const [posts, setPosts] = useState([]);
     const [userInfo, setUserInfo] = useState([]);
 
     // const handleUserInfo = async () => {
@@ -84,26 +84,33 @@ const Profile = (props) => {
 
     const fetchPosts = async (userId) => {
         try {
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            };
-            const response = await axios.get('/api/posts/getSomeonesUserPosts', { userId }, config);
-            const posts = response.data;
-            console.log(posts);
-            setPosts(posts); // Process the posts data
-            // You can store the posts in state or perform any other operations here
+          const config = {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          };
+      
+          console.log(userId);
+      
+          const response = await axios.get('/api/posts/getSomeonesUserPosts', { userId }, config
+        );
+      
+          const posts = response.data;
+          console.log("posts", response.data);
+        //   setPosts(posts);
+          // Process the posts data
+          // You can store the posts in state or perform any other operations here
         } catch (error) {
-            console.error(error.message);
-            // Handle the error appropriately
+          console.error(error.message);
+          // Handle the error appropriately
         }
-    };
+      };
+      
 
     useEffect(() => {
         // setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
         // handleUserInfo()
-        const userId = "64500197997161793724a8c6";
+        const userId = "64563929988f1add7a3ee334";
         fetchPosts(userId)
     }, [2]);
 
@@ -183,9 +190,9 @@ const Profile = (props) => {
                                         <div className="profile__Post">
 
 
-                                            {posts.map(post => (
+                                            {/* {posts.map(post => (
                                                 <Post key={post._id} post={post} />
-                                            ))}
+                                            ))} */}
 
                                         </div>
                                     </TabPanel>

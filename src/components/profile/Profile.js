@@ -61,12 +61,11 @@ const Profile = (props) => {
     const [userInfo, setUserInfo] = useState([]);
 
     //Context
-    const { user, aboutData } = ChatState()
+    const { user } = ChatState()
     console.log(userInfo)
 
     const handleUserInfo = async () => {
         try {
-            setLoading(true)
             if (!user.token) {
                 alert("token not found")
                 return;
@@ -80,6 +79,7 @@ const Profile = (props) => {
 
             const { data } = await axios.get("/api/user/profile", config);
             setUserInfo(data);
+            setLoading(false)
         } catch (error) {
             // alert('failed to load user info')
         }
@@ -100,7 +100,7 @@ const Profile = (props) => {
             };
 
             const { data } = await axios.get("/api/posts/user", config);
-            setLoading(false)
+           
             setPosts(data);
         } catch (error) {
             // alert("error occured while fetching posts")
@@ -108,10 +108,12 @@ const Profile = (props) => {
     };
 
     useEffect(() => {
+        console.log("start");
         setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
         handleUserInfo()
         fetchPosts()
-    }, [2]);
+        console.log("end");
+    }, []);
 
     const [value, setValue] = React.useState(0);
 
@@ -146,7 +148,9 @@ const Profile = (props) => {
                         <div className="profile__Left">
                             <div className="profile__User">
                                 <div className="profile__UserInfo">
-                                    <Avatar src={userInfo.pic} onClick={() => setOpenEditAvatar(true)} />
+                                    {/* <Avatar src={userInfo.pic.url} onClick={() => setOpenEditAvatar(true)} /> */}
+                                    {/* <img src={userInfo?.pic.url}/> */}
+                                    {console.log(typeof(userInfo.pic.url))};
                                     <div className='profile__editIconAvatar'>
                                         <Modal
                                             open={openEditAvatar}

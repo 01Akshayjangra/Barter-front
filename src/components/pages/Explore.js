@@ -23,7 +23,7 @@ const Explore = () => {
 
   useEffect(() => {
     fetchPosts()
-  }, []);
+  }, [selectedCategory]);
 
   if (loading) {
     return <Spinner />;
