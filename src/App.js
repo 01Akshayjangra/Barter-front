@@ -33,7 +33,8 @@ const Routing = () => {
       <Route exact path="/explore" element={<Explore />} />
       <Route exact path="/profile" element={<Profile/> } />
       <Route exact path="/blog" element={<Blog />} />
-      <Route exact path="/learn" element={<Learn />} />
+      {/* <Route exact path="/learn" element={<Learn />} /> */}
+      <Route exact path="/learn" element={<UserProfile/>} />
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/signup" element={<Signup />} />
       <Route exact path="/message" element={<Messages />} />

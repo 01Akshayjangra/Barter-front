@@ -1,10 +1,10 @@
 import React from 'react'
 import CircularProgress from '@mui/material/CircularProgress';
-
+import './css/Spinner.css'
 
 const Spinner = () => {
     return (
-        <div className="text-center">            
+        <div className="spinner__main">            
             <CircularProgress />
         </div>
     )

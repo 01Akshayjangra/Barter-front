@@ -3,12 +3,10 @@ import Box from '@mui/material/Box';
 import axios from "axios";
 import { ChatState } from '../context/ChatProvider';
 import './css/EditAvatar.css';
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
 
 const EditAvatar = () => {
     const { user } = ChatState();
-    const [open, setOpen] = React.useState(false);
+
     const [image, setImage] = React.useState("");
     const imageRef = React.useRef("null");
 
@@ -29,38 +27,32 @@ const EditAvatar = () => {
         return { result, uploader };
     }
     const { result, uploader } = useDisplayImage();
-    
-    console.log("------>",result)
+
     const handleProfilePic = async (e) => {
         e.preventDefault()
-        setOpen(true)
         const data = {
-            pic: result
+            pic: result,
         };
-        console.log(data)
-        if (!data) {
+        if (!result) {
             alert('select image first')
-            setOpen(false)
             return;
         }
+        // console.log(pic);
         try {
             const config = {
                 headers: {
                     Authorization: `Bearer ${user.token}`,
                 },
             };
-            const response = await axios.put(
-              '/api/user/profileImage',
-              data,
+            const { data } = await axios.put(
+                "/api/user/",
+                data,
                 config
             );
-            alert('profile image uploaded successfully')
-            setOpen(false)
-            return response.data;
+            alert('Profile picture changed successful')
         } catch (error) {
-              alert('An error occured')
-              setOpen(false)
-          }
+            alert("error occured")
+        }
     };
 
 
@@ -68,35 +60,28 @@ const EditAvatar = () => {
         <>
             <div className='editAvatar__container'>
                 <div className="editAvatar__main">
-                    <h3>Profile Image</h3>
+                    <h3>Profile Banner</h3>
                     <div className="editAvatar__image_div">
 
                             { result ? <img ref={imageRef} src={result}/> : 
                             <>
-                                <div>Upload Image
+                                <div >Upload Image
                                     <input type="file" name="image" onChange={(e) => {
                                         setImage(e.target.files[0]);
                                         uploader(e);
                                     }} />
                                 </div>
-                                <p>Prefer size "500x450px"</p>
-                                <p>Choose your Profile image</p>
+                                <p>Prefer size "3080x450px"</p>
+                                <p>Choose your Profile Banner</p>
                             </>
                             }
 
                     </div>
                     <div className="editAvatar__submit">
-                        <button onClick={handleProfilePic}>Submit</button>
+                        <button>Submit</button>
                     </div>
                 </div>
             </div>
-            <Backdrop
-              sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-              open={open}
-              onClick={handleProfilePic}
-            >
-              <CircularProgress color="inherit" />
-            </Backdrop>
         </>
     )
 }

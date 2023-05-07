@@ -18,17 +18,20 @@ const Home = () => {
 	const [userInfo, setUserInfo] = useState([]);
 
 	const fetchPosts = async () => {
+		setLoading(true);
 		const res = await axios.get(`/api/posts?category=${selectedCategory}`);
+		setLoading(false);
 		setPosts(res.data);
 	}
 
 
 	useEffect(() => {
-		setLoading(true);
 		fetchPosts()
-		setLoading(false);
-	}, [fetchPosts]);
+	}, []);
 
+	if (loading) {
+		return <Spinner/> ;
+	  }
 	return (
 		<>
 			<Search />

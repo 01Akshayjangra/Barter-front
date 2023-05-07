@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ChatState } from '../context/ChatProvider';
+<<<<<<< HEAD
 import "./css/About.css";
+=======
+import Spinner from '../miscelleneous/Spinner';
+>>>>>>> c381700154e23c7f33c3c1720716fc59eb5f80e4
 
 const About = () => {
   const [loading, setLoading] = useState(true);
@@ -32,7 +36,7 @@ const About = () => {
   }, []);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Spinner/> ;
   }
 
   return (
@@ -41,8 +45,38 @@ const About = () => {
 
         <div class="about_section">
           <div>
+<<<<<<< HEAD
             <h1>Name</h1>
             <p>{aboutData.firstname} {aboutData.lastname}</p>
+=======
+            <div>
+              <h1>Name</h1>
+              <p>{aboutData.firstname} {aboutData.lastname}</p>
+            </div>
+            <div>
+              <h1>Occupation</h1>
+              <p>{aboutData.occupation}</p>
+            </div>
+
+            <div>
+              <h1>Company</h1>
+              <p>{aboutData.company}</p>
+            </div>
+
+            <div>
+              <h1>Country</h1>
+              <p>{aboutData.country}</p>
+            </div>
+            <div>
+              <h1>City</h1>
+              <p>{aboutData.city}</p>
+            </div>
+
+            <div>
+              <h1>{aboutData.title}</h1>
+              <p>{aboutData.description}</p>
+            </div>
+>>>>>>> c381700154e23c7f33c3c1720716fc59eb5f80e4
           </div>
 
           <div>

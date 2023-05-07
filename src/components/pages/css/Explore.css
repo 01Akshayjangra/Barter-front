@@ -7,9 +7,8 @@
 /* explore__carousel */
 .explore__carousel{
     padding: 30px;
-    /* border: 2px solid green; */
-    /* background-color: palegoldenrod; */
     display: flex;
+    flex-flow: row wrap;
     align-items: center;
     justify-content: center;
 }

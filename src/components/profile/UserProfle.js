@@ -18,6 +18,8 @@ import { ChatState } from '../context/ChatProvider';
 //modal
 import Modal from '@mui/material/Modal';
 import EditAvatar from './EditAvatar';
+import EditBanner from './EditBanner';
+import About from './About';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -54,49 +56,64 @@ const Profile = (props) => {
     }
 
     const [loggedUser, setLoggedUser] = useState();
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [posts, setPosts] = useState([]);
-    const { user } = ChatState();
+    const [userInfo, setUserInfo] = useState([]);
+
+    //Context
+    const { user, aboutData } = ChatState()
+    console.log(user)
+
+    const handleUserInfo = async () => {
+        try {
+            setLoading(true)
+            if (!user.token) {
+                alert("token not found")
+                return;
+            }
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.token}`,
+                    //Send user id here
+                },
+            };
+
+            const { data } = await axios.get("/api/user/profile", config);
+            setUserInfo(data);
+        } catch (error) {
+            // alert('failed to load user info')
+        }
+    }
 
     const fetchPosts = async () => {
         // console.log(user._id);
         try {
+            if (!user.token) {
+                alert("token not found")
+                return;
+            }
             const config = {
                 headers: {
+                    'Content-Type': 'application/json',
                     Authorization: `Bearer ${user.token}`,
+                    //Send user id here
                 },
             };
 
             const { data } = await axios.get("/api/posts/user", config);
+            setLoading(false)
             setPosts(data);
         } catch (error) {
-            alert("error occured while fetching posts")
+            // alert("error occured while fetching posts")
         }
     };
-    const [userInfo, setUserInfo] = useState([]);
-    const handleUserInfo = async () => {
-        try {
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${user.token}`,
-                },
-            };
-
-            const { data } = await axios.get("/api/user/info", config);
-            setUserInfo(data);
-        } catch (error) {
-            alert('failed to load user info')
-        }
-    }
 
     useEffect(() => {
-        setLoading(true)
         setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
-        fetchPosts()
         handleUserInfo()
-        setLoading(false)
-
-    }, []);
+        fetchPosts()
+    }, [2]);
 
     const [value, setValue] = React.useState(0);
 
@@ -105,116 +122,120 @@ const Profile = (props) => {
     }
     //Avatar upload modal
     const [openEditAvatar, setOpenEditAvatar] = React.useState(false);
-    const handleOpeEditAvatar = () => setOpenEditAvatar(true);
-    const handleCloseEditAvatar = () => setOpenEditAvatar(false);
+    const [openEditBanner, setOpenEditBanner] = React.useState(false);
+
+
+    if (loading) {
+        return <Spinner />;
+    }
 
     return (
         <div className='profile__container' >
             <div className="profile__banner">
-                <div className="profile__bannerUpload">
+                <div className="profile__bannerUpload" onClick={() => setOpenEditBanner(true)} >
                     <img src="./images/banner.jpg" alt="banner" />
+                        <Modal
+                            open={openEditBanner}
+                            onClose={() => setOpenEditBanner(false)}
+                        >
+                            <EditBanner/>
+                        </Modal>
+                    </div>
                 </div>
-            </div>
-            <div className="profile__mainContent">
-                <div className="profile__content">
-                    <div className="profile__Left">
-                        <div className="profile__User">
-                            <div className="profile__UserInfo">
-                                <Avatar src={userInfo.pic} onClick={handleOpeEditAvatar}/>
-                                {/* <div className="profile__editIcon" >
-                                    <i class="fa-sharp fa-solid fa-pen"></i>
-                                </div> */}
-                                <div className='profile__editIconAvatar'>
-                                    <Modal
-                                        open={openEditAvatar}
-                                        onClose={handleCloseEditAvatar}
-                                        aria-labelledby="modal-modal-title"
-                                        aria-describedby="modal-modal-description"
-                                    >
-                                        <EditAvatar />
-                                    </Modal>
-                                </div>
+                <div className="profile__mainContent">
+                    <div className="profile__content">
+                        <div className="profile__Left">
+                            <div className="profile__User">
+                                <div className="profile__UserInfo">
+                                    <Avatar src={userInfo.pic} onClick={() => setOpenEditAvatar(true)} />
+                                    <div className='profile__editIconAvatar'>
+                                        <Modal
+                                            open={openEditAvatar}
+                                            onClose={() => setOpenEditAvatar(false)}
+                                        >
+                                            <EditAvatar />
+                                        </Modal>
+                                    </div>
 
-                                <h2>{"username"}</h2>
-                                <h3>{'user email'}</h3>
-                                <div className="profile__userLocation">
+                                    <h2>{userInfo.name}</h2>
+                                    <h3>{userInfo.email}</h3>
+                                    {/* <div className="profile__userLocation">
                                     <i className="fa-solid fa-location-dot" />
-                                    <p>Location</p>
-                                </div>
-                                <Link to="/editor" >
-                                    <div className="profile__editInfo">
-                                        {/* <EditIcon /> */}
-                                        <p>+ Follow</p>
+                                    <p>{aboutData.city}, {aboutData.country}</p>
+                                </div> */}
+                                    <Link to="/editor" >
+                                        <div className="profile__editInfo">
+                                            <EditIcon />
+                                            <p>Edit Your Profile</p>
+                                        </div>
+                                    </Link>
+                                    <Link to="/upload" >
+                                        <div className="profile__createPost">
+                                            <EditIcon />
+                                            <p>Create New Post</p>
+                                        </div>
+                                    </Link>
+                                    <div className="profile_statsMain">
+                                        <ul>
+                                            <li><p>Project Views</p><span>8745</span></li>
+                                            <li><p>Likes</p><span>2369</span></li>
+                                            <li><p>Followers</p><span>560</span></li>
+                                            <li><p>Following</p><span>94</span></li>
+                                        </ul>
                                     </div>
-                                </Link>
-                                <Link to="/upload" >
-                                    <div className="profile__createPost">
-                                        {/* <EditIcon /> */}
-                                        <p>Message</p>
+                                    <div className="profile_social">
+                                        <a target="_blank"><i className="fa-brands fa-facebook" style={{ 'color': "blue" }} ></i></a>
+                                        <a target="_blank"> <i className="fa-brands fa-linkedin" style={{ 'color': "#0077B5" }}></i></a>
+                                        <a target="_blank"><i className="fa-brands fa-youtube" style={{ 'color': "red" }}></i></a>
+                                        <a target="_blank"> <i className="fa-brands fa-twitter" style={{ 'color': `#1DA1F2` }}></i></a>
                                     </div>
-                                </Link>
-                                <div className="profile_statsMain">
-                                    <ul>
-                                        <li><p>Project Views</p><span>3</span></li>
-                                        <li><p>Likes</p><span>6</span></li>
-                                        <li><p>Followers</p><span>5</span></li>
-                                        <li><p>Following</p><span>13</span></li>
-                                    </ul>
-                                </div>
-                                <div className="profile_social">
-                                    <a target="_blank"><i className="fa-brands fa-facebook" style={{ 'color': "blue" }} ></i></a>
-                                    <a target="_blank"> <i className="fa-brands fa-linkedin" style={{ 'color': "#0077B5" }}></i></a>
-                                    <a target="_blank"><i className="fa-brands fa-youtube" style={{ 'color': "red" }}></i></a>
-                                    <a target="_blank"> <i className="fa-brands fa-twitter" style={{ 'color': `#1DA1F2` }}></i></a>
-
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="profile__Right">
-                        <div className="profile__mainUser">
-                            <div className="profile__catogory">
+                        <div className="profile__Right">
+                            <div className="profile__mainUser">
+                                <div className="profile__catogory">
 
-                                <Box sx={{ width: '100%' }}>
-                                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                                        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                                            <Tab label="User posts" {...a11yProps(0)} />
-                                            <Tab label="About" {...a11yProps(1)} />
+                                    <Box sx={{ width: '100%' }}>
+                                        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                                            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                                                <Tab label="My posts" {...a11yProps(0)} />
+                                                <Tab label="About" {...a11yProps(1)} />
 
-                                        </Tabs>
+                                            </Tabs>
+                                        </Box>
+
+                                        <TabPanel value={value} index={0}>
+                                            <div style={{ textAlign: 'center', marginTop: '10px' }} >
+                                                {loading && <Spinner />}
+                                            </div>
+                                            <div className="profile__Post">
+
+
+                                                {posts.map(post => (
+                                                    <Post key={post._id} post={post} />
+                                                ))}
+
+
+                                            </div>
+                                        </TabPanel>
+                                        <TabPanel value={value} index={1}>
+                                            <About />
+                                        </TabPanel>
+
                                     </Box>
-
-                                    <TabPanel value={value} index={0}>
-                                        <div style={{ textAlign: 'center', marginTop: '10px' }} >
-                                            {loading && <Spinner />}
-                                        </div>
-                                        <div className="profile__Post">
-
-
-                                            {posts.map(post => (
-                                                <Post post={post} postImage={post.image.url} postName={post.title} hearts={post.hearts} views={post.views} shares={post.shares} />
-                                            ))}
-
-
-                                        </div>
-                                    </TabPanel>
-                                    <TabPanel value={value} index={1}>
-                                        About Section coming sunday
-                                    </TabPanel>
-
-                                </Box>
+                                </div>
                             </div>
                         </div>
+
                     </div>
-
                 </div>
+
+
             </div>
-
-
-        </div>
-    )
+            )
 }
 
-export default Profile
+            export default Profile
 

@@ -52,7 +52,6 @@
     flex-flow: row nowrap;
 }
 .profile__Left{
-    height: 78vh;
     flex: 26;
     /* border: 0.5px solid black; */
     position: relative;
