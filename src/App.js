@@ -33,12 +33,12 @@ const Routing = () => {
       <Route exact path="/explore" element={<Explore />} />
       <Route exact path="/profile" element={<Profile/> } />
       <Route exact path="/blog" element={<Blog />} />
-      {/* <Route exact path="/learn" element={<Learn />} /> */}
-      <Route exact path="/learn" element={<UserProfile/>} />
+      <Route exact path="/learn" element={<Learn />} />
+      {/* <Route exact path="/learn" element={<UserProfile/>} /> */}
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/signup" element={<Signup />} />
       <Route exact path="/message" element={<Messages />} />
-      <Route exact path="/forgetpassword" element={<Forgetpass />} />
+      {/* <Route exact path="/forgetpassword" element={<Forgetpass />} />/ */}
       <Route exact path="/upload" element={<Upload />} />
       <Route exact path="/user-profile" element={<UserProfile/>} />
       <Route exact path="/editor" element={<EditProfile/>} />

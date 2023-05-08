@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import Post from './Post';
 import axios from "axios";
 import { ChatState } from '../context/ChatProvider';
+import { useLocation } from 'react-router-dom';
 
 //modal
 import Modal from '@mui/material/Modal';
@@ -54,15 +55,20 @@ const Profile = (props) => {
             'aria-controls': `simple-tabpanel-${index}`,
         };
     }
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    var userId = searchParams.get('userId');
+    console.log(userId);  
 
     const [loggedUser, setLoggedUser] = useState();
     const [loading, setLoading] = useState(false)
-    // const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState([]);
     const [userInfo, setUserInfo] = useState([]);
-console.log(posts)
+
+    // http://localhost:5000/api/user/anotherUser?userId=64563929988f1add7a3ee334
+
     const fetchPosts = async (Id) => {
-        var userId = Id;
-        console.log(userId);
+        
         try {
             const config = {
                 headers: {
@@ -90,10 +96,22 @@ console.log(posts)
         }
       };
       
-
+      function fetchUserData(userId) {
+        fetch(`/api/user/anotherUser?userId=${userId}`)
+          .then((response) => response.json())
+          .then((data) => {
+            // Handle the response data
+            setUserInfo(data);
+          })
+          .catch((error) => {
+            // Handle any errors
+            console.error(error);
+          });
+      }
+      
     useEffect(() => {
-        const userId = "64500197997161793724a8c6";
         fetchPosts(userId)
+        fetchUserData(userId)
     }, []);
 
     const [value, setValue] = React.useState(0);
@@ -174,9 +192,9 @@ console.log(posts)
                                         <div className="profile__Post">
 
 
-                                            {/* {posts.map(post => (
+                                            {posts.map(post => (
                                                 <Post key={post._id} post={post} />
-                                            ))} */}
+                                            ))}
 
                                         </div>
                                     </TabPanel>

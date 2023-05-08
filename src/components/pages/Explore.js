@@ -35,7 +35,7 @@ const Explore = () => {
 
         <div className="explore__carousel">
           <HeroCarousel />
-          <Filters />
+          {/* <Filters /> */}
         </div>
 
 

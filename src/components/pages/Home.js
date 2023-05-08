@@ -37,7 +37,7 @@ const Home = () => {
 	return (
 		<>
 			<Search />
-			<Filters />
+			{/* <Filters /> */}
 
 			<div style={{ textAlign: 'center', marginTop: '10px' }} >
 				{loading && <Spinner />}

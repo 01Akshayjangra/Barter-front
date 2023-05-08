@@ -85,15 +85,15 @@ const Login = () => {
                 required
               />
 
-              <div className="login__checkBox">
+              {/* <div className="login__checkBox">
                 <input type="checkbox" name="remember" />
                 <div className="login__checkboxContent">
                   <p>Remember Me</p>
                   <Link to="/forgetpassword">Forget password?</Link>
                 </div>
-              </div>
+              </div> */}
 
-              <button type="submit" className="loginbtn">
+              <button type="submit" className="loginbtn" style={{backgroundColor: 'white'}}>
                 Log In
               </button>
               <p>

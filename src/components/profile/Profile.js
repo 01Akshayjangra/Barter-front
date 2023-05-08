@@ -148,9 +148,9 @@ const Profile = (props) => {
                         <div className="profile__Left">
                             <div className="profile__User">
                                 <div className="profile__UserInfo">
-                                    {/* <Avatar src={userInfo.pic.url} onClick={() => setOpenEditAvatar(true)} /> */}
+                                    <Avatar src={userInfo.pic} onClick={() => setOpenEditAvatar(true)} />
                                     {/* <img src={userInfo?.pic.url}/> */}
-                                    {console.log(typeof(userInfo.pic.url))};
+                                    {/* {console.log(typeof(userInfo.pic.url))}; */}
                                     <div className='profile__editIconAvatar'>
                                         <Modal
                                             open={openEditAvatar}

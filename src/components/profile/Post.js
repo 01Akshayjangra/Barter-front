@@ -44,7 +44,7 @@ const Post = (props) => {
             <div className="post-content">
 
                 <div className="post-userInfo">
-                    <a href="/learn">
+                    <a href={`/user-profile?userId=${post.userId._id}`}>
                         <Tooltip title={<AvatarHover/>} arrow>
                             <Avatar src={post.userId.pic} onClick={handleUserProfile}/>
                         </Tooltip>

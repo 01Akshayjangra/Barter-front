@@ -22,14 +22,14 @@ const Search = () => {
                     <h2 className="hero-text-content-h2 font-body margin-v-16">Discover Top-notch Design and Creativity from Leading Professionals Worldwide on <br/>Barter - the Premier Showcase for Design Portfolios and Agencies</h2>
                 </div>
 
-                <div className="search-component">
+                {/* <div className="search-component">
                     <div>
                         <input type="text" placeholder='Search' />
                     </div>
                     <div className="search-icon">
                         <i className="fa-solid fa-magnifying-glass" />
                     </div>
-                </div>
+                </div> */}
             </div>
 
         </div>

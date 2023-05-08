@@ -1,17 +1,18 @@
-@media (min-width:490px){
+@media (min-width:490px) {
     .main-login {
         display: grid;
         place-content: center;
         height: 89.3vh;
         background-color: #0f0c27;
     }
+
     .login {
         display: flex;
         height: 82vh;
         width: 60vw;
         box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
     }
-    
+
     .login-left {
         display: flex;
         flex: 50%;
@@ -24,6 +25,7 @@
         border-top-left-radius: 20px;
         box-shadow: -1px 0px 30px -1px black;
     }
+
     .login-right {
         display: flex;
         flex-direction: column;
@@ -37,23 +39,26 @@
         box-shadow: -1px 0 0 -1px black;
         margin-left: 10px;
     }
+
     .login__rightHead {
         padding: 10px 50px;
     }
-    .login__rightHead > h1 {
+
+    .login__rightHead>h1 {
         font-size: 34px;
     }
-    
+
     .login__formContainer {
         padding: 10px 50px;
         position: relative;
         min-width: 30vw;
     }
-    .login__formContainer > h1 {
-        margin-left:20px;
+
+    .login__formContainer>h1 {
+        margin-left: 20px;
     }
 
-    .login__formContainer > input {
+    .login__formContainer>input {
         width: 16vw;
         border-bottom: 2px solid black;
         border: none;
@@ -62,89 +67,94 @@
         outline-width: 0;
         color: white;
         margin: 8px 0px 12px 0px;
-        margin-left:20px;
+        margin-left: 20px;
     }
-    
+
     /* CheckBox */
-    
-     .login__checkBox {
+
+    .login__checkBox {
         display: flex;
         align-items: center;
         justify-content: flex-start;
         font-size: 12px;
         width: 22vw;
-        margin-left:20px;
+        margin-left: 20px;
     }
-    .login__checkBox > input {
+
+    .login__checkBox>input {
         border: none;
         margin: 10px 10px 10px 0px;
         cursor: pointer;
     }
+
     .login__checkboxContent {
         display: flex;
         justify-content: space-between;
         width: 196px;
-    
+
     }
-    .login__checkboxContent > a {
+
+    .login__checkboxContent>a {
         color: white;
         cursor: pointer;
-        margin-left:120px;
-    } 
-    
+        margin-left: 120px;
+    }
+
     /* Button  */
-    
-    .login__formContainer > button {
-        border: 1px solid white;
+
+    .loginbtn {
         width: 100px;
-        background-color: white;
         padding: 4px 8px;
         border-radius: 20px;
         cursor: pointer;
         font-weight: 500;
         margin-top: 20px;
-        margin-left:20px;
+        margin-left: 20px;
         margin-bottom: 20px;
+        border: 1px solid white;
+        background-color: white;
+        color: black;
     }
-    
-    .login__formContainer> button:hover{
-        color: white;
+
+    /* .loginbtn:hover {
         border: 1px solid rgb(255, 255, 255);
-        background-color: transparent;
         transition: 0.2s;
-    }
-    
-    .login__formContainer >p{
+        color: white;
+        background-color: transparent;
+    } */
+
+    .login__formContainer>p {
         font-size: 15px;
         margin-top: 10px;
-        margin-left:20px;
+        margin-left: 20px;
     }
-    
-    .login__formContainer> p > a{
+
+    .login__formContainer>p>a {
         color: rgb(0, 183, 255);
         font-weight: 700;
     }
-    
-    .login__formContainer ::placeholder{
+
+    .login__formContainer ::placeholder {
         color: rgba(219, 219, 219, 0.523);
     }
 }
 
 
-@media (max-width:767px){
+@media (max-width:767px) {
     .main-login {
         display: grid;
         place-content: center;
         height: 89.3vh;
         background-color: #0f0c27;
     }
+
     .login {
         display: flex;
         height: 82vh;
         width: 90vw;
         box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
     }
-    
+
     .login-left {
         display: none;
         flex: 50%;
@@ -157,10 +167,11 @@
         border-top-left-radius: 20px;
         box-shadow: -1px 0px 30px -1px black;
     }
+
     .login-right {
         display: flex;
         flex-direction: column;
-        align-items:flx-start;
+        align-items: flx-start;
         justify-content: center;
         flex: 50%;
         color: white;
@@ -170,30 +181,33 @@
         border-bottom-left-radius: 20px;
         border-top-left-radius: 20px;
         box-shadow: -1px 0 0 -1px black;
-        margin:50px 50px 50px 50px;
-        height:100vw, 100vh;
-        width:100vw, 100vh;
+        margin: 50px 50px 50px 50px;
+        height: 100vw, 100vh;
+        width: 100vw, 100vh;
     }
+
     .login__rightHead {
         padding: 10px 50px;
     }
-    .login__rightHead > h1 {
+
+    .login__rightHead>h1 {
         font-size: 34px;
     }
- 
+
 
     .login__formContainer {
         padding: 10px 50px;
         position: relative;
-        min-width:30vw;
-        font-size:8px;
+        min-width: 30vw;
+        font-size: 8px;
         /* border:2px solid red; */
-       
+
     }
-    .login__formContainer > input {
-        width:16vw;
+
+    .login__formContainer>input {
+        width: 16vw;
         /* border-bottom: 2px solid black; */
-        border:2px solid green;
+        border: 2px solid green;
         background: transparent;
         border-bottom: 1px solid rgba(219, 219, 219, 0.523);
         outline-width: 0;
@@ -201,9 +215,9 @@
         /* margin-left:20px; */
         /* margin: 8px 0px 12px 0px; */
     }
-    
+
     /* CheckBox */
-    
+
     .login__checkBox {
         display: flex;
         align-items: center;
@@ -211,60 +225,59 @@
         font-size: 12px;
         width: 22vw;
     }
-    .login__checkBox > input {
+
+    .login__checkBox>input {
         border: none;
         margin: 10px 10px 10px 0px;
         cursor: pointer;
     }
+
     .login__checkboxContent {
         display: flex;
         justify-content: space-between;
         width: 196px;
     }
-    .login__checkboxContent > a {
+
+    .login__checkboxContent>a {
         color: white;
         cursor: pointer;
-        margin-left:100px;
+        margin-left: 100px;
     }
-    
+
     /* Button  */
-    
-    .login__formContainer >  button {
-        border: 1px solid white;
+
+    .loginbtn {
         width: 100px;
-        background-color: white;
         padding: 4px 8px;
         border-radius: 20px;
         cursor: pointer;
         font-weight: 500;
         margin-top: 20px;
         margin-bottom: 20px;
-        
+        border: 1px solid white;
+        background-color: white;
+        color: black;
     }
-    
-    .login__formContainer>form >  button:hover{
-        color: white;
+
+    /* .loginbtn:hover {
         border: 1px solid rgb(255, 255, 255);
-        background-color: transparent;
         transition: 0.2s;
-    }
-    
-    .login__formContainer >p{
+        background-color: transparent;
+        color: white;
+    } */
+
+    .login__formContainer>p {
         font-size: 15px;
         margin-top: 10px;
     }
-    
-    .login__formContainer> p > a{
+
+    .login__formContainer>p>a {
         color: rgb(0, 183, 255);
         font-weight: 700;
     }
-    
-    .login__formContainer ::placeholder{
+
+    .login__formContainer ::placeholder {
         color: rgba(219, 219, 219, 0.523);
-    }  
- 
+    }
+
 }
-
-
-
-

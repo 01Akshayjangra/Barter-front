@@ -126,20 +126,20 @@ export default function AccountMenu() {
           <Link to="/upload" >Create New Post</Link>
 
         </MenuItem>
-        <MenuItem onClick={handleClose} style={{ fontSize: '14px' }}>
+        {/* <MenuItem onClick={handleClose} style={{ fontSize: '14px' }}>
           <ListItemIcon>
             <ChatIcon fontSize="large" />
           </ListItemIcon>
           <Link to="/message" >Messages</Link>
 
-        </MenuItem>
-        <MenuItem onClick={handleClose} style={{ fontSize: '14px' }}>
+        </MenuItem> */}
+        {/* <MenuItem onClick={handleClose} style={{ fontSize: '14px' }}>
           <ListItemIcon>
             <Settings fontSize="large" />
           </ListItemIcon>
           <Link to="/" >Settings</Link>
 
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={logout} style={{ fontSize: '14px' }}>
           <ListItemIcon>
             <Logout fontSize="large" />
