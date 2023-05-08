@@ -12,7 +12,7 @@ import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
-
+import { useNavigate } from 'react-router-dom';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -49,6 +49,7 @@ const UploadSettings = (props) => {
     const [formData, setFormData] = useState({
         image: srcImg,
     });
+    const navigate = useNavigate();
     console.log(srcImg)
 
     const handleCheckboxChange = (e) => {
@@ -93,6 +94,7 @@ const UploadSettings = (props) => {
             );
             setOpen(false);
             alert('Post successful')
+            navigate('/profile');
             return response.data;
         } catch (error) {
             setOpen(false);

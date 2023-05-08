@@ -65,12 +65,12 @@ const Post = (props) => {
                         </IconButton>
                         <span>{post.views}</span>
                     </div>
-                    <div className="post-statsIcons post-shareStats">
+                    {/* <div className="post-statsIcons post-shareStats">
                         <IconButton>
                             <i className="stat-icons fa-solid fa-share" />
                         </IconButton>
                         <span>{post.shares}</span>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
