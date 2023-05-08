@@ -58,17 +58,53 @@ const Profile = (props) => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     var userId = searchParams.get('userId');
-    console.log(userId);  
+    console.log(userId);
 
     const [loggedUser, setLoggedUser] = useState();
     const [loading, setLoading] = useState(false)
     const [posts, setPosts] = useState([]);
     const [userInfo, setUserInfo] = useState([]);
+    const [follow, setFollow] = useState(false);
+    const { user } = ChatState();
 
-    // http://localhost:5000/api/user/anotherUser?userId=64563929988f1add7a3ee334
+        // http://localhost:5000/api/user/anotherUser?userId=64563929988f1add7a3ee334
+    // console.log(post.userId._id)
+    const followUser = async (userId, token) => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        };
+
+        try {
+            const res = await axios.post("/api/user/follow", userId, config);
+
+            setFollow(true);
+            return res.data;
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    // Unfollow a user
+    const unfollowUser = async (userId, token) => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        };
+
+        try {
+            const res = await axios.post("/api/user/unfollow", userId, config);
+            setFollow(false);
+            return res.data;
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     const fetchPosts = async (Id) => {
-        
+
         try {
             const config = {
                 headers: {
@@ -91,24 +127,24 @@ const Profile = (props) => {
 
 
         } catch (error) {
-          console.error(error.message);
-          // Handle the error appropriately
+            console.error(error.message);
+            // Handle the error appropriately
         }
-      };
-      
-      function fetchUserData(userId) {
+    };
+
+    function fetchUserData(userId) {
         fetch(`/api/user/anotherUser?userId=${userId}`)
-          .then((response) => response.json())
-          .then((data) => {
-            // Handle the response data
-            setUserInfo(data);
-          })
-          .catch((error) => {
-            // Handle any errors
-            console.error(error);
-          });
-      }
-      
+            .then((response) => response.json())
+            .then((data) => {
+                // Handle the response data
+                setUserInfo(data);
+            })
+            .catch((error) => {
+                // Handle any errors
+                console.error(error);
+            });
+    }
+
     useEffect(() => {
         fetchPosts(userId)
         fetchUserData(userId)
@@ -145,21 +181,25 @@ const Profile = (props) => {
                                 <Link to="#" >
                                     <div className="profile__editInfo">
                                         {/* <EditIcon /> */}
-                                        <p>Follow</p>
+                                        {follow ? (
+                                            <p onClick={unfollowUser}>Unfollow</p>
+                                        ) : (
+                                            <p onClick={followUser}>Follow</p>
+                                        )}
                                     </div>
                                 </Link>
-                                <Link to="#" >
+                                {/* <Link to="#" >
                                     <div className="profile__createPost">
                                         <EditIcon />
                                         <p>Message</p>
                                     </div>
-                                </Link>
+                                </Link> */}
                                 <div className="profile_statsMain">
                                     <ul>
-                                        <li><p>Project Views</p><span>8745</span></li>
-                                        <li><p>Likes</p><span>2369</span></li>
-                                        <li><p>Followers</p><span>560</span></li>
-                                        <li><p>Following</p><span>94</span></li>
+                                        <li><p>Project Views</p><span>0</span></li>
+                                        <li><p>Likes</p><span>0</span></li>
+                                        <li><p>Followers</p><span>0</span></li>
+                                        <li><p>Following</p><span>0</span></li>
                                     </ul>
                                 </div>
                                 <div className="profile_social">

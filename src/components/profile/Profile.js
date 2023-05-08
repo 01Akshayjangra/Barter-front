@@ -180,10 +180,10 @@ const Profile = (props) => {
                                     </Link>
                                     <div className="profile_statsMain">
                                         <ul>
-                                            <li><p>Project Views</p><span>8745</span></li>
-                                            <li><p>Likes</p><span>2369</span></li>
-                                            <li><p>Followers</p><span>560</span></li>
-                                            <li><p>Following</p><span>94</span></li>
+                                            <li><p>Project Views</p><span>0</span></li>
+                                            <li><p>Likes</p><span>0</span></li>
+                                            <li><p>Followers</p><span>0</span></li>
+                                            <li><p>Following</p><span>0</span></li>
                                         </ul>
                                     </div>
                                     <div className="profile_social">
