@@ -5,6 +5,7 @@ import { ChatState } from '../context/ChatProvider';
 import './css/EditAvatar.css';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import API_URL from '../api/Api';
 
 const EditAvatar = () => {
     const { user } = ChatState();
@@ -29,8 +30,8 @@ const EditAvatar = () => {
         return { result, uploader };
     }
     const { result, uploader } = useDisplayImage();
-    
-    console.log("------>",result)
+
+    console.log("------>", result)
     const handleProfilePic = async (e) => {
         e.preventDefault()
         setOpen(true)
@@ -50,17 +51,17 @@ const EditAvatar = () => {
                 },
             };
             const response = await axios.put(
-              '/api/user/profileImage',
-              data,
+                `${API_URL}/api/user/profileImage`,
+                data,
                 config
             );
             alert('profile image uploaded successfully')
             setOpen(false)
             return response.data;
         } catch (error) {
-              alert('An error occured')
-              setOpen(false)
-          }
+            alert('An error occured')
+            setOpen(false)
+        }
     };
 
 
@@ -71,7 +72,7 @@ const EditAvatar = () => {
                     <h3>Profile Image</h3>
                     <div className="editAvatar__image_div">
 
-                            { result ? <img ref={imageRef} src={result}/> : 
+                        {result ? <img ref={imageRef} src={result} /> :
                             <>
                                 <div>Upload Image
                                     <input type="file" name="image" onChange={(e) => {
@@ -82,7 +83,7 @@ const EditAvatar = () => {
                                 <p>Prefer size "500x450px"</p>
                                 <p>Choose your Profile image</p>
                             </>
-                            }
+                        }
 
                     </div>
                     <div className="editAvatar__submit">
@@ -91,11 +92,11 @@ const EditAvatar = () => {
                 </div>
             </div>
             <Backdrop
-              sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-              open={open}
-              onClick={handleProfilePic}
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={open}
+                onClick={handleProfilePic}
             >
-              <CircularProgress color="inherit" />
+                <CircularProgress color="inherit" />
             </Backdrop>
         </>
     )

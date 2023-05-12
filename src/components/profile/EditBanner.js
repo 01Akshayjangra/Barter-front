@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import axios from "axios";
 import { ChatState } from '../context/ChatProvider';
 import './css/EditAvatar.css';
+import API_URL from '../api/Api';
 
 const EditAvatar = () => {
     const { user } = ChatState();
@@ -45,7 +46,7 @@ const EditAvatar = () => {
                 },
             };
             const { data } = await axios.put(
-                "/api/user/",
+                `${API_URL}/api/user/`,
                 data,
                 config
             );

@@ -9,6 +9,7 @@ import { ChatState } from '../context/ChatProvider';
 import axios from "axios";
 import ChatLoading from '../chat/ChatLoading';
 import { Footer } from './Footer';
+import API_URL from '../api/Api';
 
 const Home = () => {
 	const [loading, setLoading] = useState();
@@ -20,7 +21,7 @@ const Home = () => {
 
 	const fetchPosts = async () => {
 		setLoading(true);
-		const res = await axios.get(`/api/posts?category=${selectedCategory}`);
+		const res = await axios.get(`${API_URL}/api/posts?category=${selectedCategory}`);
 		setLoading(false);
 		setPosts(res.data);
 	}

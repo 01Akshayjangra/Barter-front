@@ -12,6 +12,7 @@ import Spinner from '../miscelleneous/Spinner';
 import MyChats from './MyChats';
 import { useEffect, useState } from "react";
 import { getSender } from '../config/ChatLogics';
+import API_URL from '../api/Api';
 
 const Messages = () => {
 	const [search, setSearch] = useState("");
@@ -42,7 +43,7 @@ const Messages = () => {
 				},
 			};
 
-			const { data } = await axios.get(`/api/user?search=${search}`, config);
+			const { data } = await axios.get(`${API_URL}/api/user?search=${search}`, config);
 
 			setLoading(false);
 			setSearchResult(data);
@@ -60,7 +61,7 @@ const Messages = () => {
 					Authorization: `Bearer ${user.token}`,
 				},
 			};
-			const { data } = await axios.post(`/api/chat`, { userId }, config);
+			const { data } = await axios.post(`${API_URL}/api/chat`, { userId }, config);
 
 			if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
 			setSelectedChat(data);
@@ -83,7 +84,7 @@ const Messages = () => {
 				},
 			};
 
-			const { data } = await axios.get("/api/chat", config);
+			const { data } = await axios.get(`${API_URL}/api/chat`, config);
 			console.log(data)
 			setChats(data);
 		} catch (error) {
@@ -104,7 +105,7 @@ const Messages = () => {
                 },
             };
 
-            const { data } = await axios.get("/api/user/profile", config);
+            const { data } = await axios.get(`${API_URL}/api/user/profile`, config);
 			setLoading(false)
             setUserInfo(data);
         } catch (error) {

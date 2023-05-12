@@ -20,6 +20,7 @@ import Modal from '@mui/material/Modal';
 import EditAvatar from './EditAvatar';
 import EditBanner from './EditBanner';
 import About from './About';
+import API_URL from '../api/Api';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -47,7 +48,6 @@ const Profile = (props) => {
         index: PropTypes.number.isRequired,
         value: PropTypes.number.isRequired,
     };
-
     function a11yProps(index) {
         return {
             id: `simple-tab-${index}`,
@@ -77,7 +77,7 @@ const Profile = (props) => {
                 },
             };
 
-            const { data } = await axios.get("/api/user/profile", config);
+            const { data } = await axios.get(`${API_URL}/api/user/profile`, config);
             setUserInfo(data);
             setLoading(false)
         } catch (error) {
@@ -99,7 +99,7 @@ const Profile = (props) => {
                 },
             };
 
-            const { data } = await axios.get("/api/posts/user", config);
+            const { data } = await axios.get(`${API_URL}/api/posts/user`, config);
            
             setPosts(data);
         } catch (error) {

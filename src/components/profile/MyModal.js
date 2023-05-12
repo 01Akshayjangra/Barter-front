@@ -19,7 +19,7 @@ const MyModal = (props) => {
 
     const fetchUserData = () => {
         fetch("https://barter-api.onrender.com/recommend", {
-            mode: "cors",
+            mode: 'cors',
             headers: {
                 "Content-Type": "application/json"
             },
@@ -50,7 +50,7 @@ const MyModal = (props) => {
     };
 
     useEffect(() => {
-        fetchUserData();
+        // fetchUserData();
       }, []); // Call fetchUserData() only once when the component mounts
 
 
@@ -179,7 +179,7 @@ const MyModal = (props) => {
                             </div>
                         </div> */}
                         <div className="modal__body">
-                            <div className='modal__bodyPostMain'>
+                            {/* <div className='modal__bodyPostMain'>
 
                                 <h1>More Like This ...</h1>
                                 <div className='modal__bodyPosts'>
@@ -190,9 +190,9 @@ const MyModal = (props) => {
                                             post={post} />
                                     ))}
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
-                    </div>
+                    </div>in
                 </div>
 
             </div>

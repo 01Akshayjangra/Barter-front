@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ChatState } from '../context/ChatProvider';
 import Spinner from '../miscelleneous/Spinner';
 import "./css/About.css"
+import API_URL from '../api/Api';
 
 const About = () => {
   const [loading, setLoading] = useState(true);
@@ -18,7 +19,7 @@ const About = () => {
           },
         };
 
-        const response = await axios.get('/api/user/about', config);
+        const response = await axios.get(`${API_URL}/api/user/about`, config);
         const data = response.data;
 
         setAboutData(data);

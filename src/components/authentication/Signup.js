@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from "axios";
+import API_URL from '../api/Api';
 
 const Signup = () => {
 const navigate = useNavigate();
@@ -41,7 +42,7 @@ const navigate = useNavigate();
       };
 
       const { data } = await axios.post(
-        "/api/user",
+        `${API_URL}/api/user`,
         {
           name,
           email,

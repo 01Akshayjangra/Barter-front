@@ -6,6 +6,7 @@ import ChatLoading from './ChatLoading';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { getSender } from '../config/ChatLogics';
+import API_URL from '../api/Api';
 
 const MyChats = () => {
   const [loggedUser, setLoggedUser] = useState();
@@ -21,7 +22,7 @@ const MyChats = () => {
         },
       };
 
-      const { data } = await axios.get("https://barter-backend.onrender.com/api/chat", config);
+      const { data } = await axios.get(`${API_URL}/api/chat`, config);
       console.log(data)
       setChats(data);
     } catch (error) {

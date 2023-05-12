@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import swal from 'sweetalert';
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
-
+import API_URL from '../api/Api';
 import axios from "axios";
 
 
@@ -32,7 +32,7 @@ const Login = () => {
       };
 
       const { data } = await axios.post(
-        "/api/user/login",
+        `${API_URL}/api/user/login`,
         { email, password },
         config
       );

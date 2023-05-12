@@ -20,6 +20,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { ChatState } from '../context/ChatProvider';
+import API_URL from '../api/Api';
 
 export default function AccountMenu() {
   const { user } = ChatState();
@@ -49,7 +50,7 @@ export default function AccountMenu() {
         },
       };
 
-      const { data } = await axios.get("/api/user/profile", config);
+      const { data } = await axios.get(`${API_URL}/api/user/profile`, config);
       setUserInfo(data);
     } catch (error) {
       alert('failed to load user info')

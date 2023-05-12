@@ -6,6 +6,7 @@ import { ChatState } from '../context/ChatProvider';
 import { useNavigate } from 'react-router-dom';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import API_URL from '../api/Api';
 
 const EditProfile = () => {
     const [firstname, setFirstname] = useState('');
@@ -42,7 +43,7 @@ const EditProfile = () => {
             description,
         };
         try {
-            const res = await axios.post('/api/user/about', data, config);
+            const res = await axios.post(`${API_URL}/api/user/about`, data, config);
             // console.log(res.data);
             setOpen(false);
             navigate('/profile')

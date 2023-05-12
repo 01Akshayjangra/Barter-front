@@ -35,6 +35,7 @@ import { ChatState } from '../../context/ChatProvider';
 import UserListItem from "../userAvatar/UserListItem";
 import ProfileModal from "./ProfileModal";
 import ChatLoading from "./ChatLoading";
+import API_URL from '../api/Api';
 
 function SideDrawer() {
   const [search, setSearch] = useState("");
@@ -81,7 +82,7 @@ function SideDrawer() {
         },
       };
 
-      const { data } = await axios.get(`https://barter-backend.onrender.com/api/user?search=${search}`, config);
+      const { data } = await axios.get(`${API_URL}/api/user?search=${search}`, config);
 
       setLoading(false);
       setSearchResult(data);
@@ -108,7 +109,7 @@ function SideDrawer() {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.post(`https://barter-backend.onrender.com/api/chat`, { userId }, config);
+      const { data } = await axios.post(`${API_URL}/api/chat`, { userId }, config);
 
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
       setSelectedChat(data);

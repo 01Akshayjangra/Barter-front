@@ -8,6 +8,8 @@ import HeroCarousel from './HeroCarousel';
 import axios from "axios";
 import { ChatState } from '../context/ChatProvider';
 import { Footer } from './Footer';
+import API_URL from '../api/Api';
+
 const Explore = () => {
 
   const [loading, setLoading] = useState();
@@ -16,7 +18,7 @@ const Explore = () => {
 
   const fetchPosts = async () => {
     setLoading(true);
-    const res = await axios.get(`/api/posts?category=${selectedCategory}`);
+    const res = await axios.get(`${API_URL}/api/posts?category=${selectedCategory}`);
     setLoading(false);
     setPosts(res.data);
   }

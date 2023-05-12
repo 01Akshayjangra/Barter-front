@@ -13,6 +13,8 @@ import TextField from '@mui/material/TextField';
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
 import { useNavigate } from 'react-router-dom';
+import API_URL from '../api/Api';
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -88,7 +90,7 @@ const UploadSettings = (props) => {
             };
 
             const response = await axios.post(
-                "/api/post",
+                `${API_URL}/api/post`,
                 data,
                 config
             );
