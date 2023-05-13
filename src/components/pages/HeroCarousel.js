@@ -17,7 +17,9 @@ export default function HeroCarousel() {
     return (
         <>
         
-        <Box sx={{ maxWidth: { xs: 250, sm: 1000 }, bgcolor: 'background.paper' }} style={{height: '50px', borderRadius: '20px'}}>
+        <div className="HerCorousel__Main">
+
+        <Box sx={{ maxWidth: { xs: 250, sm: 1000 }, bgcolor: 'background.paper' }} style={{height: '50px'}}>
             <Tabs
                 value={selectedCategory}
                 onChange={handleChange}
@@ -46,6 +48,7 @@ export default function HeroCarousel() {
                 </Box>
             )}
         </Box>
+        </div>
         </>
     );
 }

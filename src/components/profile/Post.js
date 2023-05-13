@@ -24,7 +24,7 @@ const AvatarHover = (props) => {
 const Post = (props) => {
     const {post} = props;
     const {setUserId}= ChatState();
-    console.log("------------------",post.userId._id)
+    // console.log("------------------",post.userId._id)
     const [showModal, setShowModal] = useState(false);
     const closeModal = () => setShowModal(false);
     const handleUserProfile = () => {
@@ -46,7 +46,7 @@ const Post = (props) => {
                 <div className="post-userInfo">
                     <a href={`/user-profile?userId=${post.userId._id}`}>
                         <Tooltip title={<AvatarHover/>} arrow>
-                            <Avatar src={post.userId.pic} onClick={handleUserProfile}/>
+                            <Avatar src={post.userId.pic.url} onClick={handleUserProfile}/>
                         </Tooltip>
                         <span>{post.userId.name}</span>
                     </a>

@@ -21,6 +21,7 @@ import Modal from '@mui/material/Modal';
 import EditAvatar from './EditAvatar';
 import EditBanner from './EditBanner';
 import About from './About';
+import API_URL from '../api/Api';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -67,8 +68,6 @@ const Profile = (props) => {
     const [follow, setFollow] = useState(false);
     const { user } = ChatState();
 
-        // http://localhost:5000/api/user/anotherUser?userId=64563929988f1add7a3ee334
-    // console.log(post.userId._id)
     const followUser = async (userId, token) => {
         const config = {
             headers: {
@@ -77,7 +76,7 @@ const Profile = (props) => {
         };
 
         try {
-            const res = await axios.post("/api/user/follow", userId, config);
+            const res = await axios.post(`${API_URL}/api/user/follow`, userId, config);
 
             setFollow(true);
             return res.data;
@@ -95,7 +94,7 @@ const Profile = (props) => {
         };
 
         try {
-            const res = await axios.post("/api/user/unfollow", userId, config);
+            const res = await axios.post(`${API_URL}/api/user/unfollow`, userId, config);
             setFollow(false);
             return res.data;
         } catch (err) {
@@ -113,7 +112,7 @@ const Profile = (props) => {
             };
 
 
-            fetch("/api/posts/getSomeonesUserPosts", {
+            fetch(`${API_URL}/api/posts/getSomeonesUserPosts`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id: userId })
@@ -133,7 +132,7 @@ const Profile = (props) => {
     };
 
     function fetchUserData(userId) {
-        fetch(`/api/user/anotherUser?userId=${userId}`)
+        fetch(`${API_URL}/api/user/anotherUser?userId=${userId}`)
             .then((response) => response.json())
             .then((data) => {
                 // Handle the response data

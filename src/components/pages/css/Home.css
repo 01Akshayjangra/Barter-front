@@ -8,3 +8,18 @@
   list-style: none;
   margin-top: 30px;
 }
+
+@media (min-width:500px){
+  html{
+    font-size: 57%;
+  }
+/* Main - post - Container */
+.home-posts-container{
+  padding: 0 23px;
+  display: grid;
+  grid-gap: 36px;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  list-style: none;
+  margin-top: 30px;
+}
+}

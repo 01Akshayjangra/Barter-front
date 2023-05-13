@@ -192,7 +192,7 @@ const MyModal = (props) => {
                                 </div>
                             </div> */}
                         </div>
-                    </div>in
+                    </div>
                 </div>
 
             </div>
