@@ -1,6 +1,4 @@
-// api.js
-// const API_URL = "https://barter-backend.onrender.com";
-const API_URL = "http://localhost:5000";
+const isProduction = process.env.NODE_ENV === 'production';
+const API_URL = isProduction ? "https://barter-backend.onrender.com" : "http://localhost:5000";
 
-// export default urlProduction;
 export default API_URL;
