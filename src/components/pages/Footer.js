@@ -41,7 +41,7 @@ export const Footer = () => {
                     <h1>Contact Us</h1>
                     <form>
                         <div className="login__formContainer">
-                            <h4 for="email">Email</h4>
+                            <h4>Email</h4>
                             <input
                                 type="email"
                                 name="email"
