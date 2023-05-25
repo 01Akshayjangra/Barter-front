@@ -58,38 +58,19 @@ const Profile = (props) => {
     const [loggedUser, setLoggedUser] = useState();
     const [loading, setLoading] = useState(false)
     const [posts, setPosts] = useState([]);
-    const [userInfo, setUserInfo] = useState([]);
 
     //Context
-    const { user } = ChatState()
-    console.log(userInfo)
-
-    const handleUserInfo = async () => {
-        try {
-            if (!user.token) {
-                alert("token not found")
-                return;
-            }
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${user.token}`,
-                },
-            };
-
-            const { data } = await axios.get(`${API_URL}/api/user/profile`, config);
-            setUserInfo(data);
-        } catch (error) {
-            // alert('failed to load user info')
-        }
-    }
-
+    const { user , userInformation, setUserInformation} = ChatState()
+    
     const fetchPosts = async () => {
-        // console.log(user._id);
+        console.log("token",user.token);
         try {
+            setLoading(true)
             if (!user.token) {
                 alert("token not found")
                 return;
             }
+            console.log("testing");
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
@@ -102,15 +83,13 @@ const Profile = (props) => {
             setPosts(data);
             setLoading(false)
         } catch (error) {
-            // alert("error occured while fetching posts")
+            alert("error occured while fetching posts")
         }
     };
 
     useEffect(() => {
         console.log("start");
         setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
-        setLoading(true)
-        handleUserInfo()
         fetchPosts()
         console.log("end");
     }, []);
@@ -127,8 +106,8 @@ const Profile = (props) => {
     if (loading) {
         return <Spinner />;
     }
-    console.log(userInfo);
-
+    console.log(userInformation)
+    
     return (
         <div className='profile__container' >
             <div className="profile__banner">
@@ -147,7 +126,7 @@ const Profile = (props) => {
                     <div className="profile__Left">
                         <div className="profile__User">
                             <div className="profile__UserInfo">
-                                <Avatar src={console.log(userInfo.pic)} onClick={() => setOpenEditAvatar(true)} />
+                            {userInformation.pic && <Avatar src={userInformation.pic.url} alt="User Profile" />}
                                 <div className='profile__editIconAvatar'>
                                     <Modal
                                         open={openEditAvatar}
@@ -157,8 +136,8 @@ const Profile = (props) => {
                                     </Modal>
                                 </div>
 
-                                <h2>{userInfo.name}</h2>
-                                <h3>{userInfo.email}</h3>
+                                <h2>{userInformation.name}</h2>
+                                <h3>{userInformation.email}</h3>
                                 {/* <div className="profile__userLocation">
                                     <i className="fa-solid fa-location-dot" />
                                     <p>{aboutData.city}, {aboutData.country}</p>

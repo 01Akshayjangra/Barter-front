@@ -14,43 +14,29 @@ import { useEffect, useState } from "react";
 import { getSender } from '../config/ChatLogics';
 import API_URL from '../api/Api';
 
+//Modal 
+import Modal from '@mui/material/Modal';
+import ChatSearch from './ChatSearch';
+
 const Messages = () => {
 	const [search, setSearch] = useState("");
 	const [searchResult, setSearchResult] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [loadingChat, setLoadingChat] = useState(false);
 	const [userInfo, setUserInfo] = useState([]);
+	const [fetchAgain, setFetchAgain] = useState(false);
+
+	const [openSearchModal, setOpenSearchModal] = React.useState(false);
 
 	const {
 		setSelectedChat,
+		selectedChat,
 		user,
 		notification,
 		setNotification,
 		chats,
 		setChats,
 	} = ChatState();
-
-	const handleSearch = async () => {
-		if (!search) {
-			alert("please enter something")
-			return;
-		}
-		try {
-			setLoading(true)
-			const config = {
-				headers: {
-					Authorization: `Bearer ${user.token}`,
-				},
-			};
-
-			const { data } = await axios.get(`${API_URL}/api/user?search=${search}`, config);
-
-			setLoading(false);
-			setSearchResult(data);
-		} catch (error) {
-			// alert("Failed to load the search Results")
-		}
-	}
 
 	const accessChat = async (userId) => {
 		try {
@@ -72,8 +58,6 @@ const Messages = () => {
 	}
 	const [loggedUser, setLoggedUser] = useState();
 
-	// const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
-
 	const fetchChats = async () => {
 		// console.log(user._id);
 		try {
@@ -85,7 +69,7 @@ const Messages = () => {
 			};
 
 			const { data } = await axios.get(`${API_URL}/api/chat`, config);
-			console.log(data)
+			// console.log(data)
 			setChats(data);
 		} catch (error) {
 			// alert('failed to load chats')
@@ -93,40 +77,40 @@ const Messages = () => {
 	};
 
 	const handleUserInfo = async () => {
-        try {
-            if(!user.token){
-                alert("token not found")
-                return;
-            }
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${user.token}`,
-                },
-            };
+		try {
+			if (!user.token) {
+				alert("token not found")
+				return;
+			}
+			const config = {
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${user.token}`,
+				},
+			};
 
-            const { data } = await axios.get(`${API_URL}/api/user/profile`, config);
+			const { data } = await axios.get(`${API_URL}/api/user/profile`, config);
 			setLoading(false)
-            setUserInfo(data);
-        } catch (error) {
-            // alert('failed to load user info')
-        }
-    }
+			setUserInfo(data);
+		} catch (error) {
+			// alert('failed to load user info')
+		}
+	}
 
 
 	useEffect(() => {
-		
+
 		setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
 		fetchChats();
 		handleUserInfo()
-		
+
 		// eslint-disable-next-line
 	}, []);
 
 	if (loading) {
-        return <Spinner/> ;
-      }
-    
+		return <Spinner />;
+	}
+
 	return (
 		<div className="message">
 			<div className="message-body">
@@ -135,53 +119,34 @@ const Messages = () => {
 					<div className="message-sidebar__header">
 						<Avatar src={userInfo.pic} />
 						<div className="message-sidebar__headerRight">
-							<IconButton>
-								<DonutLargeIcon />
-							</IconButton>
-							<IconButton>
-								<ChatIcon />
-							</IconButton>
-							<IconButton>
-								<i className="fa-solid fa-ellipsis-vertical"></i>
-							</IconButton>
+							New Group Chat <span>+</span>
 						</div>
 					</div>
 
 					<div className="message-sidebar__search">
-						<div className="message-sidebar__searchContainer">
+						<div className="message-sidebar__searchContainer" onClick={() => setOpenSearchModal(true)}>
 							<i className="fa-solid fa-magnifying-glass"></i>
-							<input
-								placeholder="Search or start new search"
-								type="text"
-								value={search}
-								onChange={(e) => setSearch(e.target.value)}
-							/>
+							<p>Search or start a new chat</p>
 						</div>
-						<button onClick={handleSearch} >Go</button>
+
+						<Modal
+							open={openSearchModal}
+							onClose={() => setOpenSearchModal(false)}
+						>
+							<ChatSearch />
+						</Modal>
+						{/* <button onClick={handleSearch} >Go</button> */}
 					</div>
 
 					<div className="message-sidebar_chats scrollbar">
-						{loading ? (
-							<ChatLoading />
-						) : (
-							searchResult?.map(user => (
-								<SidebarChat
-									key={user._id}
-									user={user}
-									handleFunction={() => accessChat(user._id)}
-								/>))
-						)}
-						
-						{loadingChat && <Spinner />}
-						{console.log(chats)}
 						{chats ? (
 							chats.map((chat) => (
-								
+
 								<div className='sidebarChat'
-								onClick={() => setSelectedChat(chat)}
-								key={chat._id}
+									onClick={() => setSelectedChat(chat)}
+									key={chat._id}
 								>
-									{console.log(chat)}
+									{/* {console.log(chat)} */}
 									<Avatar src={chat.users[0].pic} />
 									<div className="sidebarChat__info">
 										<h2>
@@ -198,7 +163,7 @@ const Messages = () => {
 						)}
 					</div>
 				</div>
-				<Chat />
+				<Chat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}/>
 
 			</div>
 		</div>

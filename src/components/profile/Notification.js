@@ -1,65 +1,69 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
 import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import { ChatState } from '../context/ChatProvider';
+import { MenuItem } from '@mui/material';
+import { getSender } from '../config/ChatLogics';
 
-export default function Notification() {
-  const [state, setState] = React.useState({ right: false,});
-
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-
-    setState({ ...state, [anchor]: open });
-  };
-
-  const list = (anchor) => (
-    <Box
-      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-    <h1>Notifications</h1>
-      <Divider />
-      <List>
-        {['Personal', 'Messages related', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
+const Notification = () => {
+  const { user, notification, setNotification, setSelectedChat } = ChatState();
 
   return (
-    <div>
-      {['right'].map((anchor) => (
-        <React.Fragment key={anchor}>
-          {/* <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button> */}
-          <Drawer
-            anchor={anchor}
-            open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}
+    <>
+      <List sx={{ width: '100%', width: 300, bgcolor: 'background.paper' }}>
+        <ListItem alignItems="flex-start">
+          <Typography
+            style={{ display: 'inline', fontSize: 23, fontWeight: 'bold' }}
+            component="span"
+            variant="body2"
+            color="text.primary"
           >
-            {list(anchor)}
-          </Drawer>
-        </React.Fragment>
-      ))}
-    </div>
-  );
+            Notifications
+          </Typography>
+        </ListItem>
+
+        <Divider />
+
+        <ListItem alignItems="flex-start">
+          <Typography
+            style={{ display: 'inline', fontSize: 16}}
+            component="span"
+            variant="body2"
+            color="text.primary"
+          >
+             {!notification.length && "No new notifications"}
+          </Typography>
+        </ListItem>
+
+        <Divider />
+
+        {notification.map((notify) => (<>
+          <ListItem alignItems='center' key={notify._id} onClick={()=>{
+            setSelectedChat(notify.chat)
+            setNotification(notification.filter((n) => n !== notify))
+          }}>
+            <Typography
+              style={{ display: 'inline', fontSize: 16}}
+              component="span"
+              variant="body2"
+              color="text.primary"
+            >
+              {notify.chat.isGroupChat ? `New Messages in ${notify.chat.chatName}`
+                : `New Message from ${getSender(user, notify.chat.users)}`}
+            </Typography>
+
+          </ListItem>
+          <Divider />
+        </>
+        ))}
+      </List>
+    </>
+  )
 }
+
+export default Notification

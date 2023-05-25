@@ -248,7 +248,7 @@
         /* border: 1px solid greenyellow; */
     }
     
-    .profile__UserInfo{
+    .setuserInformation{
         display: flex;
         flex-direction: column;
         justify-content: center;

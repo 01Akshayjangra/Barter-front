@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 
 const ChatContext = createContext();
 
@@ -11,13 +10,16 @@ const ChatProvider = ({ children }) => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [aboutData, setAboutData] = useState(null);
   const [userId, setUserId] = useState();
-  // const navigate = useNavigate();
+
+  const [openNotify, setOpenNotify] = useState(false);
+  
+  const [userInformation, setUserInformation] = useState([]);
+
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     setUser(userInfo);
-
-    // if (!userInfo) navigate("/login");
+    console.log("Chat token",user)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -37,7 +39,11 @@ const ChatProvider = ({ children }) => {
         aboutData, 
         setAboutData,
         userId, 
-        setUserId
+        setUserId,
+        openNotify, 
+        setOpenNotify,
+        userInformation, 
+        setUserInformation
       }}
     >
       {children}

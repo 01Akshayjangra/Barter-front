@@ -23,7 +23,8 @@ import { ChatState } from '../context/ChatProvider';
 import API_URL from '../api/Api';
 
 export default function AccountMenu() {
-  const { user } = ChatState();
+
+  const { user , userInformation, setUserInformation} = ChatState()
   const [loadingOpen, setLoadingOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -41,8 +42,7 @@ export default function AccountMenu() {
     localStorage.removeItem('userInfo');
     window.location.href = '/login';
   };
-  const [userInfo, setUserInfo] = useState([]);
-  const handleUserInfo = async () => {
+  const handleuserInfo= async () => {
     try {
       const config = {
         headers: {
@@ -51,14 +51,14 @@ export default function AccountMenu() {
       };
 
       const { data } = await axios.get(`${API_URL}/api/user/profile`, config);
-      setUserInfo(data);
+      setUserInformation(data);
     } catch (error) {
       alert('failed to load user info')
     }
   }
 
   useEffect(() => {
-    handleUserInfo()
+    handleuserInfo()
   }, []);
 
   return (
@@ -74,7 +74,7 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar src={userInfo.pic} sx={{ width: 45, height: 45 }} />
+            {userInformation.pic && <Avatar src={userInformation.pic.url} sx={{ width: 45, height: 45 }}  alt="User Profile" />}
           </IconButton>
         </Tooltip>
       </Box>
@@ -114,7 +114,7 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClose} style={{ fontSize: '17px', fontWeight: '400' }}>
-          <Avatar src={userInfo.pic} />  <Link to="/profile" >My Profile</Link>
+        {userInformation.pic && <Avatar src={userInformation.pic.url} sx={{ width: 45, height: 45 }}  alt="User Profile" />}  <Link to="/profile" >My Profile</Link>
         </MenuItem>
 
         <Divider />

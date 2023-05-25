@@ -7,7 +7,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
 import API_URL from '../api/Api';
 import axios from "axios";
-
+import {toast} from "react-hot-toast"
 
 const Login = () => {
   const [open, setOpen] = React.useState(false);
@@ -38,9 +38,9 @@ const Login = () => {
       );
       localStorage.setItem("userInfo", JSON.stringify(data));
       setOpen(false);
-      swal("logged in successfully")
       navigate('/');
       window.location.reload();
+      toast('logged in successfully');
     } catch (error) {
       setOpen(false);
       alert("Invalid Credentials")
