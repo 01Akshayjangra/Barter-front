@@ -1,38 +1,38 @@
-import React, { useState } from 'react';
-import "./css/Signup.css";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-import axios from "axios";
+import axios from 'axios';
 import API_URL from '../api/Api';
+import toast, { Toaster } from 'react-hot-toast';
+import "./css/Signup.css";
+import firebase from '../../firebaseConfig';
 
 const Signup = () => {
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const [open, setOpen] = React.useState(false);
-  const [userRes, setUserRes] = useState("");
-  const [pic, setPic] = useState();
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [phone, setPhone] = useState();
-  const [confirmpassword, setConfirmpassword] = useState();
-  const [password, setPassword] = useState();
-
+  const [open, setOpen] = useState(false);
+  const [pic, setPic] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [confirmpassword, setConfirmpassword] = useState('');
+  const [password, setPassword] = useState('');
 
   const submitHandler = async (e) => {
     e.preventDefault()
     setOpen(true);
-    if (!name || !email || !phone || !password || !confirmpassword) {
+    if (!name || !email || !password || !confirmpassword) {
       setOpen(false);
+      toast.error("All field are required");
       return;
     }
     if (password !== confirmpassword) {
-      alert("password not match")
+      toast.error("Confirm password not match");
       setOpen(false);
       return;
     }
-    console.log(name, email, phone, password, pic);
 
     try {
       const config = {
@@ -46,41 +46,75 @@ const navigate = useNavigate();
         {
           name,
           email,
-          phone,
           password,
-          pic,
         },
         config
       );
 
-      // console.log(data);
-
-      alert('register successful')
+      toast.success('register successful')
       navigate('/login')
       localStorage.setItem("userInfo", JSON.stringify(data));
       setOpen(false);
-      // history.push("/chats");
     } catch (error) {
-      alert("error occured")
+      toast.error("error occured")
       setOpen(false);
     }
   };
 
+  const handleGoogleLogin = async () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    try {
+      const result = await firebase.auth().signInWithPopup(provider);
+      const user = await result.user;
+      console.log(user.displayName)
+      console.log(user.email)
+      console.log(user.providerData[0].uid)
+      console.log(user)
+      setOpen(true);
+      try {
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+          },
+        };
+
+        const { data } = await axios.post(
+          `${API_URL}/api/user/google-auth`,
+          {
+            name: user.displayName,
+            email: user.email,
+            password: user.providerData[0].uid,
+            pic: user.photoURL,
+          },
+          config
+        );
+
+        toast.success('register successful');
+        localStorage.setItem("userInfo", JSON.stringify(data));
+        setOpen(false);
+        navigate('/');
+        window.location.reload();
+        toast.success('logged in successfully');
+      } catch (error) {
+        toast.error(error)
+        setOpen(false);
+      }
+    } catch (signupError) {
+      console.log('Login error:',signupError);
+    }
+  };
+
+
 
   return (
     <div className="main-signin">
-      {userRes ? (
-        <ul>
-          <h1 style={{ color: "red" }}>{userRes}</h1>
-        </ul>
-      ) : (<ul>
-        <h1 style={{ color: "white" }}>{userRes}</h1>
-      </ul>
-      )}
+      <Toaster />
       <div className="signin">
 
         <div className="signin-left">
           <div className=" leftdiv ">
+
+
             <h1>Welcome</h1>
             <h1>To Barter</h1>
             <p className="para"></p>
@@ -94,6 +128,7 @@ const navigate = useNavigate();
 
           <div className="signin__formContainer">
             <form onSubmit={submitHandler}>
+
               <h1 htmlFor="name">Username</h1>
               <input
                 placeholder="Choose a unique username"
@@ -110,16 +145,6 @@ const navigate = useNavigate();
                 name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-
-              <h1 htmlFor="phone">Phone</h1>
-              <input
-                type="number"
-                placeholder="Enter your phone number"
-                name="phone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
                 required
               />
 
@@ -148,6 +173,9 @@ const navigate = useNavigate();
               <button type="submit" className="signinbtn">
                 Sign Up
               </button>
+              <div className='google-auth' onClick={handleGoogleLogin}>
+                <span><img src="./images/google-short.jpg" alt="" /></span>
+                Continue with Google</div>
               <p>
                 Already have an account? <Link to="/login"> Login now</Link>
               </p>

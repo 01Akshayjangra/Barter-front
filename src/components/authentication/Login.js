@@ -7,7 +7,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
 import API_URL from '../api/Api';
 import axios from "axios";
-import {toast} from "react-hot-toast"
+import toast, { Toaster } from 'react-hot-toast';
+import firebase from '../../firebaseConfig';
 
 const Login = () => {
   const [open, setOpen] = React.useState(false);
@@ -36,19 +37,65 @@ const Login = () => {
         { email, password },
         config
       );
+      toast.success('logged in successfully');
       localStorage.setItem("userInfo", JSON.stringify(data));
       setOpen(false);
       navigate('/');
       window.location.reload();
-      toast('logged in successfully');
     } catch (error) {
       setOpen(false);
-      alert("Invalid Credentials")
+      toast.error('Invalid Credentials');
     }
   };
 
+  
+  const handleGoogleLogin = async () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    try {
+      const result = await firebase.auth().signInWithPopup(provider);
+      const user = await result.user;
+      console.log(user.displayName)
+      console.log(user.email)
+      console.log(user.providerData[0].uid)
+      console.log(user)
+      setOpen(true);
+      try {
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+          },
+        };
+
+        const { data } = await axios.post(
+          `${API_URL}/api/user/google-auth`,
+          {
+            name: user.displayName,
+            email: user.email,
+            password: user.providerData[0].uid,
+            pic: user.photoURL,
+          },
+          config
+        );
+
+        toast.success('register successful');
+        localStorage.setItem("userInfo", JSON.stringify(data));
+        setOpen(false);
+        navigate('/');
+        window.location.reload();
+        toast.success('logged in successfully');
+      } catch (error) {
+        toast.error(error)
+        setOpen(false);
+      }
+    } catch (signupError) {
+      console.log('Login error:',signupError);
+    }
+  };
+
+
   return (
     <div className="main-login">
+      <Toaster/>
       <div className="login">
         <div className="login-left">
           <div className=" leftdiv ">
@@ -96,6 +143,9 @@ const Login = () => {
               <button type="submit" className="loginbtn" style={{backgroundColor: 'white'}}>
                 Log In
               </button>
+              <div className='login-google-auth' onClick={handleGoogleLogin}>
+                <span><img src="./images/google-short.jpg" alt="" /></span>
+                Continue with Google</div>
               <p>
                 Don't have an account?{" "}
                 <Link to="/signup"> Click Here! to create an account now,</Link>{" "}

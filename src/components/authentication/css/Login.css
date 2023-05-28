@@ -1,4 +1,26 @@
 @media (min-width:490px) {
+    .login-google-auth{
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid white;
+        width: 210px;
+        background-color: white;
+        color: black;
+        padding: 4px 8px;
+        border-radius: 2px;
+        cursor: pointer;
+        font-size: 15px;
+        text-align: center;
+        font-weight: 500;
+        margin: 5px 0px;
+        margin-left: 20px;
+    }
+    .login-google-auth > span > img{
+        height: 18px;
+        margin-right: 5px;
+    }
     .main-login {
         display: grid;
         place-content: center;
@@ -41,6 +63,7 @@
     }
 
     .login__rightHead {
+
         padding: 10px 50px;
     }
 

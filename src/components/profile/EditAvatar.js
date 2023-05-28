@@ -6,6 +6,7 @@ import './css/EditAvatar.css';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import API_URL from '../api/Api';
+import toast, { Toaster } from 'react-hot-toast';
 
 const EditAvatar = () => {
     const { user } = ChatState();
@@ -55,11 +56,12 @@ const EditAvatar = () => {
                 data,
                 config
             );
-            alert('profile image uploaded successfully')
+            toast.success('profile image uploaded successfully');
             setOpen(false)
+            window.location.reload();
             return response.data;
         } catch (error) {
-            alert('An error occured')
+            toast.error('File size must be less than 70kb');
             setOpen(false)
         }
     };
@@ -67,6 +69,7 @@ const EditAvatar = () => {
 
     return (
         <>
+        <Toaster />
             <div className='editAvatar__container'>
                 <div className="editAvatar__main">
                     <h3>Profile Image</h3>

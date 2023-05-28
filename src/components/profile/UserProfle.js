@@ -7,8 +7,6 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
-import EditIcon from '@mui/icons-material/Edit';
-import UploadIcon from '@mui/icons-material/Upload';
 import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom';
 import Post from './Post';
@@ -159,8 +157,11 @@ const Profile = (props) => {
         return <Spinner />;
     }
 
-    console.log("eske badd");
-    console.log(posts);
+    // console.log("eske badd");
+    // console.log(posts);
+    if (loading) {
+        return <Spinner />;
+    }
     return (
         <div className='profile__container' >
             <div className="profile__banner">

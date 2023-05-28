@@ -126,7 +126,7 @@ const Profile = (props) => {
                     <div className="profile__Left">
                         <div className="profile__User">
                             <div className="profile__UserInfo">
-                            {userInformation.pic && <Avatar src={userInformation.pic.url} alt="User Profile" />}
+                            {userInformation.pic && <Avatar src={userInformation.pic.url} alt="User Profile" onClick={() => setOpenEditAvatar(true)}/>}
                                 <div className='profile__editIconAvatar'>
                                     <Modal
                                         open={openEditAvatar}
