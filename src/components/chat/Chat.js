@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./css/Chat.css"
-import { Avatar, IconButton, Tooltip } from '@mui/material';
+import { Avatar, IconButton, Tooltip, Typography } from '@mui/material';
 import Spinner from '../miscelleneous/Spinner';
 import { ChatState } from '../context/ChatProvider';
 import API_URL from '../api/Api';
@@ -14,7 +14,7 @@ import { useRef } from 'react';
 var socket, selectedChatCompare;
 
 const Chat = ({ fetchAgain, setFetchAgain }) => {
-  
+
 
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -22,6 +22,7 @@ const Chat = ({ fetchAgain, setFetchAgain }) => {
     const [socketConnected, setSocketConnected] = useState(false);
     const [typing, setTyping] = useState(false);
     const [istyping, setIsTyping] = useState(false);
+    const [newPic, setNewPic] = useState(false);
 
     const { selectedChat, setSelectedChat, user, notification, setNotification } = ChatState();
 
@@ -42,7 +43,6 @@ const Chat = ({ fetchAgain, setFetchAgain }) => {
                 `${API_URL}/api/message/${selectedChat._id}`,
                 config
             );
-            console.log(data);
             setMessages(data);
             setLoading(false);
 
@@ -69,7 +69,6 @@ const Chat = ({ fetchAgain, setFetchAgain }) => {
                     content: newMessage,
                     chatId: selectedChat
                 }, config);
-                // console.log("Chat data ",data)
                 socket.emit("new message", data);
                 setMessages([...messages, data]);
             } catch (error) {
@@ -77,6 +76,7 @@ const Chat = ({ fetchAgain, setFetchAgain }) => {
             }
         }
     }
+    console.log(selectedChat)
 
     useEffect(() => {
         socket = io(API_URL);
@@ -145,82 +145,88 @@ const Chat = ({ fetchAgain, setFetchAgain }) => {
     return (
         <div className="chat">
             <Toaster />
-            <div className="chat__header">
-                <Avatar />
+            {!selectedChat && 
+            <Typography
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, height: '100%' }}
+                component="span"
+                variant="body2"
+                color="text.primary"
+            >
+
+                {'No Chat Selected'}
+            </Typography>}
+            {selectedChat && <div className="chat__header">
+                <Avatar src={selectedChat.users[0].pic.url} />
 
                 <div className="chat__headerInfo">
-                    <h3>Room Name</h3>
-                    <p>last seen at..</p>
+                    <h3>{selectedChat.users[0].name}</h3>
+                    <p>{selectedChat.users[0].email}</p>
                 </div>
 
-                <div className="chat__headerRight">
-                    <IconButton>
-                        <i className="fa-solid fa-ellipsis-vertical"></i>
-                    </IconButton>
+            </div>}
+            {loading ? (
+                <Spinner />
+            ) : (
+
+                <div className="chat__body scrollbar" style={{ height: '100%' }} ref={chatRef}>
+
+
+                    {messages && messages.map((m, i) => (
+                        <div style={{ display: 'flex' }} key={m._id}>
+                            {(isSameSender(messages, m, i, user._id) ||
+                                isLastMessage(messages, i, user._id)) && (
+                                    <Tooltip title={m.sender.name} placement="bottom-start" hasArrow>
+                                        <Avatar
+                                            style={{ height: 25, width: 25 }}
+                                            src={m.sender.pic.url}
+                                        />
+                                    </Tooltip>
+                                )}
+                            <span
+                                style={{
+                                    backgroundColor: `${m.sender._id === user._id ? "#BEE3F8" : "#B9F5D0"
+                                        }`,
+                                    marginLeft: isSameSenderMargin(messages, m, i, user._id),
+                                    marginTop: isSameUser(messages, m, i, user._id) ? 3 : 10,
+                                    borderRadius: "20px",
+                                    padding: "5px 15px",
+                                    maxWidth: "75%",
+                                }}
+                            >
+                                {m.content}
+                            </span>
+                        </div>
+                    ))}
+
+                    {istyping ? <div>
+                        <img style={{
+                            height: 30, marginLeft: 24, marginBottom
+                                : 10
+                        }} src="./images/anime.gif" alt="" />
+                    </div> : (<></>)}
                 </div>
-            </div>
+            )}
 
-            <div className="chat__body scrollbar" ref={chatRef}>
-                {loading ? (
-                    <Spinner />
-                ) : (
-                    <>
+            {selectedChat &&
+                <div className="chat__footer">
+                    <i className="fa-solid fa-face-smile"></i>
+                    <form onSubmit={sendMessage}>
+                        <input
+                            placeholder='Type a message'
+                            type="text"
+                            onChange={typingHandler}
+                            value={newMessage}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    sendMessage(e);
+                                }
+                            }}
+                        />
+                        <button type="submit">Send a message</button>
+                    </form>
+                    <i className="fa-solid fa-microphone"></i>
+                </div>}
 
-                        {messages && messages.map((m, i) => (
-                            <div  style={{ display: 'flex' }} key={m._id}>
-                                {(isSameSender(messages, m, i, user._id) ||
-                                    isLastMessage(messages, i, user._id)) && (
-                                        <Tooltip title={m.sender.name} placement="bottom-start" hasArrow>
-                                            <Avatar
-                                                style={{ height: 25, width: 25 }}
-                                                src={m.sender.pic.url}
-                                            />
-
-                                        </Tooltip>
-                                    )}
-                                <span
-                                    style={{
-                                        backgroundColor: `${m.sender._id === user._id ? "#BEE3F8" : "#B9F5D0"
-                                            }`,
-                                        marginLeft: isSameSenderMargin(messages, m, i, user._id),
-                                        marginTop: isSameUser(messages, m, i, user._id) ? 3 : 10,
-                                        borderRadius: "20px",
-                                        padding: "5px 15px",
-                                        maxWidth: "75%",
-                                    }}
-                                >
-                                    {m.content}
-                                </span>
-                            </div>
-                        ))}
-
-                    </>
-                )}
-                {istyping ? <div>
-                    <img style={{
-                        height: 30, marginLeft: 24, marginBottom
-                            : 10
-                    }} src="./images/anime.gif" alt="" />
-                </div> : (<></>)}
-            </div>
-            <div className="chat__footer">
-                <i className="fa-solid fa-face-smile"></i>
-                <form onSubmit={sendMessage}>
-                    <input
-                        placeholder='Type a message'
-                        type="text"
-                        onChange={typingHandler}
-                        value={newMessage}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter") {
-                                sendMessage(e);
-                            }
-                        }}
-                    />
-                    <button type="submit">Send a message</button>
-                </form>
-                <i className="fa-solid fa-microphone"></i>
-            </div>
         </div>
     )
 }

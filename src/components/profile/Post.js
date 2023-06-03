@@ -46,7 +46,7 @@ const Post = (props) => {
                 <div className="post-userInfo">
                     <a href={`/user-profile?userId=${post.userId._id}`}>
                         <Tooltip title={<AvatarHover/>} arrow>
-                            <Avatar src={post.userId.pic} onClick={handleUserProfile}/>
+                            {post.userId.pic && <Avatar src={post.userId.pic.url} onClick={handleUserProfile}/>}
                         </Tooltip>
                         <span>{post.userId.name}</span>
                     </a>

@@ -92,7 +92,7 @@ const Profile = (props) => {
         setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
         fetchPosts()
         console.log("end");
-    }, []);
+    }, [userInformation]);
 
     const [value, setValue] = React.useState(0);
 
@@ -111,8 +111,8 @@ const Profile = (props) => {
     return (
         <div className='profile__container' >
             <div className="profile__banner">
-                <div className="profile__bannerUpload" onClick={() => setOpenEditBanner(true)} >
-                    <img src="./images/banner.jpg" alt="banner" />
+                <div className="profile__bannerUpload">
+                {userInformation.banner &&  <img src={userInformation.banner.url} alt="banner" onClick={() => setOpenEditBanner(true)} />}
                     <Modal
                         open={openEditBanner}
                         onClose={() => setOpenEditBanner(false)}

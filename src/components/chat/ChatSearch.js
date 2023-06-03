@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './css/ChatSearch.css';
 import ChatLoading from './ChatLoading';
 import SidebarChat from './SidebarChat';
@@ -7,6 +7,7 @@ import { ChatState } from '../context/ChatProvider';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import Spinner from '../miscelleneous/Spinner';
+import { Typography } from '@mui/material';
 
 const MessageSearch = ({ setOpenSearchModal }) => {
   const [search, setSearch] = useState("");
@@ -23,10 +24,6 @@ const MessageSearch = ({ setOpenSearchModal }) => {
   } = ChatState();
 
   const handleSearch = async () => {
-    if (!search) {
-      toast.error("Please enter something");
-      return;
-    }
     try {
       setLoading(true);
       const config = {
@@ -41,6 +38,10 @@ const MessageSearch = ({ setOpenSearchModal }) => {
       toast.error("Failed to load the search results");
     }
   };
+  useEffect(() => {
+    handleSearch()
+    // eslint-disable-next-line
+  }, [search]);
 
   const accessChat = async (userId) => {
     try {
@@ -77,7 +78,7 @@ const MessageSearch = ({ setOpenSearchModal }) => {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
-              <i style={{ fontSize: 15,color: 'gray', backgroundColor: 'white', padding: 10,cursor: 'pointer', borderRadius: 50, marginLeft: 4  }} onClick={handleSearch} className="fa-sharp fa-solid fa-arrow-right"></i>
+            {/* <i style={{ fontSize: 15, color: 'gray', backgroundColor: 'white', padding: 10, cursor: 'pointer', borderRadius: 50, marginLeft: 4 }} onClick={handleSearch} className="fa-sharp fa-solid fa-arrow-right"></i> */}
           </div>
 
 
@@ -94,6 +95,16 @@ const MessageSearch = ({ setOpenSearchModal }) => {
                 />
               ))
             )}
+            <Typography
+              style={{ display: 'flex',alignItems: 'center',justifyContent: 'center', fontSize: 16, height: '100%'}}
+              component="span"
+              variant="body2"
+              color="text.primary"
+            >
+
+              {!searchResult.length && "No results Found"}
+            </Typography>
+
             {loadingChat && <Spinner />}
           </div>
         </div>

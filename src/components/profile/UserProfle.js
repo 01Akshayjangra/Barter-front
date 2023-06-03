@@ -174,7 +174,9 @@ const Profile = (props) => {
                     <div className="profile__Left">
                         <div className="profile__User">
                             <div className="profile__UserInfo">
-                                <Avatar src={userInfo.pic} style={{ cursor: 'default' }} />
+                                {userInfo.pic &&
+                                <Avatar src={userInfo.pic.url} style={{ cursor: 'default' }} />
+                                }
                                 <h2>{userInfo.name}</h2>
                                 <h3>{userInfo.email}</h3>
 

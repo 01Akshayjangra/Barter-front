@@ -29,6 +29,7 @@ const Messages = () => {
 	const [openSearchModal, setOpenSearchModal] = React.useState(false);
 
 	const {
+		userInformation,
 		setSelectedChat,
 		selectedChat,
 		user,
@@ -106,6 +107,7 @@ const Messages = () => {
 
 		// eslint-disable-next-line
 	}, []);
+	console.log(chats)
 
 	if (loading) {
 		return <Spinner />;
@@ -117,9 +119,9 @@ const Messages = () => {
 
 				<div className="message-sidebar">
 					<div className="message-sidebar__header">
-						<Avatar src={userInfo.pic} />
+						{userInformation.pic && <Avatar src={userInformation.pic.url} />}
 						<div className="message-sidebar__headerRight">
-							New Group Chat <span>+</span>
+							Messages{/* <span>+</span> */}
 						</div>
 					</div>
 
@@ -147,14 +149,15 @@ const Messages = () => {
 									key={chat._id}
 								>
 									{/* {console.log(chat)} */}
-									<Avatar src={chat.users[0].pic} />
+									{chat.users[0].pic && <Avatar src={chat.users[0].pic.url} />}
 									<div className="sidebarChat__info">
 										<h2>
 											{!chat.isGroupChat
 												? getSender(loggedUser, chat.users)
 												: chat.chatName}
 										</h2>
-										<p>last message</p>
+										<p>{chat.users[0].email}</p>
+										{console.log(chat)}
 									</div>
 								</div>
 							))

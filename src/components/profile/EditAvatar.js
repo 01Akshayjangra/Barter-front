@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import axios from "axios";
 import { ChatState } from '../context/ChatProvider';
 import './css/EditAvatar.css';
