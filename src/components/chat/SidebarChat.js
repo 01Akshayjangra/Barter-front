@@ -8,7 +8,7 @@ const SidebarChat = ({user, handleFunction}) => {
 
   return (
     <div className='sidebarChat' onClick={handleFunction}>
-        <Avatar src={user.pic}/>
+        {user.pic && <Avatar src={user.pic.url}/>}
         <div className="sidebarChat__info">
             <h2>{user.name}</h2>
             <p>{user.email}</p>
