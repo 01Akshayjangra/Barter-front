@@ -32,9 +32,9 @@ const Home = () => {
 	}, [selectedCategory]);
 
 	if (loading) {
-		return <Spinner/> ;
-	  }
-	  
+		return <Spinner />;
+	}
+
 	return (
 		<>
 			<Search />
@@ -43,21 +43,62 @@ const Home = () => {
 			<div style={{ textAlign: 'center', marginTop: '10px' }} >
 				{loading && <Spinner />}
 			</div>
-			{posts ?(
+			{posts ? (
 				<div className="home-posts-container">
-
+					<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7315641368329718"
+						crossorigin="anonymous"></script>
+					<ins class="adsbygoogle"
+						style="display:block"
+						data-ad-format="fluid"
+						data-ad-layout-key="-7n+eo+1+2-5"
+						data-ad-client="ca-pub-7315641368329718"
+						data-ad-slot="3155542455"></ins>
+					<script>
+						(adsbygoogle = window.adsbygoogle || []).push({ });
+					</script>
+					<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7315641368329718"
+						crossorigin="anonymous"></script>
+					<ins class="adsbygoogle"
+						style="display:block"
+						data-ad-format="fluid"
+						data-ad-layout-key="-7n+eo+1+2-5"
+						data-ad-client="ca-pub-7315641368329718"
+						data-ad-slot="3155542455"></ins>
+					<script>
+						(adsbygoogle = window.adsbygoogle || []).push({ });
+					</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7315641368329718"
+						crossorigin="anonymous"></script>
+					<ins class="adsbygoogle"
+						style="display:block"
+						data-ad-format="fluid"
+						data-ad-layout-key="-7n+eo+1+2-5"
+						data-ad-client="ca-pub-7315641368329718"
+						data-ad-slot="3155542455"></ins>
+					<script>
+						(adsbygoogle = window.adsbygoogle || []).push({ });
+					</script>
 					{posts.map(post => (
 						<Post
 							key={post._id}
 							post={post} />
 					))}
-
+					<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7315641368329718"
+						crossorigin="anonymous"></script>
+					<ins class="adsbygoogle"
+						style="display:block"
+						data-ad-format="fluid"
+						data-ad-layout-key="-7n+eo+1+2-5"
+						data-ad-client="ca-pub-7315641368329718"
+						data-ad-slot="3155542455"></ins>
+					<script>
+						(adsbygoogle = window.adsbygoogle || []).push({ });
+					</script>
 				</div>
-				):(
-					<ChatLoading />
-				)
+			) : (
+				<ChatLoading />
+			)
 			}
-			<Footer/>
+			<Footer />
 		</>
 	);
 };
