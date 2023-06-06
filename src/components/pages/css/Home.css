@@ -7,6 +7,38 @@
   grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
   list-style: none;
   margin-top: 30px;
+  margin-bottom: 30px;
+}
+.home__pagination{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+.home__pagination > div {
+  height: 50px;
+  width: 100px;
+}
+.home__pagination > div > button{
+  border: 1px solid #0057ff;
+  background-color: white;
+  height: 50px;
+  width: 100px;
+  padding: 4px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: 100ms;
+}
+.home__pagination > div > button:hover{
+  border: 1px solid rgb(43, 43, 43);
+  background-color:#f7f9fd ;
+  transition: 100ms;
+}
+.home__paginationPrevious{
+  
+}
+.home__paginationNext{
+  
 }
 
 @media (min-width:500px){

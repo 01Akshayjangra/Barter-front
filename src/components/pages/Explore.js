@@ -9,27 +9,48 @@ import axios from "axios";
 import { ChatState } from '../context/ChatProvider';
 import { Footer } from './Footer';
 import API_URL from '../api/Api';
+import ChatLoading from '../chat/ChatLoading';
 
 const Explore = () => {
 
-  const [loading, setLoading] = useState();
-  const [posts, setPosts] = useState([]);
-  const { selectedCategory } = ChatState();
+  const [loading, setLoading] = useState(false);
+	const [posts, setPosts] = useState([]);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [totalPages, setTotalPages] = useState(1);
+	const { selectedCategory } = ChatState();
 
-  const fetchPosts = async () => {
-    setLoading(true);
-    const res = await axios.get(`${API_URL}/api/posts?category=${selectedCategory}`);
-    setLoading(false);
-    setPosts(res.data);
-  }
+	const fetchPosts = async (page) => {
+		try {
+			setLoading(true);
+			const res = await axios.get(`${API_URL}/api/posts?page=${page}&category=${selectedCategory}`);
+			setPosts(res.data.posts);
+			setCurrentPage(res.data.currentPage);
+			setTotalPages(res.data.totalPages);
+			setLoading(false);
+		} catch (error) {
+			console.error(error);
+			setLoading(false);
+		}
+	};
 
-  useEffect(() => {
-    fetchPosts()
-  }, [selectedCategory]);
+	const goToNextPage = () => {
+		const nextPage = currentPage + 1;
+		fetchPosts(nextPage);
+	};
 
-  if (loading) {
-    return <Spinner />;
-  }
+	const goToPreviousPage = () => {
+		const previousPage = currentPage - 1;
+		fetchPosts(previousPage);
+	};
+
+	useEffect(() => {
+		fetchPosts()
+	}, [selectedCategory]);
+
+
+	if (loading) {
+		return <Spinner />;
+	}
   
   return (
     <>
@@ -45,11 +66,37 @@ const Explore = () => {
           {loading && <Spinner />}
         </div>
 
-        <div className="explore__postsContainer">
-          {posts.map(post => (
-            <Post post={post} />
-          ))}
-        </div>
+        {posts.length > 0 ? (
+				<div className="home-posts-container">
+
+					{posts.map((post) => (
+						<Post
+							key={post._id}
+							post={post} />
+					))}
+
+				</div>
+			) : (
+				<ChatLoading />
+			)}
+
+
+			<div className="home__pagination">
+				{currentPage > 1 && (
+					<div>
+						<button className="home__paginationPrevious" onClick={goToPreviousPage}>
+							&#60; Previous
+						</button>
+					</div>
+				)}
+				{currentPage < totalPages && (
+					<div>
+						<button className="home__paginationNext" onClick={goToNextPage}>
+							Next &#62;
+						</button>
+					</div>
+				)}
+			</div>
       </div>
       <Footer />
     </>
