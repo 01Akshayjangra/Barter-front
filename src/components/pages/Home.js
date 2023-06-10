@@ -77,14 +77,14 @@ const Home = () => {
 				{currentPage > 1 && (
 					<div>
 						<button className="home__paginationPrevious" onClick={goToPreviousPage}>
-							&#60; Previous
+							<span>&#60;</span> Previous
 						</button>
 					</div>
 				)}
 				{currentPage < totalPages && (
 					<div>
 						<button className="home__paginationNext" onClick={goToNextPage}>
-							Next &#62;
+							Next <span>&#62;</span>
 						</button>
 					</div>
 				)}

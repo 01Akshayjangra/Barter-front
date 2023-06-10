@@ -4,6 +4,10 @@
    height: 300px;
    width: 300px;
 } */
+.liked {
+    color: red;
+  }
+  
 
 .post-imgContainer {
     position: relative;
