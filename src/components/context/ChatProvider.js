@@ -10,6 +10,7 @@ const ChatProvider = ({ children }) => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [aboutData, setAboutData] = useState(null);
   const [userId, setUserId] = useState();
+  const [postSort, setPostSort] = useState('');
 
   const [openNotify, setOpenNotify] = useState(false);
   
@@ -43,7 +44,9 @@ const ChatProvider = ({ children }) => {
         openNotify, 
         setOpenNotify,
         userInformation, 
-        setUserInformation
+        setUserInformation,
+        postSort, 
+        setPostSort
       }}
     >
       {children}

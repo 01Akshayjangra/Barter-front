@@ -1,8 +1,7 @@
 import React from 'react'
 import "./css/Messages.css"
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
-import ChatIcon from '@mui/icons-material/Chat';
-import { Avatar, IconButton } from '@mui/material';
+import { Avatar, IconButton, LinearProgress } from '@mui/material';
 import SidebarChat from './SidebarChat';
 import Chat from './Chat';
 import axios from "axios";
@@ -107,22 +106,22 @@ const Messages = () => {
 
 		// eslint-disable-next-line
 	}, []);
-	console.log(chats)
+	// console.log(chats)
 
 	if (loading) {
-		return <Spinner />;
+		return <>
+			<LinearProgress />
+			<Spinner />
+		</>;
 	}
 
-	return (
+	return (<>
 		<div className="message">
 			<div className="message-body">
 
 				<div className="message-sidebar">
 					<div className="message-sidebar__header">
 						{userInformation.pic && <Avatar src={userInformation.pic.url} />}
-						<div className="message-sidebar__headerRight">
-							Messages{/* <span>+</span> */}
-						</div>
 					</div>
 
 					<div className="message-sidebar__search">
@@ -170,6 +169,7 @@ const Messages = () => {
 
 			</div>
 		</div>
+		</>
 	)
 }
 

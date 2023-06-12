@@ -15,6 +15,9 @@ import API_URL from '../api/Api';
 import Spinner from '../miscelleneous/Spinner';
 import { Link } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useNavigate } from 'react-router-dom';
+import PostLoading from '../miscelleneous/PostLoading';
+
 
 const LightTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -48,6 +51,7 @@ const Post = (props) => {
     const [likeCount, setLikeCount] = useState(0);
     const [viewCount, setViewCount] = useState(0);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const fetchLikesAndViews = async () => {
         setLoading(true); // Set loading state to
@@ -66,7 +70,7 @@ const Post = (props) => {
             setLikeCount(likeCount);
             console.log('Counting like and views',);
             setViewCount(viewCount);
-            console.log('Counting like',likeCount, 'and views',viewCount);
+            console.log('Counting like', likeCount, 'and views', viewCount);
             setLoading(false); // Set loading state to
         } catch (error) {
             console.error('Error fetching likes and views:', error);
@@ -78,6 +82,7 @@ const Post = (props) => {
     }, [post._id, user]);
 
     const handleLike = async () => {
+        if (user) {
         try {
             const config = {
                 headers: {
@@ -96,28 +101,40 @@ const Post = (props) => {
         } catch (error) {
             console.error('Error toggling like:', error);
         }
+    }
+        else {
+            navigate('/signup');
+        }
     };
 
     const handleView = async () => {
-        try {
-            const response = await axios.post(`${API_URL}/api/posts/view`, { postId: post._id });
+        if (user) {
+            try {
+                const response = await axios.post(`${API_URL}/api/posts/view`, { postId: post._id });
 
-            if (response.status === 200) {
-                fetchLikesAndViews()
+                if (response.status === 200) {
+                    fetchLikesAndViews()
+                }
+                else {
+                    console.error('Failed to veiws in post');
+                }
+            } catch (error) {
+                console.error('Error while viewing post:', error);
             }
-            else {
-                console.error('Failed to veiws in post');
-            }
-        } catch (error) {
-            console.error('Error while viewing post:', error);
+        } else {
+            navigate('/signup');
         }
     }
 
     const handleUserProfile = () => {
         setUserId(post.userId._id)
     }
-
-
+    
+	if (loading) {
+		return <>
+			<PostLoading/>
+		</>;
+	}
 
     return (
         <div className="main-post">
@@ -144,22 +161,40 @@ const Post = (props) => {
 
                 <div className="post-statistics">
                     <div className="post-statsIcons post-heartStats">
+                        {user ? (
+                            <IconButton onClick={handleLike}>
+                                <i className={liked ? 'stat-icons fa-solid fa-heart liked' : 'stat-icons fa-regular fa-heart'} />
+                            </IconButton>
 
-                                <IconButton onClick={handleLike}>
-                                    <i className={liked ? 'stat-icons fa-solid fa-heart liked' : 'stat-icons fa-regular fa-heart'} />
-                                </IconButton>
-                        {!loading ? (
+                        ) : (
+                            <IconButton onClick={() => { navigate('/signup') }}>
+                                <i className={liked ? 'stat-icons fa-solid fa-heart liked' : 'stat-icons fa-regular fa-heart'} />
+                            </IconButton>
+                            // <Link to='/signup' style={{}} >
+
+                            // </Link>
+
+                        )}
+                        {user ? (<>
+                            {!loading ? (
                                 <span>{likeCount}</span>
-                        ) : ('-')}
+                            ) : ('-')}
+                        </>) : (
+                            <span>{post.hearts.length}</span>
+                        )}
 
                     </div>
                     <div className="post-statsIcons post-viewStats">
-                                <IconButton>
-                                    <i className="stat-icons fa-sharp fa-solid fa-eye" />
-                                </IconButton>
-                        {!loading ? (
+                        <IconButton>
+                            <i className="stat-icons fa-sharp fa-solid fa-eye" />
+                        </IconButton>
+                        {user ? (<>
+                            {!loading ? (
                                 <span>{viewCount}</span>
-                        ) : ('-')}
+                            ) : ('-')}
+                        </>) : (
+                            <span>{post.views}</span>
+                        )}
                     </div>
                 </div>
             </div>

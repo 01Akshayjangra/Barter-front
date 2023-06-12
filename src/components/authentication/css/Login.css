@@ -46,7 +46,7 @@
     .main-login {
         display: grid;
         place-content: center;
-        height: 89.3vh;
+        height: 100vh;
         background-color: #0f0c27;
     }
 
@@ -67,7 +67,18 @@
         color: white;
         border-bottom-left-radius: 20px;
         border-top-left-radius: 20px;
+        border: 1px solid green;
         box-shadow: -1px 0px 30px -1px black;
+    }
+    .login__leftContent{
+        display: flex;
+        align-items: center;
+    }
+    .login__leftContent > a{
+        font-size: 16px;
+        cursor: pointer;
+        color: white;
+        margin-right: 12px;
     }
 
     .login-right {
@@ -189,7 +200,7 @@
     .main-login {
         display: grid;
         place-content: center;
-        height: 89.3vh;
+        height: 100vh;
         background-color: #0f0c27;
     }
 

@@ -1,7 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import HeroCarousel from './HeroCarousel'
 import "./css/Search.css"
+import { Skeleton } from '@mui/material';
+
 const Search = () => {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        // Simulate loading delay
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 500);
+
+        // Cleanup timer on component unmount
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+        return <div
+        style={{padding: 30}}>
+            <Skeleton variant="rectangular" width={'100%'} height={'87vh'} />
+        </div>;
+    }
     return (
         <div className="search-mainContainer">
 
@@ -18,18 +38,18 @@ const Search = () => {
                 </div>
 
                 <div className="text-content hero-text-content">
-                    <h1 className="hero-text-content-h1">Discover the Best Design Portfolios<br/> from Around the World</h1>
-                    <h2 className="hero-text-content-h2 font-body margin-v-16">Discover Top-notch Design and Creativity from Leading Professionals Worldwide on <br/>Barter - the Premier Showcase for Design Portfolios and Agencies</h2>
+                    <h1 className="hero-text-content-h1">Discover the Best Design Portfolios<br /> from Around the World</h1>
+                    <h2 className="hero-text-content-h2 font-body margin-v-16">Discover Top-notch Design and Creativity from Leading Professionals Worldwide on <br />Barter - the Premier Showcase for Design Portfolios and Agencies</h2>
                 </div>
 
-                {/* <div className="search-component">
+                <div className="search-component">
                     <div>
                         <input type="text" placeholder='Search' />
                     </div>
                     <div className="search-icon">
                         <i className="fa-solid fa-magnifying-glass" />
                     </div>
-                </div> */}
+                </div>
             </div>
 
         </div>

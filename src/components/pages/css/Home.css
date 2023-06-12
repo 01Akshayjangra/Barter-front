@@ -34,12 +34,7 @@
   background-color:#f7f9fd ;
   transition: 100ms;
 }
-.home__paginationPrevious{
-  
-}
-.home__paginationNext{
-  
-}
+
 
 @media (min-width:500px){
   html{

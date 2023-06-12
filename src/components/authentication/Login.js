@@ -48,7 +48,7 @@ const Login = () => {
     }
   };
 
-  
+
   const handleGoogleLogin = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
@@ -88,21 +88,28 @@ const Login = () => {
         setOpen(false);
       }
     } catch (signupError) {
-      console.log('Login error:',signupError);
+      console.log('Login error:', signupError);
     }
   };
 
 
   return (
     <div className="main-login">
-      <Toaster/>
+      <Toaster />
       <div className="login">
+
         <div className="login-left">
           <div className=" leftdiv ">
-            {/* {error && <p>{error}</p>} */}
+
+            <div className="login__leftContent">
+              <Link to='/' ><i className="fa-solid fa-arrow-left fa-fade"></i></Link>
+              <Link to='/' >Back to Home Page</Link>
+            </div>
+            
             <h1>Hello</h1>
             <h1>Designers</h1>
             <p className="para"></p>
+            {/* {error && <p>{error}</p>} */}
           </div>
         </div>
 
@@ -140,7 +147,7 @@ const Login = () => {
                 </div>
               </div>
 
-              <button type="submit" className="loginbtn" style={{backgroundColor: 'white'}}>
+              <button type="submit" className="loginbtn" style={{ backgroundColor: 'white' }}>
                 Log In
               </button>
               <div className='login-google-auth' onClick={handleGoogleLogin}>

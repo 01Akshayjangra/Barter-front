@@ -1,0 +1,22 @@
+.scroll__button{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border: 1px solid #0057ff;
+    background-color: white;
+    border-radius: 50%;
+    padding: 20px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    transition: 100ms;
+    z-index: 2;
+}
+.scroll__button:hover{
+  border: 1px solid rgb(43, 43, 43);
+  background-color:#f7f9fd ;
+  transition: 100ms;
+}
+.scroll__button > i{
+  color: black;
+}

@@ -10,18 +10,22 @@ import "./css/Home.css"
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { ChatState } from '../context/ChatProvider';
+import ScrollTop from '../miscelleneous/ScrollTop';
+import { LinearProgress } from '@mui/material';
+import PostLoading from '../miscelleneous/PostLoading';
+import Filters from '../miscelleneous/Filters';
 
 const Home = () => {
 	const [loading, setLoading] = useState(false);
 	const [posts, setPosts] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
-	const { selectedCategory } = ChatState();
+	const { postSort, selectedCategory } = ChatState();
 
 	const fetchPosts = async (page) => {
 		try {
 			setLoading(true);
-			const res = await axios.get(`${API_URL}/api/posts?page=${page}&category=${selectedCategory}`);
+			const res = await axios.get(`${API_URL}/api/posts?page=${page}&category=${selectedCategory}&sort=${postSort}`);
 			setPosts(res.data.posts);
 			setCurrentPage(res.data.currentPage);
 			setTotalPages(res.data.totalPages);
@@ -34,30 +38,38 @@ const Home = () => {
 
 	const goToNextPage = () => {
 		const nextPage = currentPage + 1;
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth"
+		});
 		fetchPosts(nextPage);
 	};
 
 	const goToPreviousPage = () => {
 		const previousPage = currentPage - 1;
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth"
+		});
 		fetchPosts(previousPage);
 	};
 
 	useEffect(() => {
 		fetchPosts()
-	}, [selectedCategory]);
+	}, [selectedCategory, postSort]);
 
 
-	if (loading) {
-		return <Spinner />;
-	}
+	// if (loading) {
+	// 	return <>
+	// 		<LinearProgress />
+	// 		<Spinner />
+	// 	</>;
+	// }
 
 	return (
 		<>
 			<Search />
-
-			<div style={{ textAlign: 'center', marginTop: '10px' }} >
-				{loading && <Spinner />}
-			</div>
+			<Filters/>
 			{posts.length > 0 ? (
 				<div className="home-posts-container">
 
@@ -68,8 +80,20 @@ const Home = () => {
 					))}
 
 				</div>
-			) : (
-				<ChatLoading />
+			) : (<div className="home-posts-container">
+				<PostLoading />
+				<PostLoading />
+				<PostLoading />
+				<PostLoading />
+				<PostLoading />
+				<PostLoading />
+				<PostLoading />
+				<PostLoading />
+				<PostLoading />
+				<PostLoading />
+				<PostLoading />
+				<PostLoading />
+			</div>
 			)}
 
 
@@ -91,6 +115,7 @@ const Home = () => {
 			</div>
 
 			<Footer />
+			<ScrollTop />
 		</>
 	);
 };

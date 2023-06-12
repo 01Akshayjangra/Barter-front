@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Avatar } from '@mui/material'
+import { Avatar, LinearProgress } from '@mui/material'
 import './css/Profile.css'
 import { useEffect, useState } from 'react';
 import Spinner from '../miscelleneous/Spinner';
@@ -100,9 +100,11 @@ const Profile = (props) => {
     const [openEditBanner, setOpenEditBanner] = React.useState(false);
 
     if (loading) {
-        return <Spinner />;
-    }
-    console.log(userInformation)
+		return <>
+			<LinearProgress />
+			<Spinner />
+		</>;
+	}
     
     return (
         <div className='profile__container' >
@@ -134,10 +136,7 @@ const Profile = (props) => {
 
                                 <h2>{userInformation.name}</h2>
                                 <h3>{userInformation.email}</h3>
-                                {/* <div className="profile__userLocation">
-                                    <i className="fa-solid fa-location-dot" />
-                                    <p>{aboutData.city}, {aboutData.country}</p>
-                                </div> */}
+
                                 <Link to="/editor" >
                                     <div className="profile__editInfo">
                                         <EditIcon />

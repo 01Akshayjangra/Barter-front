@@ -4,7 +4,7 @@ import './css/Spinner.css'
 
 const Spinner = () => {
     return (
-        <div className="spinner__main" style={{height: '100%'}}>            
+        <div className="spinner__main">            
             <CircularProgress />
         </div>
     )

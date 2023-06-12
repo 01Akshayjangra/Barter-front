@@ -100,7 +100,7 @@ const Signup = () => {
         setOpen(false);
       }
     } catch (signupError) {
-      console.log('Login error:',signupError);
+      console.log('Login error:', signupError);
     }
   };
 
@@ -114,6 +114,10 @@ const Signup = () => {
         <div className="signin-left">
           <div className=" leftdiv ">
 
+            <div className="login__leftContent">
+              <Link to='/' ><i className="fa-solid fa-arrow-left fa-fade"></i></Link>
+              <Link to='/' >Back to Home Page</Link>
+            </div>
 
             <h1>Welcome</h1>
             <h1>To Barter</h1>
