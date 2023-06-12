@@ -64,12 +64,18 @@ const Post = (props) => {
             setLiked(liked);
             // console.log('is this person liked', liked)
             setLikeCount(likeCount);
+            console.log('Counting like and views',);
             setViewCount(viewCount);
+            console.log('Counting like',likeCount, 'and views',viewCount);
             setLoading(false); // Set loading state to
         } catch (error) {
             console.error('Error fetching likes and views:', error);
         }
     };
+
+    useEffect(() => {
+        fetchLikesAndViews();
+    }, [post._id, user]);
 
     const handleLike = async () => {
         try {
@@ -111,9 +117,6 @@ const Post = (props) => {
         setUserId(post.userId._id)
     }
 
-    useEffect(() => {
-        fetchLikesAndViews();
-    }, [post._id, user]);
 
 
     return (
