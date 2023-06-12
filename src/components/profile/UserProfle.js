@@ -135,6 +135,7 @@ const Profile = (props) => {
             .then((data) => {
                 // Handle the response data
                 setUserInfo(data);
+                console.log(data);
             })
             .catch((error) => {
                 // Handle any errors
@@ -156,17 +157,14 @@ const Profile = (props) => {
     if (loading) {
         return <Spinner />;
     }
-
-    // console.log("eske badd");
-    // console.log(posts);
-    if (loading) {
-        return <Spinner />;
-    }
+    console.log(userInfo);
     return (
         <div className='profile__container' >
             <div className="profile__banner">
                 <div className="profile__bannerUpload">
-                    <img src="./images/banner.jpg" alt="banner" />
+                {userInfo.banner &&
+                    <img src={userInfo.banner.url} alt="banner" />
+                } 
                 </div>
             </div>
             <div className="profile__mainContent">
@@ -190,16 +188,15 @@ const Profile = (props) => {
                                         )}
                                     </div>
                                 </Link>
-                                {/* <Link to="#" >
+                                <Link to="#" >
                                     <div className="profile__createPost">
-                                        <EditIcon />
                                         <p>Message</p>
                                     </div>
-                                </Link> */}
+                                </Link>
                                 <div className="profile_statsMain">
                                     <ul>
-                                        <li><p>Project Views</p><span>0</span></li>
-                                        <li><p>Likes</p><span>0</span></li>
+                                        <li><p>Project Views</p><span>{userInfo.totalViews}</span></li>
+                                        <li><p>Likes</p><span>{userInfo.totalLikes}</span></li>
                                         <li><p>Followers</p><span>0</span></li>
                                         <li><p>Following</p><span>0</span></li>
                                     </ul>

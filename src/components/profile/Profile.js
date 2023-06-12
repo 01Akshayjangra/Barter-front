@@ -61,16 +61,14 @@ const Profile = (props) => {
 
     //Context
     const { user , userInformation, setUserInformation} = ChatState()
-    
+
     const fetchPosts = async () => {
-        console.log("token",user.token);
         try {
             setLoading(true)
             if (!user.token) {
                 alert("token not found")
                 return;
             }
-            console.log("testing");
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
@@ -88,10 +86,8 @@ const Profile = (props) => {
     };
 
     useEffect(() => {
-        console.log("start");
         setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
         fetchPosts()
-        console.log("end");
     }, [userInformation]);
 
     const [value, setValue] = React.useState(0);
@@ -156,8 +152,8 @@ const Profile = (props) => {
                                 </Link>
                                 <div className="profile_statsMain">
                                     <ul>
-                                        <li><p>Project Views</p><span>0</span></li>
-                                        <li><p>Likes</p><span>0</span></li>
+                                        <li><p>Project Views</p><span>{userInformation.totalViews}</span></li>
+                                        <li><p>Likes</p><span>{userInformation.totalLikes}</span></li>
                                         <li><p>Followers</p><span>0</span></li>
                                         <li><p>Following</p><span>0</span></li>
                                     </ul>

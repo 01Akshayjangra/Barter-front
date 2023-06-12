@@ -6,13 +6,14 @@ import { Avatar, IconButton } from '@mui/material';
 import Post from '../profile/Post'
 import axios from 'axios';
 import { ChatState } from '../context/ChatProvider';
+import API_URL from '../api/Api';
 
 
 const MyModal = (props) => {
-    const { post, closeModal } = props;
+    const { post, closeModal, handleLike, loading, liked, likeCount, viewCount } = props;
     const { user } = ChatState();
     const [follow, setFollow] = useState(false);
-
+    const [following, setFollowing] = useState(false);
     const [posts, setPosts] = useState([]);
 
     const payload = { id: post._id };
@@ -51,46 +52,49 @@ const MyModal = (props) => {
 
     useEffect(() => {
         // fetchUserData();
-      }, []); // Call fetchUserData() only once when the component mounts
+    }, []); // Call fetchUserData() only once when the component mounts
 
-
-    // console.log(post.userId._id)
-    const followUser = async (userId, token) => {
-        const config = {
-            headers: {
-                Authorization: `Bearer ${user.token}`
-            }
-        };
-
+    const handleToggleFollow = async () => {
         try {
-            const res = await axios.post("/api/user/follow", post.userId._id, config);
-
-            setFollow(true);
-            return res.data;
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
-    // Unfollow a user
-    const unfollowUser = async (userId, token) => {
-        const config = {
+          const config = {
             headers: {
-                Authorization: `Bearer ${user.token}`
-            }
-        };
-
-        try {
-            const res = await axios.post("/api/user/unfollow", post.userId._id, config);
-            setFollow(false);
-            return res.data;
-        } catch (err) {
-            console.log(err);
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${user.token}`,
+            },
+          };
+          if (following) {
+            // Unfollow the user
+            await axios.put(`${API_URL}/api/user/unfollow/${post.userId._id}`, {}, config);
+            setFollowing(false);
+          } else {
+            // Follow the user
+            await axios.put(`${API_URL}/api/user/follow/${post.userId._id}`, {}, config);
+            setFollowing(true);
+          }
+        } catch (error) {
+          console.error(error);
         }
-    };
-
+      };
 
     useEffect(() => {
+        // Fetch follow status
+        const CheckFollow = async () => {
+            try {
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                };
+                // Fetch follow status
+                const followStatusResponse = await axios.get(`${API_URL}/api/user/CheckFollow/${post.userId._id}`, config);
+                setFollowing(followStatusResponse.data.isFollowing);
+                console.log('Following : ', followStatusResponse.data.isFollowing);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        CheckFollow()
         document.body.style.overflowY = "hidden";
         return () => {
             document.body.style.overflowY = "scroll";
@@ -106,39 +110,50 @@ const MyModal = (props) => {
 
                 <div className="modal__item">
                     <IconButton className='modal__itemIcon'>
-                        <Link to='/explore'><Avatar src={post.userId.pic.url} /></Link>
+                        <a href={user ? `/user-profile?userId=${post.userId._id}` : `/profile`}>
+                            <Avatar src={post.userId.pic.url} />
+                        </a>
                     </IconButton>
                 </div>
+
                 <div className="modal__item">
-                    <IconButton className="modal__itemIcon">
-                        <i className="stat-icons fa-regular fa-heart" />
+                    <IconButton className="modal__itemIcon" onClick={handleLike}>
+                        <i className={liked ? 'stat-icons fa-solid fa-heart liked' : 'stat-icons fa-regular fa-heart'} />
                     </IconButton>
-                    <span>{post.hearts}</span>
+                    {!loading ? (
+                        <span>{likeCount}</span>
+                    ) : (<span>--</span>)}
                 </div>
                 <div className="modal__item">
                     <IconButton className="modal__itemIcon">
                         <i className="stat-icons fa-sharp fa-solid fa-eye" />
                     </IconButton>
-                    <span>{post.views}</span>
+                    {!loading ? (
+                        <span>{viewCount}</span>
+                    ) : (<span>--</span>)}
                 </div>
                 <div className="modal__item">
                     <IconButton className="modal__itemIcon">
                         <i className="stat-icons fa-solid fa-share" />
                     </IconButton>
-                    <span>{post.shares}</span>
+                    <span>{post.shares.length}</span>
                 </div>
             </div>
             <div className='popup__container'>
 
                 <div className='modal__Main ModalScrollbar'>
                     <div className="modal__header">
-                        <Link to='/explore'><Avatar src={post.userId.pic.url} /></Link>
+
+                        <a href={user ? `/user-profile?userId=${post.userId._id}` : `/profile`}>
+                            <Avatar src={post.userId.pic.url} />
+                        </a>
                         <div className='modal__headerInfo'>
                             <h1>{post.userId.name}</h1>
-                            {follow ? (
-                                <p onClick={unfollowUser}>Unfollow</p>
+
+                            {following ? (
+                                <p onClick={handleToggleFollow}>Unfollow</p>
                             ) : (
-                                <p onClick={followUser}>Follow</p>
+                                <p onClick={handleToggleFollow}>Follow</p>
                             )}
 
                         </div>
