@@ -134,7 +134,7 @@ const Profile = (props) => {
             .then((response) => response.json())
             .then((data) => {
                 // Handle the response data
-                setUserInfo(data);
+                setUserInfo(data); 
                 console.log(data);
             })
             .catch((error) => {

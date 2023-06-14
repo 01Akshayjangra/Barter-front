@@ -16,7 +16,7 @@ const AfterLogin = () => {
         setOpenNotify(false);
       };
 
-    console.log(openNotify)
+    // console.log(openNotify)
 
     return (
         <>

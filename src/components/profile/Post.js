@@ -66,7 +66,7 @@ const Post = (props) => {
                 },
             };
 
-            const response = await axios.get(`/api/posts/checkLikes/${post._id}`, config);
+            const response = await axios.get(`${API_URL}/api/posts/checkLikes/${post._id}`, config);
 
             const { liked, likeCount, viewCount } = response.data;
             setLiked(liked);
