@@ -20,19 +20,21 @@ const Explore = () => {
 	const [posts, setPosts] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
-	const { postSort, selectedCategory } = ChatState();
+	const { postSort, selectedCategory, filterLoading, setFilterLoading, setPostsLoading} = ChatState();
 
 	const fetchPosts = async (page) => {
 		try {
-			setLoading(true);
+			setPostsLoading(true)
+			// setLoading(true);
 			const res = await axios.get(`${API_URL}/api/posts?page=${page}&category=${selectedCategory}&sort=${postSort}`);
 			setPosts(res.data.posts);
 			setCurrentPage(res.data.currentPage);
 			setTotalPages(res.data.totalPages);
-			setLoading(false);
+			setFilterLoading(false)
+			// setLoading(false);
+			setPostsLoading(false);
 		} catch (error) {
 			console.error(error);
-			setLoading(false);
 		}
 	};
 
@@ -92,6 +94,30 @@ const Explore = () => {
 
 					</div>
 				) : (<div className="home-posts-container">
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
+					<PostLoading/>
 					<PostLoading/>
 					<PostLoading/>
 					<PostLoading/>

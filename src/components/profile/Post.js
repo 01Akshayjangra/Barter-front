@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router-dom';
 import PostLoading from '../miscelleneous/PostLoading';
+import Skeleton from '@mui/material/Skeleton';
 
 
 const LightTooltip = styled(({ className, ...props }) => (
@@ -41,7 +42,7 @@ const AvatarHover = (props) => {
 
 const Post = (props) => {
     const { post } = props;
-    const { user, setUserId } = ChatState();
+    const { user, setUserId, filterLoading, postsLoading } = ChatState();
     const [showModal, setShowModal] = useState(false);
     const closeModal = () => setShowModal(false);
 
@@ -51,11 +52,14 @@ const Post = (props) => {
     const [likeCount, setLikeCount] = useState(0);
     const [viewCount, setViewCount] = useState(0);
     const [loading, setLoading] = useState(false);
+    const [likeLoading, setLikeLoading] = useState(false);
+
     const navigate = useNavigate();
 
     const fetchLikesAndViews = async () => {
-        setLoading(true); // Set loading state to
+        setLikeLoading(true); // Set loading state to
         try {
+            console.log("running fetch like and views");
             const config = {
                 headers: {
                     Authorization: `Bearer ${user.token}`,
@@ -66,42 +70,44 @@ const Post = (props) => {
 
             const { liked, likeCount, viewCount } = response.data;
             setLiked(liked);
-            // console.log('is this person liked', liked)
             setLikeCount(likeCount);
-            console.log('Counting like and views',);
             setViewCount(viewCount);
+            console.log("response",response);
+            console.log('liked',liked);
             console.log('Counting like', likeCount, 'and views', viewCount);
-            setLoading(false); // Set loading state to
+            setLikeLoading(false); // Set loading state to false
         } catch (error) {
             console.error('Error fetching likes and views:', error);
         }
     };
 
     useEffect(() => {
-        fetchLikesAndViews();
+        if (user) {
+            fetchLikesAndViews();
+        }
     }, [post._id, user]);
 
     const handleLike = async () => {
         if (user) {
-        try {
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${user.token}`,
-                },
-            };
+            try {
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                };
 
-            const response = await axios.post(`${API_URL}/api/posts/like`, { postId: post._id }, config);
+                const response = await axios.post(`${API_URL}/api/posts/like`, { postId: post._id }, config);
 
-            if (response.status === 200) {
-                fetchLikesAndViews()
-            } else {
-                console.error('Failed to toggle like');
+                if (response.status === 200) {
+                    fetchLikesAndViews()
+                } else {
+                    console.error('Failed to toggle like');
+                }
+            } catch (error) {
+                console.error('Error toggling like:', error);
             }
-        } catch (error) {
-            console.error('Error toggling like:', error);
         }
-    }
         else {
             navigate('/signup');
         }
@@ -129,34 +135,45 @@ const Post = (props) => {
     const handleUserProfile = () => {
         setUserId(post.userId._id)
     }
-    
-	if (loading) {
-		return <>
-			<PostLoading/>
-		</>;
-	}
+
+    if (postsLoading) {
+        return <>
+            <PostLoading />
+        </>;
+    }
 
     return (
         <div className="main-post">
+            {/* {!filterLoading ? ( */}
             <div className="post-imgContainer" onClick={() => {
                 setShowModal(true)
                 handleView()
             }}>
                 <img className='post-main-img' src={post.image.url} alt="" />
             </div>
+            {/* // ) : (
+                //      <Skeleton variant="rectangular" width={300} height={218} style={{borderRadius: '4px'}}/>
+                // )} */}
 
             {/* modal  */}
-            {showModal && <MyModal post={post} closeModal={closeModal} handleLike={handleLike} loading={loading} liked={liked} likeCount={likeCount} viewCount={viewCount} />}
+            {showModal && <MyModal post={post} closeModal={closeModal} handleLike={handleLike} likeLoading={likeLoading} liked={liked} likeCount={likeCount} viewCount={viewCount} />}
 
             <div className="post-content">
 
                 <div className="post-userInfo">
-                    <a href={user ? `/user-profile?userId=${post.userId._id}` : `/profile`}>
+                    {user && <a href={(user._id === post.userId._id) ? `/profile` : `/user-profile?userId=${post.userId._id}`}>
                         <LightTooltip color='white' style={{ outline: 'none', backgroundColor: 'white' }} title={<AvatarHover />}>
                             {post.userId.pic && <Avatar src={post.userId.pic.url} onClick={handleUserProfile} />}
                         </LightTooltip>
                         <span>{post.userId.name}</span>
-                    </a>
+                    </a>}
+                    {!user && <Link to={`/user-profile?userId=${post.userId._id}`}>
+                        <LightTooltip color='white' style={{ outline: 'none', backgroundColor: 'white' }} title={<AvatarHover />}>
+                            {post.userId.pic && <Avatar src={post.userId.pic.url} onClick={handleUserProfile} />}
+                        </LightTooltip>
+                        <span>{post.userId.name}</span>
+                    </Link>}
+
                 </div>
 
                 <div className="post-statistics">
@@ -176,7 +193,7 @@ const Post = (props) => {
 
                         )}
                         {user ? (<>
-                            {!loading ? (
+                            {!likeLoading ? (
                                 <span>{likeCount}</span>
                             ) : ('-')}
                         </>) : (
@@ -189,7 +206,7 @@ const Post = (props) => {
                             <i className="stat-icons fa-sharp fa-solid fa-eye" />
                         </IconButton>
                         {user ? (<>
-                            {!loading ? (
+                            {!likeLoading ? (
                                 <span>{viewCount}</span>
                             ) : ('-')}
                         </>) : (

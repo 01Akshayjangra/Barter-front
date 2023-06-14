@@ -31,7 +31,7 @@ const ScrollTop = () => {
         <>
             {showButton && (
                 <div onClick={scrollToTop}>
-                    <i class="scroll__button fa-sharp fa-solid fa-angle-up" />
+                    <i className="scroll__button fa-sharp fa-solid fa-angle-up" />
                 </div>
             )}
         </>

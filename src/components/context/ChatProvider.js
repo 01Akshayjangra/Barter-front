@@ -13,6 +13,8 @@ const ChatProvider = ({ children }) => {
   const [postSort, setPostSort] = useState('');
 
   const [openNotify, setOpenNotify] = useState(false);
+  const [filterLoading, setFilterLoading] = useState(false);
+  const [postsLoading, setPostsLoading] = useState(false);
   
   const [userInformation, setUserInformation] = useState([]);
 
@@ -46,7 +48,11 @@ const ChatProvider = ({ children }) => {
         userInformation, 
         setUserInformation,
         postSort, 
-        setPostSort
+        setPostSort,
+        filterLoading, 
+        setFilterLoading,
+        postsLoading, 
+        setPostsLoading
       }}
     >
       {children}

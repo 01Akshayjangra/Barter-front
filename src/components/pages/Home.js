@@ -20,11 +20,11 @@ const Home = () => {
 	const [posts, setPosts] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
-	const { postSort, selectedCategory } = ChatState();
+	const { postSort, selectedCategory, postsLoading, setPostsLoading} = ChatState();
 
 	const fetchPosts = async (page) => {
 		try {
-			setLoading(true);
+			setPostsLoading(true);
 			const res = await axios.get(`${API_URL}/api/posts?page=${page}&category=${selectedCategory}&sort=${postSort}`);
 			setPosts(res.data.posts);
 			setCurrentPage(res.data.currentPage);
@@ -32,7 +32,7 @@ const Home = () => {
 			setLoading(false);
 		} catch (error) {
 			console.error(error);
-			setLoading(false);
+			setPostsLoading(false);
 		}
 	};
 
@@ -70,6 +70,7 @@ const Home = () => {
 		<>
 			<Search />
 			<Filters/>
+
 			{posts.length > 0 ? (
 				<div className="home-posts-container">
 

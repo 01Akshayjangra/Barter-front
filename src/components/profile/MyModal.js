@@ -10,7 +10,7 @@ import API_URL from '../api/Api';
 
 
 const MyModal = (props) => {
-    const { post, closeModal, handleLike, loading, liked, likeCount, viewCount } = props;
+    const { post, closeModal, handleLike, likeLoading, liked, likeCount, viewCount } = props;
     const { user } = ChatState();
     const [follow, setFollow] = useState(false);
     const [following, setFollowing] = useState(false);
@@ -120,17 +120,18 @@ const MyModal = (props) => {
                     <IconButton className="modal__itemIcon" onClick={handleLike}>
                         <i className={liked ? 'stat-icons fa-solid fa-heart liked' : 'stat-icons fa-regular fa-heart'} />
                     </IconButton>
-                    {!loading ? (
+                    {console.log(!likeLoading)}
+                    {!likeLoading ? (
                         <span>{likeCount}</span>
-                    ) : (<span>--</span>)}
+                    ) : (<span>-</span>)}
                 </div>
                 <div className="modal__item">
                     <IconButton className="modal__itemIcon">
                         <i className="stat-icons fa-sharp fa-solid fa-eye" />
                     </IconButton>
-                    {!loading ? (
+                    {!likeLoading ? (
                         <span>{viewCount}</span>
-                    ) : (<span>--</span>)}
+                    ) : (<span>-</span>)}
                 </div>
                 <div className="modal__item">
                     <IconButton className="modal__itemIcon">
