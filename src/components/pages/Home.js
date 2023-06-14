@@ -30,9 +30,9 @@ const Home = () => {
 			setCurrentPage(res.data.currentPage);
 			setTotalPages(res.data.totalPages);
 			setLoading(false);
+			setPostsLoading(false);
 		} catch (error) {
 			console.error(error);
-			setPostsLoading(false);
 		}
 	};
 
