@@ -59,7 +59,7 @@ const Post = (props) => {
     const fetchLikesAndViews = async () => {
         setLikeLoading(true); // Set loading state to
         try {
-            console.log("running fetch like and views");
+            // console.log("running fetch like and views");
             const config = {
                 headers: {
                     Authorization: `Bearer ${user.token}`,
@@ -72,9 +72,9 @@ const Post = (props) => {
             setLiked(liked);
             setLikeCount(likeCount);
             setViewCount(viewCount);
-            console.log("response",response);
-            console.log('liked',liked);
-            console.log('Counting like', likeCount, 'and views', viewCount);
+            // console.log("response",response);
+            // console.log('liked',liked);
+            // console.log('Counting like', likeCount, 'and views', viewCount);
             setLikeLoading(false); // Set loading state to false
         } catch (error) {
             console.error('Error fetching likes and views:', error);

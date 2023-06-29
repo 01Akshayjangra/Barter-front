@@ -47,41 +47,32 @@ const About = () => {
               <h1>Name</h1>
               <p>{aboutData.firstname} {aboutData.lastname}</p>
             </div>
+            <br />
             <div>
               <h1>Occupation</h1>
               <p>{aboutData.occupation}</p>
             </div>
-
-            <div>
-              <h1>Occupation</h1>
-              <p>{aboutData.occupation}</p>
-            </div>
-
+            <br />
             <div>
               <h1>Company</h1>
               <p>{aboutData.company}</p>
             </div>
-
+            <br />
             <div>
               <h1>Country</h1>
               <p>{aboutData.country}</p>
             </div>
-
+            <br />
             <div>
               <h1>City</h1>
               <p>{aboutData.city}</p>
             </div>
-            <div>
               <br />
+            <div>
               <h1>{aboutData.title}</h1>
               <p>{aboutData.description}</p>
             </div>
-
-          
           </div>
-
-
-
           ) : (
           <p>No about data found.</p>
       )}

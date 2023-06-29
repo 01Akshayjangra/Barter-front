@@ -156,7 +156,7 @@ const Messages = () => {
 												: chat.chatName}
 										</h2>
 										<p>{chat.users[0].email}</p>
-										{console.log(chat)}
+										{/* {console.log(chat)} */}
 									</div>
 								</div>
 							))

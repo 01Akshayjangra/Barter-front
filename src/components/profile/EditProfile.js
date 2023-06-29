@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./css/EditProfile.css"
 import { Link } from 'react-router-dom'
 import axios from 'axios';
@@ -20,7 +20,8 @@ const EditProfile = () => {
 
     const [open, setOpen] = React.useState(false);
     const { user } = ChatState();
-
+    
+    const [aboutData, setAboutData] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -52,6 +53,37 @@ const EditProfile = () => {
             console.error(err);
         }
     };
+    useEffect(() => {
+        const fetchAboutData = async () => {
+          try {
+            const config = {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${user.token}`,
+              },
+            };
+    
+            const response = await axios.get(`${API_URL}/api/user/about`, config);
+            const data = response.data;
+    
+            // setAboutData(data);
+            setFirstname(data.firstname);
+            setLastname(data.lastname) 
+            setOccupation(data.occupation);
+            setCompany(data.company)
+            setCountry(data.country)
+            setCity(data.city)
+            setTitle(data.title)
+            setDescription(data.description)
+            // setLoading(false);
+          } catch (error) {
+            console.error('Error fetching user about data:', error);
+            // setLoading(false);
+          }
+        };
+    
+        fetchAboutData();
+      }, []);
     return (
         <div>
            

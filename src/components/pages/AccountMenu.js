@@ -52,6 +52,7 @@ export default function AccountMenu() {
 
       const { data } = await axios.get(`${API_URL}/api/user/profile`, config);
       setUserInformation(data);
+      console.log('userINfo:____::',data)
     } catch (error) {
       alert('failed to load user info')
     }

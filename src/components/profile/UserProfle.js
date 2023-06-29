@@ -13,6 +13,7 @@ import Post from './Post';
 import axios from "axios";
 import { ChatState } from '../context/ChatProvider';
 import { useLocation } from 'react-router-dom';
+import ScrollTop from '../miscelleneous/ScrollTop';
 
 //modal
 import Modal from '@mui/material/Modal';
@@ -158,7 +159,7 @@ const Profile = (props) => {
         return <Spinner />;
     }
     console.log(userInfo);
-    return (
+    return (<>
         <div className='profile__container' >
             <div className="profile__banner">
                 <div className="profile__bannerUpload">
@@ -197,8 +198,8 @@ const Profile = (props) => {
                                     <ul>
                                         <li><p>Project Views</p><span>{userInfo.totalViews}</span></li>
                                         <li><p>Likes</p><span>{userInfo.totalLikes}</span></li>
-                                        <li><p>Followers</p><span>0</span></li>
-                                        <li><p>Following</p><span>0</span></li>
+                                        <li><p>Followers</p><span>{userInfo.followers}</span></li>
+                                        <li><p>Following</p><span>{userInfo.following}</span></li>
                                     </ul>
                                 </div>
                                 <div className="profile_social">
@@ -251,6 +252,8 @@ const Profile = (props) => {
 
 
         </div>
+        <ScrollTop/>
+        </>
     )
 }
 
