@@ -37,7 +37,7 @@ const MyModal = (props) => {
     const fetchDataFromBackend = recommendations => {
         const postIds = recommendations; // set postIds to the recommendations array
 
-        fetch("api/get/recommendations", {
+        fetch(`${API_URL}api/get/recommendations`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ ids: postIds })
