@@ -6,21 +6,16 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { Link, useNavigate } from 'react-router-dom'
 import CreateIcon from '@mui/icons-material/Create';
 import ChatIcon from '@mui/icons-material/Chat';
-import swal from 'sweetalert';
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { ChatState } from '../context/ChatProvider';
 import API_URL from '../api/Api';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function AccountMenu() {
 
@@ -52,9 +47,8 @@ export default function AccountMenu() {
 
       const { data } = await axios.get(`${API_URL}/api/user/profile`, config);
       setUserInformation(data);
-      console.log('userINfo:____::',data)
     } catch (error) {
-      alert('failed to load user info')
+      toast.error('failed to load user info')
     }
   }
 
@@ -64,6 +58,7 @@ export default function AccountMenu() {
 
   return (
     <React.Fragment>
+      <Toaster />
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
 
         <Tooltip title="Account settings" >
@@ -128,19 +123,18 @@ export default function AccountMenu() {
           <Link to="/upload" >Create New Post</Link>
 
         </MenuItem>
-        {/* <MenuItem onClick={handleClose} style={{ fontSize: '14px' }}>
+        <MenuItem onClick={handleClose} style={{ fontSize: '14px' }}>
           <ListItemIcon>
             <ChatIcon fontSize="large" />
           </ListItemIcon>
           <Link to="/message" >Messages</Link>
 
-        </MenuItem> */}
+        </MenuItem>
         {/* <MenuItem onClick={handleClose} style={{ fontSize: '14px' }}>
           <ListItemIcon>
             <Settings fontSize="large" />
           </ListItemIcon>
           <Link to="/" >Settings</Link>
-
         </MenuItem> */}
         <MenuItem onClick={logout} style={{ fontSize: '14px' }}>
           <ListItemIcon>

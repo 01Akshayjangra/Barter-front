@@ -11,7 +11,6 @@ const ChatLoading = () => {
       <Skeleton variant="rounded" style={{width: '99%', marginLeft: '2px'}} height={80} />
       <Skeleton variant="rounded" style={{width: '99%', marginLeft: '2px'}} height={80} />
       <Skeleton variant="rounded" style={{width: '99%', marginLeft: '2px'}} height={80} />
-    
     </Stack>
   );
 };

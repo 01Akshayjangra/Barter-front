@@ -104,7 +104,6 @@ const Profile = (props) => {
     if (loading) {
         return <>
             <LinearProgress />
-            <Spinner />
         </>;
     }
 

@@ -149,7 +149,7 @@ const Post = (props) => {
                 setShowModal(true)
                 handleView()
             }}>
-                <img className='post-main-img' src={post.image.url} alt="" />
+                <img className='post-main-img' onContextMenu={(e) => e.preventDefault()} src={post.image.url} alt="" />
             </div>
             {/* // ) : (
                 //      <Skeleton variant="rectangular" width={300} height={218} style={{borderRadius: '4px'}}/>

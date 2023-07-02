@@ -31,7 +31,7 @@ const Upload = () => {
 		return { result, uploader };
 	}
 
-	const { result, uploader } = useDisplayImage();
+	const { result, uploader } = useDisplayImage(); 
 	return (
 		<>
 			<div className="upload__mainBox">

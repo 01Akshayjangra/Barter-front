@@ -7,14 +7,13 @@ import { ChatState } from '../context/ChatProvider';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import Spinner from '../miscelleneous/Spinner';
-import { Typography } from '@mui/material';
+import { LinearProgress, Typography } from '@mui/material';
 
-const MessageSearch = ({ setOpenSearchModal }) => {
+const MessageSearch = ({ openSearchModal, setOpenSearchModal }) => {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState(false);
-  // const [userInfo, setUserInfo] = useState([]);
 
   const {
     setSelectedChat,
@@ -56,6 +55,7 @@ const MessageSearch = ({ setOpenSearchModal }) => {
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
       setSelectedChat(data);
       setLoadingChat(false);
+      setOpenSearchModal(false)
     } catch (error) {
       toast.error("Failed to access the chat");
     }
@@ -66,10 +66,10 @@ const MessageSearch = ({ setOpenSearchModal }) => {
       <Toaster />
       <div className='chatSearch__container'>
         <div className="chatSearch__main">
-          <h1>Search</h1> {loadingChat && <Spinner />}
+          <h1>Search</h1>
 
           <div className="message-sidebar__search">
-            <div className="message-sidebar__searchContainer" onClick={() => setOpenSearchModal(true)}>
+            <div className="message-sidebar__searchContainer">
               <i className="fa-solid fa-magnifying-glass"></i>
               <input
                 placeholder="Search or start new chat"
@@ -78,9 +78,9 @@ const MessageSearch = ({ setOpenSearchModal }) => {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
-            {/* <i style={{ fontSize: 15, color: 'gray', backgroundColor: 'white', padding: 10, cursor: 'pointer', borderRadius: 50, marginLeft: 4 }} onClick={handleSearch} className="fa-sharp fa-solid fa-arrow-right"></i> */}
           </div>
 
+      {loadingChat && <LinearProgress/>}
 
           <div className="chatSearch__chats scrollbar">
             {loading ? (
@@ -90,8 +90,9 @@ const MessageSearch = ({ setOpenSearchModal }) => {
                 <SidebarChat
                   key={user._id}
                   user={user}
-                  handleFunction={() => accessChat(user._id)}
-                  onClick={() => setOpenSearchModal(false)}
+                  handleFunction={() => {
+                    accessChat(user._id)
+                  }}
                 />
               ))
             )}
@@ -104,8 +105,6 @@ const MessageSearch = ({ setOpenSearchModal }) => {
 
               {!searchResult.length && "No results Found"}
             </Typography>
-
-            {loadingChat && <Spinner />}
           </div>
         </div>
       </div>

@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom'
 const Forgetpass = () => {
     const [forgetPassAlert, setForgetPassAlert] = useState(!false);
     const handleClick = () => {
-        // e.preventDefault;
         setForgetPassAlert(!forgetPassAlert)
     }
     return (

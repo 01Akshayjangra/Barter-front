@@ -20,7 +20,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!email || !password) {
-      alert("Please Fill all the Feilds")
+      toast.error("Please Fill all the Feilds");
       return;
     }
 
@@ -48,16 +48,11 @@ const Login = () => {
     }
   };
 
-
   const handleGoogleLogin = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
       const result = await firebase.auth().signInWithPopup(provider);
       const user = await result.user;
-      console.log(user.displayName)
-      console.log(user.email)
-      console.log(user.providerData[0].uid)
-      console.log(user)
       setOpen(true);
       try {
         const config = {
@@ -88,6 +83,7 @@ const Login = () => {
         setOpen(false);
       }
     } catch (signupError) {
+      toast.error('Error while logging in');
       console.log('Login error:', signupError);
     }
   };
@@ -109,7 +105,6 @@ const Login = () => {
             <h1>Hello</h1>
             <h1>Designers</h1>
             <p className="para"></p>
-            {/* {error && <p>{error}</p>} */}
           </div>
         </div>
 
@@ -143,7 +138,6 @@ const Login = () => {
                 <input type="checkbox" name="remember" />
                 <div className="login__checkboxContent">
                   <p>Remember Me</p>
-                  {/* <Link to="/forgetpassword">Forget password?</Link> */}
                 </div>
               </div>
 

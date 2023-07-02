@@ -1,7 +1,6 @@
 import React from 'react'
 import "./css/Explore.css"
 import Post from '../profile/Post'
-import Spinner from '../miscelleneous/Spinner';
 import Filters from '../miscelleneous/Filters';
 import { useEffect, useState } from 'react';
 import HeroCarousel from './HeroCarousel';
@@ -9,9 +8,8 @@ import axios from "axios";
 import { ChatState } from '../context/ChatProvider';
 import { Footer } from './Footer';
 import API_URL from '../api/Api';
-import ChatLoading from '../chat/ChatLoading';
 import ScrollTop from '../miscelleneous/ScrollTop';
-import { LinearProgress } from '@mui/material';
+import toast, { Toaster } from 'react-hot-toast';
 import PostLoading from '../miscelleneous/PostLoading';
 
 const Explore = () => {
@@ -20,7 +18,7 @@ const Explore = () => {
 	const [posts, setPosts] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
-	const { postSort, selectedCategory, filterLoading, setFilterLoading, setPostsLoading} = ChatState();
+	const { postSort, selectedCategory, filterLoading, setFilterLoading, setPostsLoading } = ChatState();
 
 	const fetchPosts = async (page) => {
 		try {
@@ -34,25 +32,25 @@ const Explore = () => {
 			// setLoading(false);
 			setPostsLoading(false);
 		} catch (error) {
-			console.error(error);
+			toast.error("error occured")
 		}
 	};
 
 	const goToNextPage = () => {
 		const nextPage = currentPage + 1;
 		window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+			top: 0,
+			behavior: "smooth"
+		});
 		fetchPosts(nextPage);
 	};
 
 	const goToPreviousPage = () => {
 		const previousPage = currentPage - 1;
 		window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+			top: 0,
+			behavior: "smooth"
+		});
 		fetchPosts(previousPage);
 	};
 
@@ -69,8 +67,9 @@ const Explore = () => {
 
 	return (
 		<>
-		<ScrollTop/>
-		<Filters/>
+			<Toaster />
+			<ScrollTop />
+			<Filters />
 			<div className="explore__container">
 
 				<div className="explore__carousel">
@@ -94,45 +93,45 @@ const Explore = () => {
 
 					</div>
 				) : (<div className="home-posts-container">
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					<PostLoading/>
-					</div>
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+					<PostLoading />
+				</div>
 				)}
-				
+
 				<div className="home__pagination">
 					{currentPage > 1 && (
 						<div>
@@ -151,7 +150,7 @@ const Explore = () => {
 				</div>
 			</div>
 			<Footer />
-			
+
 		</>
 
 	)

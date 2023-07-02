@@ -11,13 +11,10 @@ const ChatProvider = ({ children }) => {
   const [aboutData, setAboutData] = useState(null);
   const [userId, setUserId] = useState();
   const [postSort, setPostSort] = useState('');
-
   const [openNotify, setOpenNotify] = useState(false);
   const [filterLoading, setFilterLoading] = useState(false);
   const [postsLoading, setPostsLoading] = useState(false);
-  
   const [userInformation, setUserInformation] = useState([]);
-
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));

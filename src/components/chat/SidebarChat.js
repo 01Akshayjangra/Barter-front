@@ -1,10 +1,8 @@
 import React from 'react'
 import "./css/SidebarChat.css"
 import { Avatar } from '@mui/material';
-import { ChatState } from '../context/ChatProvider';
 
 const SidebarChat = ({user, handleFunction}) => {
-  // const {user} = ChatState();
 
   return (
     <div className='sidebarChat' onClick={handleFunction}>

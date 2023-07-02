@@ -27,8 +27,6 @@ const Filters = () => {
                         <MenuItem className='filter__menu' value=""> Filter</MenuItem>
                         <MenuItem className='filter__menu' value={'hearts'}>Most hearts</MenuItem>
                         <MenuItem className='filter__menu' value={'views'}>Most Viewed</MenuItem>
-                        {/* <MenuItem className='filter__menu' value={'latest'}>Latest Posts</MenuItem> */}
-                        {/* <MenuItem className='filter__menu' value={'oldest'}>Oldest Posts</MenuItem> */}
                         <MenuItem className='filter__menu' value={'shuffle'}>Shuffle</MenuItem>
                     </Select>
                 </FormControl>

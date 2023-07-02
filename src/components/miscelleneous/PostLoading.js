@@ -10,15 +10,12 @@ const PostLoading = () => {
     return (
         <>
             <div className="postLoading__postsContainer">
-
-                <Skeleton variant="rectangular" width={300} height={218} style={{borderRadius: '4px'}}/>
-
+                <Skeleton variant="rectangular" width={300} height={218} style={{ borderRadius: '4px' }} />
                 <Box sx={{ pt: 0.5 }}>
-                    
-                <Box>
-                    <Skeleton width="100%"/>
-                    <Skeleton width="60%" />
-                </Box>
+                    <Box>
+                        <Skeleton width="100%" />
+                        <Skeleton width="60%" />
+                    </Box>
                 </Box>
             </div>
 

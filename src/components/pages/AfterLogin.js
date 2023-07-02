@@ -16,7 +16,6 @@ const AfterLogin = () => {
         setOpenNotify(false);
       };
 
-    // console.log(openNotify)
 
     return (
         <>
@@ -58,15 +57,3 @@ const AfterLogin = () => {
 }
 
 export default AfterLogin
-
-{/* <ul className='afterLogin__ul'>
-
-<li className="nav-right-li">
-    <Link className="nav-link nav-upload" to="/upload">
-        Upload
-    </Link>
-</li>
-
-<AccountMenu />
-
-</ul> */}

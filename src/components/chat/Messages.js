@@ -8,7 +8,6 @@ import axios from "axios";
 import { ChatState } from '../context/ChatProvider';
 import ChatLoading from "./ChatLoading";
 import Spinner from '../miscelleneous/Spinner';
-import MyChats from './MyChats';
 import { useEffect, useState } from "react";
 import { getSender } from '../config/ChatLogics';
 import API_URL from '../api/Api';
@@ -59,7 +58,6 @@ const Messages = () => {
 	const [loggedUser, setLoggedUser] = useState();
 
 	const fetchChats = async () => {
-		// console.log(user._id);
 		try {
 			setLoading(true)
 			const config = {
@@ -69,7 +67,6 @@ const Messages = () => {
 			};
 
 			const { data } = await axios.get(`${API_URL}/api/chat`, config);
-			// console.log(data)
 			setChats(data);
 		} catch (error) {
 			// alert('failed to load chats')
@@ -88,7 +85,6 @@ const Messages = () => {
 					Authorization: `Bearer ${user.token}`,
 				},
 			};
-
 			const { data } = await axios.get(`${API_URL}/api/user/profile`, config);
 			setLoading(false)
 			setUserInfo(data);
@@ -99,19 +95,15 @@ const Messages = () => {
 
 
 	useEffect(() => {
-
 		setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
 		fetchChats();
 		handleUserInfo()
-
 		// eslint-disable-next-line
 	}, []);
-	// console.log(chats)
 
 	if (loading) {
 		return <>
 			<LinearProgress />
-			<Spinner />
 		</>;
 	}
 
@@ -134,7 +126,7 @@ const Messages = () => {
 							open={openSearchModal}
 							onClose={() => setOpenSearchModal(false)}
 						>
-							<ChatSearch />
+							<ChatSearch openSearchModal={openSearchModal} setOpenSearchModal={setOpenSearchModal} />
 						</Modal>
 						{/* <button onClick={handleSearch} >Go</button> */}
 					</div>
@@ -147,7 +139,6 @@ const Messages = () => {
 									onClick={() => setSelectedChat(chat)}
 									key={chat._id}
 								>
-									{/* {console.log(chat)} */}
 									{chat.users[0].pic && <Avatar src={chat.users[0].pic.url} />}
 									<div className="sidebarChat__info">
 										<h2>
@@ -156,7 +147,6 @@ const Messages = () => {
 												: chat.chatName}
 										</h2>
 										<p>{chat.users[0].email}</p>
-										{/* {console.log(chat)} */}
 									</div>
 								</div>
 							))

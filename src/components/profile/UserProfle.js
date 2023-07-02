@@ -58,7 +58,6 @@ const Profile = (props) => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     var userId = searchParams.get('userId');
-    console.log(userId);
 
     const [loggedUser, setLoggedUser] = useState();
     const [loading, setLoading] = useState(false)
@@ -118,7 +117,6 @@ const Profile = (props) => {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
                     setPosts(data);
                 })
                 .catch(error => console.error(error));
@@ -136,7 +134,6 @@ const Profile = (props) => {
             .then((data) => {
                 // Handle the response data
                 setUserInfo(data); 
-                console.log(data);
             })
             .catch((error) => {
                 // Handle any errors
@@ -158,7 +155,6 @@ const Profile = (props) => {
     if (loading) {
         return <Spinner />;
     }
-    console.log(userInfo);
     return (<>
         <div className='profile__container' >
             <div className="profile__banner">

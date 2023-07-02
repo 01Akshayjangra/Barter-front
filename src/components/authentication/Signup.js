@@ -66,10 +66,6 @@ const Signup = () => {
     try {
       const result = await firebase.auth().signInWithPopup(provider);
       const user = await result.user;
-      console.log(user.displayName)
-      console.log(user.email)
-      console.log(user.providerData[0].uid)
-      console.log(user)
       setOpen(true);
       try {
         const config = {
@@ -100,6 +96,7 @@ const Signup = () => {
         setOpen(false);
       }
     } catch (signupError) {
+      toast.error('Error comming while Signing up')
       console.log('Login error:', signupError);
     }
   };

@@ -51,7 +51,7 @@ const MyModal = (props) => {
     };
 
     useEffect(() => {
-        // fetchUserData();
+        fetchUserData();
     }, []); // Call fetchUserData() only once when the component mounts
 
     const handleToggleFollow = async () => {
@@ -133,12 +133,12 @@ const MyModal = (props) => {
                         <span>{viewCount}</span>
                     ) : (<span>-</span>)}
                 </div>
-                <div className="modal__item">
+                {/* <div className="modal__item">
                     <IconButton className="modal__itemIcon">
                         <i className="stat-icons fa-solid fa-share" />
                     </IconButton>
                     <span>{post.shares.length}</span>
-                </div>
+                </div> */}
             </div>
             <div className='popup__container'>
 
@@ -162,40 +162,24 @@ const MyModal = (props) => {
                     <div className="modal__bodyMain">
                         <div className="modal__body">
                             <div className='modal__bodyTitle'>
-                                {/* <h1>Title</h1> */}
+                                <h1>Title</h1>
                                 <p>{post.title}</p>
                             </div>
                         </div>
                         <div className="modal__body">
-                            <img src={post.image.url} alt="" />
+                            <img src={post.image.url} onContextMenu={(e) => e.preventDefault()} alt="" />
                         </div>
                         <div className="modal__body">
                             <div className='modal__bodyDes'>
-                                {/* <h1>Description</h1> */}
+                                <h1>Description</h1>
                                 <p>{post.description}</p>
                             </div>
                         </div>
                         <div className="modal_tools"> <h4>Tools Used -  {post.tools}</h4>
                         </div>
-                        {/* {post.tags} */}
 
-                        {/* <div className="modal__body">
-                            <div className='modal__bodyPostMain'>
-
-                                <h1>More by {post.userId.name}</h1>
-                                <button>View Profile</button>
-                                <div className='modal__bodyPosts'>
-
-                                    {posts.map(post => (
-                                        <Post
-                                            key={post._id}
-                                            post={post} />
-                                    ))}
-                                </div>
-                            </div>
-                        </div> */}
                         <div className="modal__body">
-                            {/* <div className='modal__bodyPostMain'>
+                            <div className='modal__bodyPostMain'>
 
                                 <h1>More Like This ...</h1>
                                 <div className='modal__bodyPosts'>
@@ -206,7 +190,7 @@ const MyModal = (props) => {
                                             post={post} />
                                     ))}
                                 </div>
-                            </div> */}
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -14,6 +14,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
 import { useNavigate } from 'react-router-dom';
 import API_URL from '../api/Api';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -48,11 +49,8 @@ const UploadSettings = (props) => {
     const [tags, setTags] = React.useState([]);
     const [tools, setTools] = React.useState([]);
     const [category, setCategory] = useState([]);
-    const [formData, setFormData] = useState({
-        image: srcImg,
-    });
+    // const [postImage, setPostImage] = useState(result);
     const navigate = useNavigate();
-    console.log(srcImg)
 
     const handleCheckboxChange = (e) => {
         const itemId = e.target.value;
@@ -65,22 +63,23 @@ const UploadSettings = (props) => {
         }
     };
 
-    const handleFormSubmit = async (e) => {
-        e.preventDefault()
-        setOpen(true);
+    const handleFormSubmit = async () => {
+        // e.preventDefault()
+        // console.log(postImage)
         const data = {
             title: title,
             description: description,
-            image: formData.image,
+            image: result,
             tags: tags.split(',').map((tag) => tag.trim()),
             tools: tools,
             category: category
         };
-        if (!title || !description || !formData.image || !tags || !tools || !category) {
-            setOpen(false);
-            alert("fill all fields")
+        if (!data.title || !data.description || !data.image || !data.tags || !data.tools || !data.category) {
+            toast.error("Please fill all the fields");
             return;
         }
+        console.log(data)
+        setOpen(true);
 
         try {
             const config = {
@@ -95,12 +94,12 @@ const UploadSettings = (props) => {
                 config
             );
             setOpen(false);
-            alert('Post successful')
+            toast.success("Post successful");
             navigate('/profile');
             return response.data;
         } catch (error) {
             setOpen(false);
-            alert("error occured")
+            toast.error("error occured");
         }
     };
  
@@ -119,8 +118,8 @@ const UploadSettings = (props) => {
     return (
         <>
             {/* <div className="settings_outer_div"> */}
-           
             <div className="setting_body">
+            <Toaster />
 
                 <div className="setting_mainBody">
 

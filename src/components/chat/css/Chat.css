@@ -74,6 +74,9 @@
     border-radius: 30px;
     padding: 10px;
     border: none;
+    outline: none;
+    /* border: 1px solid #0057ff; */
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 .chat__footer > form >button{
     display: none;

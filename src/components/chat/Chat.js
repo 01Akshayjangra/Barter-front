@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./css/Chat.css"
-import { Avatar, IconButton, Tooltip, Typography } from '@mui/material';
+import { Avatar, IconButton, LinearProgress, Tooltip, Typography } from '@mui/material';
 import Spinner from '../miscelleneous/Spinner';
 import { ChatState } from '../context/ChatProvider';
 import API_URL from '../api/Api';
@@ -9,13 +9,11 @@ import toast, { Toaster } from 'react-hot-toast';
 import { isLastMessage, isSameSender, isSameSenderMargin, isSameUser } from '../config/ChatLogics';
 import io from 'socket.io-client'
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 
-// const ENDPOINT 
 var socket, selectedChatCompare;
 
 const Chat = ({ fetchAgain, setFetchAgain }) => {
-
-
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(false);
     const [newMessage, setNewMessage] = useState();
@@ -25,7 +23,6 @@ const Chat = ({ fetchAgain, setFetchAgain }) => {
     const [newPic, setNewPic] = useState(false);
 
     const { selectedChat, setSelectedChat, user, notification, setNotification } = ChatState();
-
 
     const fetchMessages = async () => {
         if (!selectedChat) return;
@@ -76,7 +73,6 @@ const Chat = ({ fetchAgain, setFetchAgain }) => {
             }
         }
     }
-    console.log(selectedChat)
 
     useEffect(() => {
         socket = io(API_URL);
@@ -84,13 +80,11 @@ const Chat = ({ fetchAgain, setFetchAgain }) => {
         socket.on("connected", () => setSocketConnected(true));
         socket.on("typing", () => setIsTyping(true));
         socket.on("stop typing", () => setIsTyping(false));
-
         // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
         fetchMessages();
-
         selectedChatCompare = selectedChat;
         // eslint-disable-next-line
     }, [selectedChat]);
@@ -142,21 +136,27 @@ const Chat = ({ fetchAgain, setFetchAgain }) => {
             chatRef.current.scrollTop = chatRef.current.scrollHeight;
         }
     };
+
     return (
         <div className="chat">
             <Toaster />
-            {!selectedChat && 
-            <Typography
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, height: '100%' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-            >
+            {!selectedChat &&
+                <Typography
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, height: '100%' }}
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
+                >
 
-                {'No Chat Selected'}
-            </Typography>}
+                    {'No Chat Selected'}
+                </Typography>}
+
             {selectedChat && <div className="chat__header">
-                <Avatar src={selectedChat.users[0].pic.url} />
+                {console.log(selectedChat.users[0]._id)}
+
+                <a href={`/user-profile?userId=${selectedChat.users[0]._id}`}>
+                    <Avatar src={selectedChat.users[0].pic.url} />
+                </a>
 
                 <div className="chat__headerInfo">
                     <h3>{selectedChat.users[0].name}</h3>
@@ -165,7 +165,8 @@ const Chat = ({ fetchAgain, setFetchAgain }) => {
 
             </div>}
             {loading ? (
-                <Spinner />
+                <Spinner style={{ height: '100%' }} />
+                // <LinearProgress style={{height: '100%'}} />
             ) : (
 
                 <div className="chat__body scrollbar" style={{ height: '100%' }} ref={chatRef}>
@@ -199,17 +200,18 @@ const Chat = ({ fetchAgain, setFetchAgain }) => {
                     ))}
 
                     {istyping ? <div>
-                        <img style={{
+                        {/* <img style={{
                             height: 30, marginLeft: 24, marginBottom
                                 : 10
-                        }} src="./images/anime.gif" alt="" />
+                        }} src="./images/anime.gif" alt="" /> */}
+                        <p>Typing...</p>
                     </div> : (<></>)}
                 </div>
             )}
 
             {selectedChat &&
                 <div className="chat__footer">
-                    <i className="fa-solid fa-face-smile"></i>
+                    {/* <i className="fa-solid fa-face-smile"></i> */}
                     <form onSubmit={sendMessage}>
                         <input
                             placeholder='Type a message'
@@ -224,7 +226,7 @@ const Chat = ({ fetchAgain, setFetchAgain }) => {
                         />
                         <button type="submit">Send a message</button>
                     </form>
-                    <i className="fa-solid fa-microphone"></i>
+                    {/* <i className="fa-solid fa-microphone"></i> */}
                 </div>}
 
         </div>

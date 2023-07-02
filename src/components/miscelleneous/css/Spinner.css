@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20%;
-    /* height: 80vh;
-    width: 100vw; */
+    /* margin-top: 20%; */
+    height:100%
 }
