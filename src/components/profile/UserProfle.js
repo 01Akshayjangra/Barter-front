@@ -64,41 +64,8 @@ const Profile = (props) => {
     const [posts, setPosts] = useState([]);
     const [userInfo, setUserInfo] = useState([]);
     const [follow, setFollow] = useState(false);
+    const [following, setFollowing] = useState(false);
     const { user } = ChatState();
-
-    const followUser = async (userId, token) => {
-        const config = {
-            headers: {
-                Authorization: `Bearer ${user.token}`
-            }
-        };
-
-        try {
-            const res = await axios.post(`${API_URL}/api/user/follow`, userId, config);
-
-            setFollow(true);
-            return res.data;
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
-    // Unfollow a user
-    const unfollowUser = async (userId, token) => {
-        const config = {
-            headers: {
-                Authorization: `Bearer ${user.token}`
-            }
-        };
-
-        try {
-            const res = await axios.post(`${API_URL}/api/user/unfollow`, userId, config);
-            setFollow(false);
-            return res.data;
-        } catch (err) {
-            console.log(err);
-        }
-    };
 
     const fetchPosts = async (Id) => {
 
@@ -133,7 +100,7 @@ const Profile = (props) => {
             .then((response) => response.json())
             .then((data) => {
                 // Handle the response data
-                setUserInfo(data); 
+                setUserInfo(data);
             })
             .catch((error) => {
                 // Handle any errors
@@ -152,6 +119,49 @@ const Profile = (props) => {
         setValue(newValue);
     }
 
+    const handleToggleFollow = async () => {
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            };
+            if (following) {
+                // Unfollow the user
+                await axios.put(`${API_URL}/api/user/unfollow/${userId}`, {}, config);
+                setFollowing(false);
+            } else {
+                // Follow the user
+                await axios.put(`${API_URL}/api/user/follow/${userId}`, {}, config);
+                setFollowing(true);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        // Fetch follow status
+        const CheckFollow = async () => {
+            try {
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                };
+                // Fetch follow status
+                const followStatusResponse = await axios.get(`${API_URL}/api/user/CheckFollow/${userId}`, config);
+                setFollowing(followStatusResponse.data.isFollowing);
+                console.log('Following : ', followStatusResponse.data.isFollowing);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        CheckFollow()
+    }, [following]);
+
     if (loading) {
         return <Spinner />;
     }
@@ -159,9 +169,9 @@ const Profile = (props) => {
         <div className='profile__container' >
             <div className="profile__banner">
                 <div className="profile__bannerUpload">
-                {userInfo.banner &&
-                    <img src={userInfo.banner.url} alt="banner" />
-                } 
+                    {userInfo.banner &&
+                        <img src={userInfo.banner.url} alt="banner" />
+                    }
                 </div>
             </div>
             <div className="profile__mainContent">
@@ -170,22 +180,22 @@ const Profile = (props) => {
                         <div className="profile__User">
                             <div className="profile__UserInfo">
                                 {userInfo.pic &&
-                                <Avatar src={userInfo.pic.url} style={{ cursor: 'default' }} />
+                                    <Avatar src={userInfo.pic.url} style={{ cursor: 'default' }} />
                                 }
                                 <h2>{userInfo.name}</h2>
                                 <h3>{userInfo.email}</h3>
 
-                                <Link to="#" >
-                                    <div className="profile__editInfo">
-                                        {/* <EditIcon /> */}
-                                        {follow ? (
-                                            <p onClick={unfollowUser}>Unfollow</p>
-                                        ) : (
-                                            <p onClick={followUser}>Follow</p>
-                                        )}
-                                    </div>
-                                </Link>
-                                <Link to="#" >
+
+                                <div className="profile__editInfo" onClick={handleToggleFollow} style={{cursor: 'pointer', marginTop: 20}}>
+                                    {following ? (
+                                        <p>Unfollow</p>
+                                    ) : (
+                                        <p>Follow</p>
+                                    )}
+
+                                </div>
+
+                                <Link to="/message" >
                                     <div className="profile__createPost">
                                         <p>Message</p>
                                     </div>
@@ -248,8 +258,8 @@ const Profile = (props) => {
 
 
         </div>
-        <ScrollTop/>
-        </>
+        <ScrollTop />
+    </>
     )
 }
 

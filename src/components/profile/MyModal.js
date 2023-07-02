@@ -12,7 +12,6 @@ import API_URL from '../api/Api';
 const MyModal = (props) => {
     const { post, closeModal, handleLike, likeLoading, liked, likeCount, viewCount } = props;
     const { user } = ChatState();
-    const [follow, setFollow] = useState(false);
     const [following, setFollowing] = useState(false);
     const [posts, setPosts] = useState([]);
 
@@ -37,7 +36,7 @@ const MyModal = (props) => {
     const fetchDataFromBackend = recommendations => {
         const postIds = recommendations; // set postIds to the recommendations array
 
-        fetch(`${API_URL}api/get/recommendations`, {
+        fetch(`${API_URL}/api/get/recommendations`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ ids: postIds })
@@ -100,7 +99,6 @@ const MyModal = (props) => {
             document.body.style.overflowY = "scroll";
         };
     }, []);
-    //post._id
     return (
         <>
             <div className='popup__wrapper' onClick={closeModal}></div>
