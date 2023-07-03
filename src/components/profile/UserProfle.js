@@ -245,7 +245,7 @@ const Profile = (props) => {
                                         </div>
                                     </TabPanel>
                                     <TabPanel value={value} index={1}>
-                                        <About />
+                                        <p>No about Data Found</p>
                                     </TabPanel>
 
                                 </Box>
