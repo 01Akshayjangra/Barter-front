@@ -6,14 +6,14 @@ import { ChatState } from '../context/ChatProvider';
 import API_URL from '../api/Api';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
-import { isLastMessage, isSameSender, isSameSenderMargin, isSameUser } from '../config/ChatLogics';
+import { getSenderFull, isLastMessage, isSameSender, isSameSenderMargin, isSameUser } from '../config/ChatLogics';
 import io from 'socket.io-client'
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 var socket, selectedChatCompare;
 
-const Chat = ({ fetchAgain, setFetchAgain }) => {
+const Chat = ({ fetchAgain, setFetchAgain, loggedUser }) => {
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(false);
     const [newMessage, setNewMessage] = useState();
@@ -152,15 +152,14 @@ const Chat = ({ fetchAgain, setFetchAgain }) => {
                 </Typography>}
 
             {selectedChat && <div className="chat__header">
-                {console.log(selectedChat.users[0]._id)}
+                {console.log("selectedChat", selectedChat)}
 
-                <a href={`/user-profile?userId=${selectedChat.users[0]._id}`}>
-                    <Avatar src={selectedChat.users[0].pic.url} />
+                <a href={`/user-profile?userId=${getSenderFull(loggedUser, selectedChat.users)._id}`}>
+                    <Avatar src={getSenderFull(loggedUser, selectedChat.users).pic.url} />
                 </a>
-
                 <div className="chat__headerInfo">
-                    <h3>{selectedChat.users[0].name}</h3>
-                    <p>{selectedChat.users[0].email}</p>
+                    <h3>{getSenderFull(loggedUser, selectedChat.users).name}</h3>
+                    <p>{getSenderFull(loggedUser, selectedChat.users).email}</p>
                 </div>
 
             </div>}
@@ -192,6 +191,7 @@ const Chat = ({ fetchAgain, setFetchAgain }) => {
                                     borderRadius: "20px",
                                     padding: "5px 15px",
                                     maxWidth: "75%",
+                                    fontSize: 16
                                 }}
                             >
                                 {m.content}

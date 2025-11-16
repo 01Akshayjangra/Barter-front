@@ -9,7 +9,7 @@ import { ChatState } from '../context/ChatProvider';
 import ChatLoading from "./ChatLoading";
 import Spinner from '../miscelleneous/Spinner';
 import { useEffect, useState } from "react";
-import { getSender } from '../config/ChatLogics';
+import { getSender, getSenderFull } from '../config/ChatLogics';
 import API_URL from '../api/Api';
 
 //Modal 
@@ -139,14 +139,14 @@ const Messages = () => {
 									onClick={() => setSelectedChat(chat)}
 									key={chat._id}
 								>
-									{chat.users[0].pic && <Avatar src={chat.users[0].pic.url} />}
+									{chat.users[0].pic && <Avatar src={getSenderFull(loggedUser, chat.users).pic.url} />}
 									<div className="sidebarChat__info">
 										<h2>
 											{!chat.isGroupChat
 												? getSender(loggedUser, chat.users)
 												: chat.chatName}
 										</h2>
-										<p>{chat.users[0].email}</p>
+										<p>	{getSenderFull(loggedUser, chat.users).email}</p>
 									</div>
 								</div>
 							))
@@ -155,7 +155,7 @@ const Messages = () => {
 						)}
 					</div>
 				</div>
-				<Chat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}/>
+				<Chat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} loggedUser={loggedUser}/>
 
 			</div>
 		</div>
