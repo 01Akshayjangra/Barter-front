@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Avatar } from '@mui/material'
 import './css/Profile.css'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Spinner from '../miscelleneous/Spinner';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
@@ -14,12 +14,6 @@ import axios from "axios";
 import { ChatState } from '../context/ChatProvider';
 import { useLocation } from 'react-router-dom';
 import ScrollTop from '../miscelleneous/ScrollTop';
-
-//modal
-import Modal from '@mui/material/Modal';
-import EditAvatar from './EditAvatar';
-import EditBanner from './EditBanner';
-import About from './About';
 import API_URL from '../api/Api';
 
 function TabPanel(props) {
@@ -42,84 +36,83 @@ function TabPanel(props) {
     );
 }
 
-const Profile = (props) => {
-    TabPanel.propTypes = {
-        children: PropTypes.node,
-        index: PropTypes.number.isRequired,
-        value: PropTypes.number.isRequired,
-    };
+TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+};
 
-    function a11yProps(index) {
-        return {
-            id: `simple-tab-${index}`,
-            'aria-controls': `simple-tabpanel-${index}`,
-        };
-    }
+function a11yProps(index) {
+    return {
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`,
+    };
+}
+
+const Profile = (props) => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    var userId = searchParams.get('userId');
+    const userId = searchParams.get('userId');
 
-    const [loggedUser, setLoggedUser] = useState();
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true);
+    const [postsLoading, setPostsLoading] = useState(true);
     const [posts, setPosts] = useState([]);
-    const [userInfo, setUserInfo] = useState([]);
-    const [follow, setFollow] = useState(false);
+    const [userInfo, setUserInfo] = useState({});
     const [following, setFollowing] = useState(false);
+    const [followLoading, setFollowLoading] = useState(false);
+    const [value, setValue] = useState(0);
+    
     const { user } = ChatState();
 
-    const fetchPosts = async (Id) => {
+    // Fetch user posts
+    const fetchPosts = useCallback(async () => {
+        if (!userId) return;
 
         try {
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            };
-
-
-            fetch(`${API_URL}/api/posts/getSomeonesUserPosts`, {
+            setPostsLoading(true);
+            const response = await fetch(`${API_URL}/api/posts/getSomeonesUserPosts`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id: userId })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    setPosts(data);
-                })
-                .catch(error => console.error(error));
-
-
-        } catch (error) {
-            console.error(error.message);
-            // Handle the error appropriately
-        }
-    };
-
-    function fetchUserData(userId) {
-        fetch(`${API_URL}/api/user/anotherUser?userId=${userId}`)
-            .then((response) => response.json())
-            .then((data) => {
-                // Handle the response data
-                setUserInfo(data);
-            })
-            .catch((error) => {
-                // Handle any errors
-                console.error(error);
             });
-    }
 
-    useEffect(() => {
-        fetchPosts(userId)
-        fetchUserData(userId)
-    }, []);
+            if (!response.ok) {
+                throw new Error('Failed to fetch posts');
+            }
 
-    const [value, setValue] = React.useState(0);
+            const data = await response.json();
+            setPosts(data);
+        } catch (error) {
+            console.error('Error fetching posts:', error);
+        } finally {
+            setPostsLoading(false);
+        }
+    }, [userId]);
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    }
+    // Fetch user data
+    const fetchUserData = useCallback(async () => {
+        if (!userId) return;
 
-    const handleToggleFollow = async () => {
+        try {
+            const response = await fetch(`${API_URL}/api/user/anotherUser?userId=${userId}`);
+            
+            if (!response.ok) {
+                throw new Error('Failed to fetch user data');
+            }
+
+            const data = await response.json();
+            setUserInfo(data);
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        } finally {
+            setLoading(false);
+        }
+    }, [userId]);
+
+    // Check follow status
+    const checkFollowStatus = useCallback(async () => {
+        if (!user || !userId) return;
+
         try {
             const config = {
                 headers: {
@@ -127,141 +120,283 @@ const Profile = (props) => {
                     Authorization: `Bearer ${user.token}`,
                 },
             };
-            if (following) {
+
+            const response = await axios.get(
+                `${API_URL}/api/user/CheckFollow/${userId}`, 
+                config
+            );
+            
+            setFollowing(response.data.isFollowing);
+        } catch (error) {
+            console.error('Error checking follow status:', error);
+        }
+    }, [user, userId]);
+
+    // OPTIMISTIC FOLLOW/UNFOLLOW UPDATE
+    const handleToggleFollow = async () => {
+        if (!user) return;
+
+        // Store previous state for rollback
+        const previousFollowing = following;
+        const previousFollowerCount = userInfo.followers || 0;
+
+        // Optimistically update UI immediately
+        setFollowing(!following);
+        setFollowLoading(true);
+        
+        // Update follower count optimistically
+        setUserInfo(prev => ({
+            ...prev,
+            followers: following ? prev.followers - 1 : prev.followers + 1
+        }));
+
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            };
+
+            if (previousFollowing) {
                 // Unfollow the user
-                await axios.put(`${API_URL}/api/user/unfollow/${userId}`, {}, config);
-                setFollowing(false);
+                const response = await axios.put(
+                    `${API_URL}/api/user/unfollow/${userId}`, 
+                    {}, 
+                    config
+                );
+
+                if (response.status !== 200) {
+                    // Rollback on failure
+                    setFollowing(previousFollowing);
+                    setUserInfo(prev => ({
+                        ...prev,
+                        followers: previousFollowerCount
+                    }));
+                }
             } else {
                 // Follow the user
-                await axios.put(`${API_URL}/api/user/follow/${userId}`, {}, config);
-                setFollowing(true);
+                const response = await axios.put(
+                    `${API_URL}/api/user/follow/${userId}`, 
+                    {}, 
+                    config
+                );
+
+                if (response.status !== 200) {
+                    // Rollback on failure
+                    setFollowing(previousFollowing);
+                    setUserInfo(prev => ({
+                        ...prev,
+                        followers: previousFollowerCount
+                    }));
+                }
             }
         } catch (error) {
-            console.error(error);
+            console.error('Error toggling follow:', error);
+            // Rollback on error
+            setFollowing(previousFollowing);
+            setUserInfo(prev => ({
+                ...prev,
+                followers: previousFollowerCount
+            }));
+        } finally {
+            setFollowLoading(false);
         }
     };
 
+    // Initial data fetch
     useEffect(() => {
-        // Fetch follow status
-        const CheckFollow = async () => {
-            try {
-                const config = {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${user.token}`,
-                    },
-                };
-                // Fetch follow status
-                const followStatusResponse = await axios.get(`${API_URL}/api/user/CheckFollow/${userId}`, config);
-                setFollowing(followStatusResponse.data.isFollowing);
-                console.log('Following : ', followStatusResponse.data.isFollowing);
-            } catch (error) {
-                console.error(error);
-            }
+        const initializeProfile = async () => {
+            setLoading(true);
+            await Promise.all([
+                fetchPosts(),
+                fetchUserData(),
+                checkFollowStatus()
+            ]);
+            setLoading(false);
         };
-        CheckFollow()
-    }, [following]);
+
+        if (userId) {
+            initializeProfile();
+        }
+    }, [userId, fetchPosts, fetchUserData, checkFollowStatus]);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
     if (loading) {
         return <Spinner />;
     }
-    return (<>
-        <div className='profile__container' >
-            <div className="profile__banner">
-                <div className="profile__bannerUpload">
-                    {userInfo.banner &&
-                        <img src={userInfo.banner.url} alt="banner" />
-                    }
+
+    return (
+        <>
+            <div className='profile__container'>
+                {/* Banner */}
+                <div className="profile__banner">
+                    <div className="profile__bannerUpload">
+                        {userInfo.banner?.url && (
+                            <img src={userInfo.banner.url} alt="Profile banner" />
+                        )}
+                    </div>
                 </div>
-            </div>
-            <div className="profile__mainContent">
-                <div className="profile__content">
-                    <div className="profile__Left">
-                        <div className="profile__User">
-                            <div className="profile__UserInfo">
-                                {userInfo.pic &&
-                                    <Avatar src={userInfo.pic.url} style={{ cursor: 'default' }} />
-                                }
-                                <h2>{userInfo.name}</h2>
-                                <h3>{userInfo.email}</h3>
 
+                <div className="profile__mainContent">
+                    <div className="profile__content">
+                        {/* Left Sidebar */}
+                        <div className="profile__Left">
+                            <div className="profile__User">
+                                <div className="profile__UserInfo">
+                                    {userInfo.pic?.url && (
+                                        <Avatar 
+                                            src={userInfo.pic.url} 
+                                            style={{ cursor: 'default' }} 
+                                            alt={userInfo.name}
+                                        />
+                                    )}
+                                    <h2>{userInfo.name || 'Anonymous'}</h2>
+                                    <h3>{userInfo.email}</h3>
 
-                                <div className="profile__editInfo" onClick={handleToggleFollow} style={{cursor: 'pointer', marginTop: 20}}>
-                                    {following ? (
-                                        <p>Unfollow</p>
-                                    ) : (
-                                        <p>Follow</p>
+                                    {/* Follow/Unfollow Button */}
+                                    {user && (
+                                        <div 
+                                            className="profile__editInfo" 
+                                            onClick={handleToggleFollow}
+                                            style={{
+                                                cursor: followLoading ? 'not-allowed' : 'pointer',
+                                                marginTop: 20,
+                                                opacity: followLoading ? 0.6 : 1
+                                            }}
+                                        >
+                                            <p>{following ? 'Unfollow' : 'Follow'}</p>
+                                        </div>
                                     )}
 
-                                </div>
+                                    {/* Message Button */}
+                                    <Link to="/message">
+                                        <div className="profile__createPost">
+                                            <p>Message</p>
+                                        </div>
+                                    </Link>
 
-                                <Link to="/message" >
-                                    <div className="profile__createPost">
-                                        <p>Message</p>
+                                    {/* Stats */}
+                                    <div className="profile_statsMain">
+                                        <ul>
+                                            <li>
+                                                <p>Project Views</p>
+                                                <span>{userInfo.totalViews || 0}</span>
+                                            </li>
+                                            <li>
+                                                <p>Likes</p>
+                                                <span>{userInfo.totalLikes || 0}</span>
+                                            </li>
+                                            <li>
+                                                <p>Followers</p>
+                                                <span>{userInfo.followers || 0}</span>
+                                            </li>
+                                            <li>
+                                                <p>Following</p>
+                                                <span>{userInfo.following || 0}</span>
+                                            </li>
+                                        </ul>
                                     </div>
-                                </Link>
-                                <div className="profile_statsMain">
-                                    <ul>
-                                        <li><p>Project Views</p><span>{userInfo.totalViews}</span></li>
-                                        <li><p>Likes</p><span>{userInfo.totalLikes}</span></li>
-                                        <li><p>Followers</p><span>{userInfo.followers}</span></li>
-                                        <li><p>Following</p><span>{userInfo.following}</span></li>
-                                    </ul>
-                                </div>
-                                <div className="profile_social">
-                                    <a target="_blank"><i className="fa-brands fa-facebook" style={{ 'color': "blue" }} ></i></a>
-                                    <a target="_blank"> <i className="fa-brands fa-linkedin" style={{ 'color': "#0077B5" }}></i></a>
-                                    <a target="_blank"><i className="fa-brands fa-youtube" style={{ 'color': "red" }}></i></a>
-                                    <a target="_blank"> <i className="fa-brands fa-twitter" style={{ 'color': `#1DA1F2` }}></i></a>
+
+                                    {/* Social Links */}
+                                    <div className="profile_social">
+                                        <a 
+                                            href={userInfo.facebook || '#'} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            aria-label="Facebook"
+                                        >
+                                            <i className="fa-brands fa-facebook" style={{ color: "blue" }} />
+                                        </a>
+                                        <a 
+                                            href={userInfo.linkedin || '#'} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            aria-label="LinkedIn"
+                                        >
+                                            <i className="fa-brands fa-linkedin" style={{ color: "#0077B5" }} />
+                                        </a>
+                                        <a 
+                                            href={userInfo.youtube || '#'} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            aria-label="YouTube"
+                                        >
+                                            <i className="fa-brands fa-youtube" style={{ color: "red" }} />
+                                        </a>
+                                        <a 
+                                            href={userInfo.twitter || '#'} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            aria-label="Twitter"
+                                        >
+                                            <i className="fa-brands fa-twitter" style={{ color: "#1DA1F2" }} />
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="profile__Right">
-                        <div className="profile__mainUser">
-                            <div className="profile__catogory">
+                        {/* Right Content Area */}
+                        <div className="profile__Right">
+                            <div className="profile__mainUser">
+                                <div className="profile__catogory">
+                                    <Box sx={{ width: '100%' }}>
+                                        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                                            <Tabs 
+                                                value={value} 
+                                                onChange={handleChange} 
+                                                aria-label="profile tabs"
+                                            >
+                                                <Tab label="Posts" {...a11yProps(0)} />
+                                                <Tab label="About" {...a11yProps(1)} />
+                                            </Tabs>
+                                        </Box>
 
-                                <Box sx={{ width: '100%' }}>
-                                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                                        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                                            <Tab label="My posts" {...a11yProps(0)} />
-                                            <Tab label="About" {...a11yProps(1)} />
+                                        {/* Posts Tab */}
+                                        <TabPanel value={value} index={0}>
+                                            {postsLoading ? (
+                                                <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                                                    <Spinner />
+                                                </div>
+                                            ) : (
+                                                <div className="profile__Post">
+                                                    {posts.length > 0 ? (
+                                                        posts.map(post => (
+                                                            <Post key={post._id} post={post} />
+                                                        ))
+                                                    ) : (
+                                                        <p style={{ textAlign: 'center', color: '#666' }}>
+                                                            No posts yet
+                                                        </p>
+                                                    )}
+                                                </div>
+                                            )}
+                                        </TabPanel>
 
-                                        </Tabs>
+                                        {/* About Tab */}
+                                        <TabPanel value={value} index={1}>
+                                            {userInfo.about ? (
+                                                <div>
+                                                    <p>{userInfo.about}</p>
+                                                </div>
+                                            ) : (
+                                                <p>No about data found</p>
+                                            )}
+                                        </TabPanel>
                                     </Box>
-
-                                    <TabPanel value={value} index={0}>
-                                        <div style={{ textAlign: 'center', marginTop: '10px' }} >
-                                            {loading && <Spinner />}
-                                        </div>
-                                        <div className="profile__Post">
-
-
-                                            {posts.map(post => (
-                                                <Post key={post._id} post={post} />
-                                            ))}
-
-                                        </div>
-                                    </TabPanel>
-                                    <TabPanel value={value} index={1}>
-                                        <p>No about Data Found</p>
-                                    </TabPanel>
-
-                                </Box>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
-
-        </div>
-        <ScrollTop />
-    </>
-    )
+            <ScrollTop />
+        </>
+    );
 }
 
-export default Profile
-
+export default Profile;

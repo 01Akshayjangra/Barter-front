@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import "./css/Modal.css"
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar, IconButton } from '@mui/material';
 import Post from '../profile/Post'
@@ -14,91 +13,160 @@ const MyModal = (props) => {
     const { user } = ChatState();
     const [following, setFollowing] = useState(false);
     const [posts, setPosts] = useState([]);
+    const [recommendationsLoading, setRecommendationsLoading] = useState(true);
+    const [followLoading, setFollowLoading] = useState(false);
+    const [followStatusLoading, setFollowStatusLoading] = useState(true);
 
-    const payload = { id: post._id };
-
-    const fetchUserData = () => {
-        fetch("https://barter-api.onrender.com/recommend", {
-            mode: 'cors',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            method: "post",
-            body: JSON.stringify(payload)
-        })
-            .then(response => response.json())
-            .then(data => {
-                fetchDataFromBackend(data.recommendations); // call fetchDataFromBackend() with the recommendations array as an argument
-            })
-            .catch(error => console.error(error));
-    };
-
-    const fetchDataFromBackend = recommendations => {
-        const postIds = recommendations; // set postIds to the recommendations array
-
-        fetch(`${API_URL}/api/get/recommendations`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ ids: postIds })
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                setPosts(data);
-            })
-            .catch(error => console.error(error));
-    };
-
-    useEffect(() => {
-        fetchUserData();
-    }, []); // Call fetchUserData() only once when the component mounts
-
-    const handleToggleFollow = async () => {
+    // Fetch recommendations with error handling
+    const fetchUserData = useCallback(async () => {
         try {
-          const config = {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${user.token}`,
-            },
-          };
-          if (following) {
-            // Unfollow the user
-            await axios.put(`${API_URL}/api/user/unfollow/${post.userId._id}`, {}, config);
-            setFollowing(false);
-          } else {
-            // Follow the user
-            await axios.put(`${API_URL}/api/user/follow/${post.userId._id}`, {}, config);
-            setFollowing(true);
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      };
+            setRecommendationsLoading(true);
+            const payload = { id: post._id };
 
-    useEffect(() => {
-        // Fetch follow status
-        const CheckFollow = async () => {
-            try {
-                const config = {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${user.token}`,
-                    },
-                };
-                // Fetch follow status
-                const followStatusResponse = await axios.get(`${API_URL}/api/user/CheckFollow/${post.userId._id}`, config);
-                setFollowing(followStatusResponse.data.isFollowing);
-                console.log('Following : ', followStatusResponse.data.isFollowing);
-            } catch (error) {
-                console.error(error);
+            const response = await fetch("https://barter-api.onrender.com/recommend", {
+                mode: 'cors',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                method: "POST",
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch recommendations');
             }
-        };
-        CheckFollow()
+
+            const data = await response.json();
+            await fetchDataFromBackend(data.recommendations);
+        } catch (error) {
+            console.error('Error fetching recommendations:', error);
+            setRecommendationsLoading(false);
+        }
+    }, [post._id]);
+
+    // Fetch posts from backend
+    const fetchDataFromBackend = async (recommendations) => {
+        try {
+            const response = await fetch(`${API_URL}/api/get/recommendations`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ ids: recommendations })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch posts');
+            }
+
+            const data = await response.json();
+            setPosts(data);
+        } catch (error) {
+            console.error('Error fetching posts:', error);
+        } finally {
+            setRecommendationsLoading(false);
+        }
+    };
+
+    // OPTIMISTIC UPDATE FOR FOLLOW/UNFOLLOW
+    const handleToggleFollow = async () => {
+        if (!user) return;
+
+        // Store previous state for rollback
+        const previousFollowing = following;
+        
+        // Optimistically update UI immediately
+        setFollowing(!following);
+        setFollowLoading(true);
+
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            };
+
+            if (previousFollowing) {
+                // Unfollow the user
+                const response = await axios.put(
+                    `${API_URL}/api/user/unfollow/${post.userId._id}`, 
+                    {}, 
+                    config
+                );
+                
+                if (response.status !== 200) {
+                    // Rollback on failure
+                    setFollowing(previousFollowing);
+                }
+            } else {
+                // Follow the user
+                const response = await axios.put(
+                    `${API_URL}/api/user/follow/${post.userId._id}`, 
+                    {}, 
+                    config
+                );
+                
+                if (response.status !== 200) {
+                    // Rollback on failure
+                    setFollowing(previousFollowing);
+                }
+            }
+        } catch (error) {
+            console.error('Error toggling follow:', error);
+            // Rollback on error
+            setFollowing(previousFollowing);
+        } finally {
+            setFollowLoading(false);
+        }
+    };
+
+    // Check initial follow status
+    const checkFollowStatus = useCallback(async () => {
+        if (!user) {
+            setFollowStatusLoading(false);
+            return;
+        }
+
+        try {
+            setFollowStatusLoading(true);
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            };
+
+            const response = await axios.get(
+                `${API_URL}/api/user/CheckFollow/${post.userId._id}`, 
+                config
+            );
+            
+            setFollowing(response.data.isFollowing);
+        } catch (error) {
+            console.error('Error checking follow status:', error);
+        } finally {
+            setFollowStatusLoading(false);
+        }
+    }, [user, post.userId._id]);
+
+    // Initialize modal
+    useEffect(() => {
+        // Prevent body scroll
         document.body.style.overflowY = "hidden";
+
+        // Fetch data
+        checkFollowStatus();
+        fetchUserData();
+
+        // Cleanup on unmount
         return () => {
             document.body.style.overflowY = "scroll";
         };
-    }, []);
+    }, [checkFollowStatus, fetchUserData]);
+
+    // Check if it's user's own profile
+    const isOwnProfile = user && user._id === post.userId._id;
+    const profileLink = isOwnProfile ? `/profile` : `/user-profile?userId=${post.userId._id}`;
+
     return (
         <>
             <div className='popup__wrapper' onClick={closeModal}></div>
@@ -106,95 +174,129 @@ const MyModal = (props) => {
             <div className="modal__rightContent">
                 <i className='fa-sharp fa-solid fa-xmark' onClick={closeModal} />
 
+                {/* Avatar */}
                 <div className="modal__item">
                     <IconButton className='modal__itemIcon'>
-                        <a href={user ? `/user-profile?userId=${post.userId._id}` : `/profile`}>
-                            <Avatar src={post.userId.pic.url} />
+                        <a href={profileLink}>
+                            {post.userId.pic && <Avatar src={post.userId.pic.url} />}
                         </a>
                     </IconButton>
                 </div>
 
+                {/* Like Button */}
                 <div className="modal__item">
                     <IconButton className="modal__itemIcon" onClick={handleLike}>
-                        <i className={liked ? 'stat-icons fa-solid fa-heart liked' : 'stat-icons fa-regular fa-heart'} />
+                        <i className={
+                            liked 
+                                ? 'stat-icons fa-solid fa-heart liked' 
+                                : 'stat-icons fa-regular fa-heart'
+                        } />
                     </IconButton>
-                    {console.log(!likeLoading)}
-                    {!likeLoading ? (
-                        <span>{likeCount}</span>
-                    ) : (<span>-</span>)}
+                    <span>{likeCount}</span>
                 </div>
+
+                {/* View Count */}
                 <div className="modal__item">
                     <IconButton className="modal__itemIcon">
                         <i className="stat-icons fa-sharp fa-solid fa-eye" />
                     </IconButton>
-                    {!likeLoading ? (
-                        <span>{viewCount}</span>
-                    ) : (<span>-</span>)}
+                    <span>{viewCount}</span>
                 </div>
-                {/* <div className="modal__item">
-                    <IconButton className="modal__itemIcon">
-                        <i className="stat-icons fa-solid fa-share" />
-                    </IconButton>
-                    <span>{post.shares.length}</span>
-                </div> */}
             </div>
+
             <div className='popup__container'>
-
                 <div className='modal__Main ModalScrollbar'>
+                    {/* Header */}
                     <div className="modal__header">
-
-                        <a href={user ? `/user-profile?userId=${post.userId._id}` : `/profile`}>
-                            <Avatar src={post.userId.pic.url} />
+                        <a href={profileLink}>
+                            {post.userId.pic && <Avatar src={post.userId.pic.url} />}
                         </a>
                         <div className='modal__headerInfo'>
                             <h1>{post.userId.name}</h1>
 
-                            {following ? (
-                                <p onClick={handleToggleFollow}>Unfollow</p>
-                            ) : (
-                                <p onClick={handleToggleFollow}>Follow</p>
+                            {!isOwnProfile && (
+                                followStatusLoading ? (
+                                    <p style={{ opacity: 0.5, cursor: 'default' }}>
+                                        Loading...
+                                    </p>
+                                ) : (
+                                    <p 
+                                        onClick={handleToggleFollow} 
+                                        className={followLoading ? 'follow-btn-loading' : ''}
+                                        style={{ 
+                                            cursor: followLoading ? 'not-allowed' : 'pointer',
+                                            opacity: followLoading ? 0.6 : 1 
+                                        }}
+                                    >
+                                        {following ? 'Unfollow' : 'Follow'}
+                                    </p>
+                                )
                             )}
-
                         </div>
                     </div>
+
+                    {/* Body */}
                     <div className="modal__bodyMain">
+                        {/* Title */}
                         <div className="modal__body">
                             <div className='modal__bodyTitle'>
                                 <h1>Title</h1>
                                 <p>{post.title}</p>
                             </div>
                         </div>
+
+                        {/* Image */}
                         <div className="modal__body">
-                            <img src={post.image.url} onContextMenu={(e) => e.preventDefault()} alt="" />
+                            <img 
+                                src={post.image.url} 
+                                onContextMenu={(e) => e.preventDefault()} 
+                                alt={post.title || "Post image"} 
+                            />
                         </div>
+
+                        {/* Description */}
                         <div className="modal__body">
                             <div className='modal__bodyDes'>
                                 <h1>Description</h1>
                                 <p>{post.description}</p>
                             </div>
                         </div>
-                        <div className="modal_tools"> <h4>Tools Used -  {post.tools}</h4>
-                        </div>
 
+                        {/* Tools */}
+                        {post.tools && (
+                            <div className="modal_tools">
+                                <h4>Tools Used - {post.tools}</h4>
+                            </div>
+                        )}
+
+                        {/* Recommendations */}
                         <div className="modal__body">
                             <div className='modal__bodyPostMain'>
-
-                                <h1>More Like This ...</h1>
-                                <div className='modal__bodyPosts'>
-
-                                    {posts.map(post => (
-                                        <Post
-                                            key={post._id}
-                                            post={post} />
-                                    ))}
-                                </div>
+                                <h1>More Like This...</h1>
+                                
+                                {recommendationsLoading ? (
+                                    <div className="recommendations-loading">
+                                        <p>Loading recommendations...</p>
+                                    </div>
+                                ) : (
+                                    <div className='modal__bodyPosts'>
+                                        {posts.length > 0 ? (
+                                            posts.map(recommendedPost => (
+                                                <Post
+                                                    key={recommendedPost._id}
+                                                    post={recommendedPost} 
+                                                />
+                                            ))
+                                        ) : (
+                                            <p>No recommendations available</p>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </>
     )
 }
